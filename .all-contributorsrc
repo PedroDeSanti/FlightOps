@@ -7,6 +7,16 @@
   "commitConvention": "angular",
   "contributors": [
     {
+      "login": "jvtdegelo",
+      "name": "jvtdegelo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/64590453?v=4",
+      "profile": "https://github.com/jvtdegelo",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
       "login": "GabZamba",
       "name": "Gabriel Zambelli",
       "avatar_url": "https://avatars.githubusercontent.com/u/98465378?v=4",
