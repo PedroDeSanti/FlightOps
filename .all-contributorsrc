@@ -15,6 +15,16 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "PedroDeSanti",
+      "name": "Pedro de Santi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/62271285?v=4",
+      "profile": "https://github.com/PedroDeSanti",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
