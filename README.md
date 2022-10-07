@@ -10,34 +10,9 @@ Ferramenta Ligeiramente Inteligente para Gestão de Horários e Trajetos Operaci
 Para realizar a instalação do projetos, pressupõe-se que seu computador já apresente Python (versão mínima 3.x) instalado. Visite [este link](https://www.python.org/downloads/) para mais informações
 
 # Instalação do Projeto:
-## Etapa 1: Criação do ambiente virtual
-Inicialmente é necessário criar o ambiente virtual para executar o projeto, para isso abra o Powershell e execute o seguinte comando:
 
-```bash
-python -m venv FlightOps
-```
-
-Em sequência, ative esse ambiente virtual usando:
-```bash
-.\FlightOps\bin\Activate.ps1
-```
-## Etapa 2: Instalação do Django
-Como o projeto foi desenvolvido em Django, para utilizá-lo é necessário ter a biblioteca instalada em sua máquina. Caso ela já esteja instalada, por favor avance para a etapa seguinte.
-
-Para instalar Django, utilizaremos o PIP. Se ele não estiver instalado em sua máquina, em seu Terminal de Comando favorito digite
-```bash
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-python get-pip.py
-```
-Com isso, a instalação do PIP foi concluída.
-
-Após isso, rode o seguinte comando, que realiza o download e instalação da biblioteca Django:
-```bash
-pip install django
-```
-
-## Etapa 3: Instalação do Projeto
-Para instalar o projeto FlightOps, será realizada a clonagem do repositório. Utilizando seu Terminal de Comando preferido, navegue até a pasta destinada ao projeto, como no comando abaixo:
+## Etapa 1: Instalação do Projeto
+Para instalar o projeto FlightOps, será realizada a clonagem do repositório. Utilizando seu Terminal de Comando preferido, navegue até a pasta destinada ao projeto, como por exemplo:
 ```bash
 cd C:\Users\Usuario\Desktop\MelhorProjetoDeLabSoft
 ```
@@ -48,6 +23,26 @@ git clone https://github.com/PedroDeSanti/FlightOps.git
 Para clonar utilizando o protocolo SSH, utilize o comando abaixo:
 ```bash
 git clone git@github.com:PedroDeSanti/FlightOps.git
+```
+
+## Etapa 2: Criação do ambiente virtual
+Inicialmente é necessário criar o ambiente virtual para executar o projeto, para isso abra o Powershell e execute o seguinte comando:
+
+```bash
+python -m venv FlightOps
+```
+
+Em sequência, ative esse ambiente virtual usando:
+```bash
+.\FlightOps\bin\Activate.ps1
+```
+
+## Etapa 3: Instalação do Django
+Como o projeto foi desenvolvido em Django, para utilizá-lo é necessário ter a biblioteca instalada em sua máquina. Caso ela já esteja instalada, por favor avance para a etapa seguinte.
+
+Rode, em seu terminal de comando favorito, o seguinte comando, que realiza o download e instalação da biblioteca Django:
+```bash
+pip install django
 ```
 
 ## Etapa 4:  Executando o Projeto Localmente
