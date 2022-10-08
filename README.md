@@ -59,6 +59,21 @@ Com isso, ao acessar o link http://localhost:8000/FIRST/, você deverá visualiz
 
 *PARABÉNS, VOCÊ CONSEGUIU RODAR O PROJETO 🎉🎉🎉*
 
+
+## Etapa 5: Testando o projeto localmente
+Para executar os testes elaborados, deve-se executar os seguintes tres comandos:
+```bash
+python manage.py makemigrations
+```
+
+```bash
+python manage.py migrate
+```
+
+```bash
+python manage.py test
+```
+
 # Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):

@@ -3,7 +3,7 @@ from django.db import models
 
 class Estado(models.Model):
     id = models.IntegerField(primary_key=True)
-    nome = models.DateTimeField(auto_now=True)
+    nome = models.CharField(max_length=50, null=False)
     data_atualizacao = models.DateTimeField(auto_now=False)
 
     class Meta:
@@ -22,9 +22,9 @@ class Rota(models.Model):
 
 class Horarios(models.Model):
     id = models.IntegerField(primary_key=True)
-    partida_previsao = models.DateTimeField(auto_now=True)
+    partida_previsao = models.DateTimeField(auto_now=False)
     chegada_previsao = models.DateTimeField(auto_now=False)
-    partida_real = models.DateTimeField(auto_now=True)
+    partida_real = models.DateTimeField(auto_now=False)
     chegada_real = models.DateTimeField(auto_now=False)
 
     class Meta:
@@ -43,8 +43,8 @@ class Voo(models.Model):
 
 
 class Voo_Estado(models.Model):
-    id_voo = models.ForeignKey(Voo, on_delete=models.CASCADE)
-    id_estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
+    voo = models.ForeignKey(Voo, on_delete=models.CASCADE)
+    estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'voo_estado'
