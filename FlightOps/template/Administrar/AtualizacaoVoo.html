@@ -1,0 +1,70 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+        />
+        <link
+            rel="stylesheet"
+            href="{% static 'fontawesome/css/all.min.css' %}"
+        />
+        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+        <title>Atualizar Voo | FlightOps</title>
+    </head>
+    <body>
+        <h1>Informações do Voo ABC0123</h1>
+        <br />
+        <table>
+            <tr>
+                <td>Código de Voo</td>
+                <td>Origem</td>
+                <td>Conexões</td>
+                <td>Destino</td>
+                <td>Data Prevista Partida</td>
+                <td>Horário Previsto Partida</td>
+                <td>Data Prevista Chegada</td>
+                <td>Horário Previsto Chegada</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" placeholder="ABC0123" value="ABC0123" />
+                </td>
+                <td><input type="text" placeholder="POA" value="POA" /></td>
+                <td><input type="text" placeholder="GRU" value="GRU" /></td>
+                <td><input type="text" placeholder="SSA" value="SSA" /></td>
+                <td>
+                    <input
+                        type="date"
+                        placeholder="2022-11-11"
+                        value="2022-11-11"
+                    />
+                </td>
+                <td><input type="time" placeholder="23:58" value="23:58" /></td>
+                <td>
+                    <input
+                        type="date"
+                        placeholder="2022-11-12"
+                        value="2022-11-12"
+                    />
+                </td>
+                <td><input type="time" placeholder="08:03" value="08:03" /></td>
+            </tr>
+        </table>
+        <br />
+        <br />
+        <button class="button">
+            <a href="..">Confirmar Atualização</a>
+        </button>
+        <br />
+        <br />
+        <button class="button">
+            <a href="..">Retornar</a>
+        </button>
+    </body>
+</html>

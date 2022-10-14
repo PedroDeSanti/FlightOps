@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+        />
+        <link
+            rel="stylesheet"
+            href="{% static 'fontawesome/css/all.min.css' %}"
+        />
+        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+        <title>Remover Voo | FlightOps</title>
+    </head>
+    <body>
+        <h1>Você tem certeza que deseja remover o voo abaixo?</h1>
+        <h2>Ele será apagado para sempre (um tempo muito longo)</h2>
+        <br />
+        <table>
+            <tr>
+                <td>Código de Voo</td>
+                <td>Origem</td>
+                <td>Conexões</td>
+                <td>Destino</td>
+                <td>Data Prevista Partida</td>
+                <td>Horário Previsto Partida</td>
+                <td>Data Prevista Chegada</td>
+                <td>Horário Previsto Chegada</td>
+            </tr>
+            <tr>
+                <td>ABC0123</td>
+                <td>POA</td>
+                <td>GRU</td>
+                <td>SSA</td>
+                <td>11/11/2022</td>
+                <td>23:58</td>
+                <td>12/11/2022</td>
+                <td>08:03</td>
+            </tr>
+        </table>
+        <br />
+        <br />
+        <button class="button">
+            <a href="..">Remover Voo</a>
+        </button>
+        <br />
+        <br />
+        <button class="button">
+            <a href="..">Retornar</a>
+        </button>
+    </body>
+</html>
