@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en" style="min-height:100vh;">
+<html lang="en" style="min-height: 100vh">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -27,10 +27,16 @@
             href="{% static 'bootstrap/css/bootstrap.min.css' %}"
         />
         <title>Relatórios | FlightOps</title>
+        <style>
+            button {
+                border-radius: 10px;
+                background-color: #cecccc;
+            }
+        </style>
     </head>
-    <body style="min-height:100vh;">
+    <body style="min-height: 100vh">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="/">FlightOps</a>
+            <a class="navbar-brand" href="/home">FlightOps</a>
             <button
                 class="navbar-toggler"
                 type="button"
@@ -59,14 +65,15 @@
                 </ul>
             </div>
         </nav>
-        <main role="main" style="min-height:100%;">
-            <div class="jumbotron" style="min-height:100%;">
+        <main role="main" style="min-height: 100%">
+            <div class="jumbotron" style="min-height: 100%">
                 <div class="container">
-                    <h1 class="display-4 px-5" style="text-align: center">
+                    <h2 style="font-weight: 300">
                         Preencha os filtros desejados para gerar o relatório
-                    </h1>
-                    <form style="width: 80%;height: 100%;">
-                        <div class="mb-5 container">
+                    </h2>
+                    <br />
+                    <form style="width: 80%; height: 100%">
+                        <div class="mb-3 container">
                             <div class="row">
                                 <div class="col">
                                     <label
@@ -89,30 +96,46 @@
                                     >
                                         Estado do Voo
                                     </label>
-                                    <br/>
+                                    <br />
                                     <select
-                                        class="form-select" 
+                                        class="form-select"
                                         aria-label="Estado do Voo Select"
                                         id="inputEstadoVooRelatorio"
                                     >
-                                        <option selected>Selecione um filtro para o estado</option>
-                                        <option value="embarcando">Embarcando</option>
-                                        <option value="cancelado">Cancelado</option>
-                                        <option value="programado">Programado</option>
-                                        <option value="taxiando">Taxiando</option>
+                                        <option selected>
+                                            Selecione um filtro para o estado
+                                        </option>
+                                        <option value="embarcando">
+                                            Embarcando
+                                        </option>
+                                        <option value="cancelado">
+                                            Cancelado
+                                        </option>
+                                        <option value="programado">
+                                            Programado
+                                        </option>
+                                        <option value="taxiando">
+                                            Taxiando
+                                        </option>
                                         <option value="pronto">Pronto</option>
-                                        <option value="autorizado">Autorizado</option>
+                                        <option value="autorizado">
+                                            Autorizado
+                                        </option>
                                         <option value="emvoo">Em Voo</option>
-                                        <option value="aterrisado">Aterrisado</option>
+                                        <option value="aterrisado">
+                                            Aterrisado
+                                        </option>
                                     </select>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mb-5 container">
+                        <div class="mb-3 container">
                             <div class="row">
                                 <div class="col">
-                                    <label for="inputOrigemRelatorio" class="form-label"
+                                    <label
+                                        for="inputOrigemRelatorio"
+                                        class="form-label"
                                         >Origem</label
                                     >
                                     <input
@@ -141,9 +164,7 @@
                             </div>
                         </div>
 
-                        
-
-                        <div class="mb-5 container">
+                        <div class="mb-3 container">
                             <div class="row">
                                 <div class="col">
                                     <label
@@ -177,45 +198,49 @@
                             </div>
                         </div>
 
-                        <div class="mb-5 container">
+                        <div class="mb-3 container">
                             <div class="row">
                                 <div class="col">
-                                <label
-                                    for="inputDataPartidaRelatorio"
-                                    class="form-label"
-                                    >Data Partida</label
-                                >
-                                <input
-                                    type="date"
-                                    class="form-control"
-                                    placeholder="2022-11-12"
-                                    value="2022-11-12"
-                                    id="inputDataPartidaRelatorio"
-                                />
+                                    <label
+                                        for="inputDataPartidaRelatorio"
+                                        class="form-label"
+                                        >Data Partida</label
+                                    >
+                                    <input
+                                        type="date"
+                                        class="form-control"
+                                        placeholder="2022-11-12"
+                                        value="2022-11-12"
+                                        id="inputDataPartidaRelatorio"
+                                    />
                                 </div>
                                 <div class="col">
-                                <label
-                                    for="inputHorarioChegadaRelatorio"
-                                    class="form-label"
-                                    >Horário Chegada</label
-                                >
-                                <input
-                                    type="time"
-                                    class="form-control"
-                                    placeholder="08:03"
-                                    value="08:03"
-                                    id="inputHorarioChegadaRelatorio"
-                                />
+                                    <label
+                                        for="inputHorarioChegadaRelatorio"
+                                        class="form-label"
+                                        >Horário Chegada</label
+                                    >
+                                    <input
+                                        type="time"
+                                        class="form-control"
+                                        placeholder="08:03"
+                                        value="08:03"
+                                        id="inputHorarioChegadaRelatorio"
+                                    />
                                 </div>
                             </div>
                         </div>
-
-                        <button type="submit" class="button">
-                            <a href="/relatorio/pdf">Gerar Relatório</a>
-                        </button>
-                        <button class="button">
-                            <a href="..">Retornar</a>
-                        </button>
+                        <br />
+                        <a href="/relatorio/pdf">
+                            <button type="button" class="button">
+                                Gerar Relatório
+                            </button>
+                        </a>
+                        <a href="/home">
+                            <button type="button" class="button">
+                                Retornar
+                            </button>
+                        </a>
                     </form>
                 </div>
             </div>
