@@ -3,68 +3,157 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
+        <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <link
+            rel="icon"
+            href="https://yt3.ggpht.com/ytc/AMLnZu80FStsJ8x_OVaY9chU1OiJna80kKBJTPpF5Vwb4w=s900-c-k-c0x00ffffff-no-rj"
+        />
         <link
             rel="stylesheet"
             href="{% static 'bootstrap/css/bootstrap.min.css' %}"
         />
-        <link
-            rel="stylesheet"
-            href="{% static 'fontawesome/css/all.min.css' %}"
-        />
-        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
         <title>Atualizar Voo | FlightOps</title>
     </head>
     <body>
-        <h1>Informações do Voo ABC0123</h1>
-        <br />
-        <table>
-            <tr>
-                <td>Código de Voo</td>
-                <td>Origem</td>
-                <td>Conexões</td>
-                <td>Destino</td>
-                <td>Data Prevista Partida</td>
-                <td>Horário Previsto Partida</td>
-                <td>Data Prevista Chegada</td>
-                <td>Horário Previsto Chegada</td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" placeholder="ABC0123" value="ABC0123" />
-                </td>
-                <td><input type="text" placeholder="POA" value="POA" /></td>
-                <td><input type="text" placeholder="GRU" value="GRU" /></td>
-                <td><input type="text" placeholder="SSA" value="SSA" /></td>
-                <td>
-                    <input
-                        type="date"
-                        placeholder="2022-11-11"
-                        value="2022-11-11"
-                    />
-                </td>
-                <td><input type="time" placeholder="23:58" value="23:58" /></td>
-                <td>
-                    <input
-                        type="date"
-                        placeholder="2022-11-12"
-                        value="2022-11-12"
-                    />
-                </td>
-                <td><input type="time" placeholder="08:03" value="08:03" /></td>
-            </tr>
-        </table>
-        <br />
-        <br />
-        <button class="button">
-            <a href="..">Confirmar Atualização</a>
-        </button>
-        <br />
-        <br />
-        <button class="button">
-            <a href="..">Retornar</a>
-        </button>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="/">FlightOps</a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/administrar/">
+                            Administração
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/monitorar/">Monitoração</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/relatorio/">Relatórios</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <main role="main">
+            <div class="jumbotron">
+                <div class="container">
+                    <h1 class="display-3">Informações do Voo ABC0123</h1>
+                    <br />
+                    <table>
+                        <tr>
+                            <td>Código de Voo</td>
+                            <td>Origem</td>
+                            <td>Conexões</td>
+                            <td>Destino</td>
+                            <td>Data Prevista Partida</td>
+                            <td>Horário Previsto Partida</td>
+                            <td>Data Prevista Chegada</td>
+                            <td>Horário Previsto Chegada</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input
+                                    type="text"
+                                    placeholder="ABC0123"
+                                    value="ABC0123"
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    type="text"
+                                    placeholder="POA"
+                                    value="POA"
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    type="text"
+                                    placeholder="GRU"
+                                    value="GRU"
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    type="text"
+                                    placeholder="SSA"
+                                    value="SSA"
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    type="date"
+                                    placeholder="2022-11-11"
+                                    value="2022-11-11"
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    type="time"
+                                    placeholder="23:58"
+                                    value="23:58"
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    type="date"
+                                    placeholder="2022-11-12"
+                                    value="2022-11-12"
+                                />
+                            </td>
+                            <td>
+                                <input
+                                    type="time"
+                                    placeholder="08:03"
+                                    value="08:03"
+                                />
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <br />
+                    <button class="button">
+                        <a href="..">Confirmar Atualização</a>
+                    </button>
+                    <br />
+                    <br />
+                    <button class="button">
+                        <a href="..">Retornar</a>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- <footer class="container">
+            <p>© FlightOps 2022</p>
+        </footer> -->
+        <script
+            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            window.jQuery ||
+                document.write(
+                    '<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>'
+                );
+        </script>
+        <script src="../../assets/js/vendor/popper.min.js"></script>
+        <script src="../../dist/js/bootstrap.min.js"></script>
     </body>
 </html>

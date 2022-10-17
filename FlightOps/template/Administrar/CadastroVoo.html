@@ -3,55 +3,119 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
+        <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <link
+            rel="icon"
+            href="https://yt3.ggpht.com/ytc/AMLnZu80FStsJ8x_OVaY9chU1OiJna80kKBJTPpF5Vwb4w=s900-c-k-c0x00ffffff-no-rj"
+        />
         <link
             rel="stylesheet"
             href="{% static 'bootstrap/css/bootstrap.min.css' %}"
         />
-        <link
-            rel="stylesheet"
-            href="{% static 'fontawesome/css/all.min.css' %}"
-        />
-        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
         <title>Cadastrar Voo | FlightOps</title>
     </head>
     <body>
-        <h1>Insira abaixo as informações do voo</h1>
-        <br />
-        Código de Voo:<input type="text" placeholder="ABC0123" />
-        <br />
-        Rota entre origem e destino:
-        <ul>
-            <li>Origem: <input type="text" placeholder="POA" /></li>
-            <li>Conexões: <input type="text" placeholder="GRU" /></li>
-            <li>Destino: <input type="text" placeholder="SSA" /></li>
-        </ul>
-        <br />
-        Partida:
-        <ul>
-            <li>
-                Data Prevista:<input type="date" placeholder="2022-11-11" />
-            </li>
-            <li>Horário Previsto:<input type="time" placeholder="23:58" /></li>
-        </ul>
-        <br />
-        Chegada:
-        <ul>
-            <li>
-                Data Prevista:<input type="date" placeholder="2022-11-12" />
-            </li>
-            <li>Horário Previsto:<input type="time" placeholder="08:03" /></li>
-        </ul>
-        <br />
-        <button class="button">
-            <a href="..">Cadastrar Voo</a>
-        </button>
-        <br />
-        <br />
-        <button class="button">
-            <a href="..">Retornar</a>
-        </button>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="/">FlightOps</a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/administrar/">
+                            Administração
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/monitorar/">Monitoração</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/relatorio/">Relatórios</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <main role="main">
+            <div class="jumbotron">
+                <div class="container">
+                    <h1 class="display-3">
+                        Insira abaixo as informações do voo
+                    </h1>
+                    <br />
+                    Código de Voo:<input type="text" placeholder="ABC0123" />
+                    <br />
+                    Rota entre origem e destino:
+                    <ul>
+                        <li>Origem: <input type="text" placeholder="POA" /></li>
+                        <li>
+                            Conexões: <input type="text" placeholder="GRU" />
+                        </li>
+                        <li>
+                            Destino: <input type="text" placeholder="SSA" />
+                        </li>
+                    </ul>
+                    <br />
+                    Partida:
+                    <ul>
+                        <li>
+                            Data Prevista:<input
+                                type="date"
+                                placeholder="2022-11-11"
+                            />
+                        </li>
+                        <li>
+                            Horário Previsto:<input
+                                type="time"
+                                placeholder="23:58"
+                            />
+                        </li>
+                    </ul>
+                    <br />
+                    Chegada:
+                    <ul>
+                        <li>
+                            Data Prevista:<input
+                                type="date"
+                                placeholder="2022-11-12"
+                            />
+                        </li>
+                        <li>
+                            Horário Previsto:<input
+                                type="time"
+                                placeholder="08:03"
+                            />
+                        </li>
+                    </ul>
+                    <br />
+                    <button class="button">
+                        <a href="..">Cadastrar Voo</a>
+                    </button>
+                    <br />
+                    <br />
+                    <button class="button">
+                        <a href="..">Retornar</a>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- <footer class="container">
+            <p>© FlightOps 2022</p>
+        </footer> -->
     </body>
 </html>

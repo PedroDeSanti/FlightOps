@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('FIRST/', views.bookview),
     path('', views.home),
+    path('login', views.login),
     path('administrar/', views.administrarVoos),
     path('administrar/cadastrar/', views.cadastrarVoo),
     path('administrar/atualizar/', views.atualizarVoo),
@@ -32,4 +33,5 @@ urlpatterns = [
     path('administrar/remover/codigoDeVoo', views.informarCodigoDeVoo),
     path('monitorar/', views.monitorarVoos),
     path('relatorio/', views.gerarRelatorios),
+    path('relatorio/pdf', views.visualizarRelatorios)
 ]

@@ -2,129 +2,202 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link
-    rel="stylesheet"
-    href="{% static 'bootstrap/css/bootstrap.min.css' %}"
-  />
-  <link
-    rel="stylesheet"
-    href="{% static 'fontawesome/css/all.min.css' %}"
-  />
-  <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-  <link
-    rel="stylesheet"
-    href="{% static 'bootstrap/css/bootstrap.min.css' %}"
-  />
-  <link
-    rel="stylesheet"
-    href="{% static 'fontawesome/css/all.min.css' %}"
-  />
-  <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-</head>
-<body>
-  <h1 
-    class="display-4 px-5"
-    style="text-align: center;"  
-  > 
-    Gerar o Relatório 
-  </h1>
-  <p class="lead px-5">
-    Preencha os filtros desejados para gerar o relatório
-  </p>
-  <form>
-    <div class="mb-3">
-      <label for="inputCodigoVoo" class="form-label">Código de Voo</label>
-      <input type="text" class="form-control" placeholder="ABC0123" value="ABC0123" id="inputCodigoVoo"/> 
-    </div>
-    
-    <div class="mb-3">
-      <label for="inputOrigem" class="form-label">Origem</label>
-      <input type="text" class="form-control" placeholder="POA" value="POA" id="inputOrigem"/> 
-    </div>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <link
+            rel="icon"
+            href="https://yt3.ggpht.com/ytc/AMLnZu80FStsJ8x_OVaY9chU1OiJna80kKBJTPpF5Vwb4w=s900-c-k-c0x00ffffff-no-rj"
+        />
+        <link
+            rel="stylesheet"
+            href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+        />
+        <title>Relatórios | FlightOps</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="/">FlightOps</a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    <div class="mb-3">
-      <label for="inputDestino" class="form-label">Destino</label>
-      <input type="text" class="form-control" placeholder="GRU" value="GRU" id="inputDestino"/> 
-    </div>
-    
-    <div class="mb-3">
-      <label for="inputOrigem" class="form-label">Origem</label>
-      <input type="text" class="form-control" placeholder="POA" value="POA" id="inputOrigem"/> 
-    </div>
-    
-    <div class="mb-3">
-      <label for="inputOrigem" class="form-label">Origem</label>
-      <input type="text" class="form-control" placeholder="POA" value="POA" id="inputOrigem"/> 
-    </div>
-    
-    <div class="mb-3">
-      <label for="inputOrigem" class="form-label">Origem</label>
-      <input type="text" class="form-control" placeholder="POA" value="POA" id="inputOrigem"/> 
-    </div>
-  </form>
-  
-  
-  <table>
-    <tr>
-      
-      <td></td>
-      <td>Destino</td>
-      <td>Estado do Voo</td>
-      <td>Data Partida</td>
-      <td>Horário Partida</td>
-      <td>Data Chegada</td>
-      <td>Horário Chegada</td>
-    </tr>
-    <tr>
-      <td>
-        
-      </td>
-      <td></td>
-      <td></td>
-      <td>
-        <select type="text" placeholder="embarcando" value="SSA">
-          <option value="embarcando">Embarcando</option>
-          <option value="cancelado">Cancelado</option>
-          <option value="programado">Programado</option>
-          <option value="taxiando">Taxiando</option>
-          <option value="pronto">Pronto</option>
-          <option value="autorizado">Autorizado</option>
-          <option value="emvoo">Em Voo</option>
-          <option value="aterrisado">Aterrisado</option>
-        </select> 
-      </td>
-      <td>
-        <input
-            type="date"
-            placeholder="2022-11-11"
-            value="2022-11-11"
-        />
-      </td>
-      <td><input type="time" placeholder="23:58" value="23:58" /></td>
-      <td>
-        <input
-            type="date"
-            placeholder="2022-11-12"
-            value="2022-11-12"
-        />
-      </td>
-      <td><input type="time" placeholder="08:03" value="08:03" /></td>
-    </tr>
-  </table>
-  <br />
-  <br />
-  <button class="button">
-    <a href="..">Gerar Relatório</a>
-  </button>
-  <br />
-  <br />
-  <button class="button">
-    <a href="..">Retornar</a>
-  </button>
-</body>
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/administrar/">
+                            Administração
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/monitorar/">Monitoração</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/relatorio/">Relatórios</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <main role="main">
+            <div class="jumbotron">
+                <div class="container">
+                    <h1 class="display-4 px-5" style="text-align: center">
+                        Gerar o Relatório
+                    </h1>
+                    <p class="lead px-5">
+                        Preencha os filtros desejados para gerar o relatório
+                    </p>
+                    <form style="width: 70%">
+                        <div class="mb-3">
+                            <label
+                                for="inputCodigoVooRelatorio"
+                                class="form-label"
+                                >Código de Voo</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="ABC0123"
+                                value="ABC0123"
+                                id="inputCodigoVooRelatorio"
+                            />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="inputOrigemRelatorio" class="form-label"
+                                >Origem</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="POA"
+                                value="POA"
+                                id="inputOrigemRelatorio"
+                            />
+                        </div>
+
+                        <div class="mb-3">
+                            <label
+                                for="inputDestinoRelatorio"
+                                class="form-label"
+                                >Destino</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="GRU"
+                                value="GRU"
+                                id="inputDestinoRelatorio"
+                            />
+                        </div>
+
+                        <div class="mb-3">
+                            <label
+                                for="inputEstadoVooRelatorio"
+                                class="form-label"
+                                >Estado do Voo</label
+                            >
+                            <select
+                                class="form-select"
+                                placeholder="embarcando"
+                                id="inputEstadoVooRelatorio"
+                            >
+                                <option value="embarcando">Embarcando</option>
+                                <option value="cancelado">Cancelado</option>
+                                <option value="programado">Programado</option>
+                                <option value="taxiando">Taxiando</option>
+                                <option value="pronto">Pronto</option>
+                                <option value="autorizado">Autorizado</option>
+                                <option value="emvoo">Em Voo</option>
+                                <option value="aterrisado">Aterrisado</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label
+                                for="inputDataPartidaRelatorio"
+                                class="form-label"
+                                >Data Partida</label
+                            >
+                            <input
+                                type="date"
+                                class="form-control"
+                                placeholder="2022-11-11"
+                                value="2022-11-11"
+                                id="inputDataPartidaRelatorio"
+                            />
+                        </div>
+
+                        <div class="mb-3">
+                            <label
+                                for="inputHorarioPartidaRelatorio"
+                                class="form-label"
+                                >Horário Partida</label
+                            >
+                            <input
+                                type="time"
+                                class="form-control"
+                                placeholder="23:58"
+                                value="23:58"
+                                id="inputHorarioPartidaRelatorio"
+                            />
+                        </div>
+
+                        <div class="mb-3">
+                            <label
+                                for="inputDataPartidaRelatorio"
+                                class="form-label"
+                                >Data Partida</label
+                            >
+                            <input
+                                type="date"
+                                class="form-control"
+                                placeholder="2022-11-12"
+                                value="2022-11-12"
+                                id="inputDataPartidaRelatorio"
+                            />
+                        </div>
+
+                        <div class="mb-3">
+                            <label
+                                for="inputHorarioChegadaRelatorio"
+                                class="form-label"
+                                >Horário Chegada</label
+                            >
+                            <input
+                                type="time"
+                                class="form-control"
+                                placeholder="08:03"
+                                value="08:03"
+                                id="inputHorarioChegadaRelatorio"
+                            />
+                        </div>
+
+                        <button type="submit" class="button">
+                            <a href="..">Gerar Relatório</a>
+                        </button>
+                        <button class="button">
+                            <a href="..">Retornar</a>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <!-- <footer class="container">
+            <p>© FlightOps 2022</p>
+        </footer> -->
+    </body>
 </html>
