@@ -72,12 +72,12 @@ def visualizarRelatorios(request):
     pdf.cell(40, 10, 'Relatório de voos:', 0, 1)
     pdf.cell(40, 10, '', 0, 1)
     pdf.set_font('courier', '', 12)
-    pdf.cell(200, 8, f"{'Código de Voo'.ljust(30)} {'Origem'.center()} {'Destino'.rjust(20)}", 0, 1)
+    pdf.cell(200, 8, f"{'Código de Voo'.ljust(30)} {'Origem'.center(5) } {'Destino'.rjust(20)}", 0, 1)
     pdf.line(10, 30, 150, 30)
     pdf.line(10, 38, 150, 38)
     for line in sales:
         pdf.cell(
-            200, 8, f"{line['codigoDeVoo'].ljust(30)} {line['origem'].center()} {line['destino'].rjust(20)}", 0, 1)
+            200, 8, f"{line['codigoDeVoo'].ljust(30)} {line['origem'].center(5)} {line['destino'].rjust(20)}", 0, 1)
 
     pdf.output('relatorio.pdf', 'F')
-    return FileResponse(open('relatorio.pdf', 'rb'), as_attachment=True, content_type='application/pdf')
+    return FileResponse(open('relatorio.pdf', 'rb'), as_attachment=False, content_type='application/pdf')
