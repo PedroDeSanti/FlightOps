@@ -17,7 +17,7 @@
             rel="stylesheet"
             href="{% static 'bootstrap/css/bootstrap.min.css' %}"
         />
-        <title>Cadastrar Voo | FlightOps</title>
+        <title>Monitoração | FlightOps</title>
         <style>
             button {
                 border-radius: 10px;
@@ -42,12 +42,12 @@
 
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="/administrar/">
                             Administração
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="/monitorar/">Monitoração</a>
                     </li>
                     <li class="nav-item">
@@ -58,57 +58,22 @@
         </nav>
         <main role="main">
             <div class="jumbotron">
-                <div class="container">
-                    <br />
+                <div class="container" style="width: 80%">
                     <h2 style="font-weight: 300">
-                        Insira abaixo as informações do voo
+                        Atualização realizada com sucesso
                     </h2>
                     <br />
-                    Código de Voo <input type="text" placeholder="ABC0123" />
-                    <br />
-                    <br />
-                    Rota entre origem e destino
-                    <ul>
-                        <li>Origem: <input type="text" placeholder="POA" /></li>
-                        <li>
-                            Conexões: <input type="text" placeholder="GRU" />
-                        </li>
-                        <li>
-                            Destino: <input type="text" placeholder="SSA" />
-                        </li>
-                    </ul>
-                    <br />
-                    Partida
-                    <ul>
-                        <li>
-                            Data Prevista
-                            <input type="date" placeholder="2022-11-11" />
-                        </li>
-                        <li>
-                            Horário Previsto
-                            <input type="time" placeholder="23:58" />
-                        </li>
-                    </ul>
-                    <br />
-                    Chegada
-                    <ul>
-                        <li>
-                            Data Prevista
-                            <input type="date" placeholder="2022-11-12" />
-                        </li>
-                        <li>
-                            Horário Previsto
-                            <input type="time" placeholder="08:03" />
-                        </li>
-                    </ul>
-                    <br />
-                    <a href="..">
-                        <button class="button">Cadastrar Voo</button>
-                    </a>
+                    <p class="lead-lg">
+                        <strong> Estado do voo: </strong>
+                        Cancelado
+                    </p>
 
                     <br />
-                    <br />
-                    <a href=".."><button class="button">Retornar</button></a>
+                    <a href="/home">
+                        <button type="button" class="button">
+                            Retornar à Tela Inicial
+                        </button>
+                    </a>
                 </div>
             </div>
         </main>

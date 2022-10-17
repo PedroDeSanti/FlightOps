@@ -40,9 +40,10 @@ Em sequência, ative esse ambiente virtual usando:
 ## Etapa 3: Instalação do Django
 Como o projeto foi desenvolvido em Django, para utilizá-lo é necessário ter a biblioteca instalada em sua máquina. Caso ela já esteja instalada, por favor avance para a etapa seguinte.
 
-Rode, em seu terminal de comando favorito, o seguinte comando, que realiza o download e instalação da biblioteca Django:
+Rode, em seu terminal de comando favorito, os seguintes comandos, que realizam os downloads e instalações das bibliotecas necessárias:
 ```bash
 pip install django
+pip install fpdf2
 ```
 
 ## Etapa 4:  Executando o Projeto Localmente
@@ -55,7 +56,7 @@ e em seguida rode o comando
 python manage.py runserver
 ```
 
-Com isso, ao acessar o link http://localhost:8000/FIRST/, você deverá visualizar o texto "PCS3642 - Laboratório de Engenharia de Software I, também conhecida como a MELHOR matéria da USP 🥇".
+Com isso, ao acessar o link http://localhost:8000/, você deverá visualizar a tela de Login para a aplicação.
 
 *PARABÉNS, VOCÊ CONSEGUIU RODAR O PROJETO 🎉🎉🎉*
 

@@ -3,47 +3,103 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
+        <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <link
+            rel="icon"
+            href="https://yt3.ggpht.com/ytc/AMLnZu80FStsJ8x_OVaY9chU1OiJna80kKBJTPpF5Vwb4w=s900-c-k-c0x00ffffff-no-rj"
+        />
         <link
             rel="stylesheet"
             href="{% static 'bootstrap/css/bootstrap.min.css' %}"
         />
-        <link
-            rel="stylesheet"
-            href="{% static 'fontawesome/css/all.min.css' %}"
-        />
-        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+        <style>
+            table {
+                margin-top: 20px;
+            }
+            table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                text-align: center;
+                padding: 0 15px;
+            }
+            button {
+                border-radius: 10px;
+                background-color: #cecccc;
+            }
+        </style>
         <title>Consultar Voo | FlightOps</title>
     </head>
     <body>
-        <h1>Informações do Voo ABC0123</h1>
-        <table>
-            <tr>
-                <td>Código de Voo</td>
-                <td>Origem</td>
-                <td>Conexões</td>
-                <td>Destino</td>
-                <td>Data Prevista Partida</td>
-                <td>Horário Previsto Partida</td>
-                <td>Data Prevista Chegada</td>
-                <td>Horário Previsto Chegada</td>
-            </tr>
-            <tr>
-                <td>ABC0123</td>
-                <td>POA</td>
-                <td>GRU</td>
-                <td>SSA</td>
-                <td>11/11/2022</td>
-                <td>23:58</td>
-                <td>12/11/2022</td>
-                <td>08:03</td>
-            </tr>
-        </table>
-        <br />
-        <button class="button">
-            <a href="..">Retornar</a>
-        </button>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="/home">FlightOps</a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/administrar/">
+                            Administração
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/monitorar/">Monitoração</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/relatorio/">Relatórios</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <main role="main">
+            <div class="jumbotron">
+                <div class="container">
+                    <br />
+                    <h2 style="font-weight: 300">Informações do Voo ABC0123</h2>
+                    <table>
+                        <tr>
+                            <th>Código de Voo</th>
+                            <th>Origem</th>
+                            <th>Conexões</th>
+                            <th>Destino</th>
+                            <th colspan="2">Previsão de Partida</th>
+                            <th colspan="2">Previsão de Chegada</th>
+                        </tr>
+                        <tr>
+                            <td>ABC0123</td>
+                            <td>POA</td>
+                            <td>GRU</td>
+                            <td>SSA</td>
+                            <td>11/11/2022</td>
+                            <td>23:58</td>
+                            <td>12/11/2022</td>
+                            <td>08:03</td>
+                        </tr>
+                    </table>
+                    <br />
+                    <a href=".."><button class="button">Retornar</button></a>
+                </div>
+            </div>
+        </main>
+
+        <!-- <footer class="container">
+            <p>© FlightOps 2022</p>
+        </footer> -->
     </body>
 </html>

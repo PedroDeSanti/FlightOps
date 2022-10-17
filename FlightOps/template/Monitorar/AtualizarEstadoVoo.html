@@ -17,7 +17,7 @@
             rel="stylesheet"
             href="{% static 'bootstrap/css/bootstrap.min.css' %}"
         />
-        <title>Cadastrar Voo | FlightOps</title>
+        <title>Monitoração | FlightOps</title>
         <style>
             button {
                 border-radius: 10px;
@@ -42,12 +42,12 @@
 
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="/administrar/">
                             Administração
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="/monitorar/">Monitoração</a>
                     </li>
                     <li class="nav-item">
@@ -59,56 +59,43 @@
         <main role="main">
             <div class="jumbotron">
                 <div class="container">
-                    <br />
                     <h2 style="font-weight: 300">
-                        Insira abaixo as informações do voo
+                        Selecione o novo estado desse voo:
                     </h2>
                     <br />
-                    Código de Voo <input type="text" placeholder="ABC0123" />
-                    <br />
-                    <br />
-                    Rota entre origem e destino
-                    <ul>
-                        <li>Origem: <input type="text" placeholder="POA" /></li>
-                        <li>
-                            Conexões: <input type="text" placeholder="GRU" />
-                        </li>
-                        <li>
-                            Destino: <input type="text" placeholder="SSA" />
-                        </li>
-                    </ul>
-                    <br />
-                    Partida
-                    <ul>
-                        <li>
-                            Data Prevista
-                            <input type="date" placeholder="2022-11-11" />
-                        </li>
-                        <li>
-                            Horário Previsto
-                            <input type="time" placeholder="23:58" />
-                        </li>
-                    </ul>
-                    <br />
-                    Chegada
-                    <ul>
-                        <li>
-                            Data Prevista
-                            <input type="date" placeholder="2022-11-12" />
-                        </li>
-                        <li>
-                            Horário Previsto
-                            <input type="time" placeholder="08:03" />
-                        </li>
-                    </ul>
-                    <br />
-                    <a href="..">
-                        <button class="button">Cadastrar Voo</button>
-                    </a>
-
-                    <br />
-                    <br />
-                    <a href=".."><button class="button">Retornar</button></a>
+                    <form style="width: 80%; height: 100%">
+                        <div class="mb-5 container">
+                            <label
+                                for="inputEstadoVooRelatorio"
+                                class="form-label form-label-lg"
+                            >
+                                Estado do Voo
+                            </label>
+                            <br />
+                            <select
+                                class="form-select"
+                                aria-label="Estado do Voo Select"
+                                id="inputEstadoVooRelatorio"
+                            >
+                                <option selected>
+                                    Selecione um filtro para o estado
+                                </option>
+                                <option value="embarcando">Embarcando</option>
+                                <option value="cancelado">Cancelado</option>
+                                <option value="programado">Programado</option>
+                                <option value="taxiando">Taxiando</option>
+                                <option value="pronto">Pronto</option>
+                                <option value="autorizado">Autorizado</option>
+                                <option value="emvoo">Em Voo</option>
+                                <option value="aterrisado">Aterrisado</option>
+                            </select>
+                        </div>
+                        <a href="/monitorar/atualizado/">
+                            <button type="button" class="button">
+                                Monitorar Voo
+                            </button>
+                        </a>
+                    </form>
                 </div>
             </div>
         </main>
