@@ -56,7 +56,7 @@ e em seguida rode o comando
 python manage.py runserver
 ```
 
-Com isso, ao acessar o link http://localhost:8000/FIRST/, você deverá visualizar o texto "PCS3642 - Laboratório de Engenharia de Software I, também conhecida como a MELHOR matéria da USP 🥇".
+Com isso, ao acessar o link http://localhost:8000/, você deverá visualizar a tela de Login para a aplicação.
 
 *PARABÉNS, VOCÊ CONSEGUIU RODAR O PROJETO 🎉🎉🎉*
 
