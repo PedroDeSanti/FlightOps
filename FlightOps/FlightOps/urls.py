@@ -31,5 +31,5 @@ urlpatterns = [
     path('administrar/remover/confirmarRemocao', views.confirmarRemocaoVoo),
     path('administrar/remover/codigoDeVoo', views.informarCodigoDeVoo),
     path('monitorar/', views.monitorarVoos),
-    path('relatorios/', views.gerarRelatorios),
+    path('relatorio/', views.gerarRelatorios),
 ]
