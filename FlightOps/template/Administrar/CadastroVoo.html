@@ -18,10 +18,16 @@
             href="{% static 'bootstrap/css/bootstrap.min.css' %}"
         />
         <title>Cadastrar Voo | FlightOps</title>
+        <style>
+            button {
+                border-radius: 10px;
+                background-color: #cecccc;
+            }
+        </style>
     </head>
     <body>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="/">FlightOps</a>
+            <a class="navbar-brand" href="/home">FlightOps</a>
             <button
                 class="navbar-toggler"
                 type="button"
@@ -53,13 +59,15 @@
         <main role="main">
             <div class="jumbotron">
                 <div class="container">
-                    <h1 class="display-3">
+                    <br />
+                    <h2 style="font-weight: 300">
                         Insira abaixo as informações do voo
-                    </h1>
+                    </h2>
                     <br />
-                    Código de Voo:<input type="text" placeholder="ABC0123" />
+                    Código de Voo <input type="text" placeholder="ABC0123" />
                     <br />
-                    Rota entre origem e destino:
+                    <br />
+                    Rota entre origem e destino
                     <ul>
                         <li>Origem: <input type="text" placeholder="POA" /></li>
                         <li>
@@ -70,46 +78,37 @@
                         </li>
                     </ul>
                     <br />
-                    Partida:
+                    Partida
                     <ul>
                         <li>
-                            Data Prevista:<input
-                                type="date"
-                                placeholder="2022-11-11"
-                            />
+                            Data Prevista
+                            <input type="date" placeholder="2022-11-11" />
                         </li>
                         <li>
-                            Horário Previsto:<input
-                                type="time"
-                                placeholder="23:58"
-                            />
+                            Horário Previsto
+                            <input type="time" placeholder="23:58" />
                         </li>
                     </ul>
                     <br />
-                    Chegada:
+                    Chegada
                     <ul>
                         <li>
-                            Data Prevista:<input
-                                type="date"
-                                placeholder="2022-11-12"
-                            />
+                            Data Prevista
+                            <input type="date" placeholder="2022-11-12" />
                         </li>
                         <li>
-                            Horário Previsto:<input
-                                type="time"
-                                placeholder="08:03"
-                            />
+                            Horário Previsto
+                            <input type="time" placeholder="08:03" />
                         </li>
                     </ul>
                     <br />
-                    <button class="button">
-                        <a href="..">Cadastrar Voo</a>
-                    </button>
+                    <a href="..">
+                        <button class="button">Cadastrar Voo</button>
+                    </a>
+
                     <br />
                     <br />
-                    <button class="button">
-                        <a href="..">Retornar</a>
-                    </button>
+                    <a href=".."><button class="button">Retornar</button></a>
                 </div>
             </div>
         </main>

@@ -20,8 +20,9 @@ from book import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('FIRST/', views.bookview),
-    path('', views.home),
+    path('', views.login),
     path('login', views.login),
+    path('home', views.home),
     path('administrar/', views.administrarVoos),
     path('administrar/cadastrar/', views.cadastrarVoo),
     path('administrar/atualizar/', views.atualizarVoo),
@@ -32,6 +33,8 @@ urlpatterns = [
     path('administrar/remover/confirmarRemocao', views.confirmarRemocaoVoo),
     path('administrar/remover/codigoDeVoo', views.informarCodigoDeVoo),
     path('monitorar/', views.monitorarVoos),
+    path('monitorar/voo/', views.atualizarEstadoVoo),
+    path('monitorar/atualizado/', views.verVooAtualizado),
     path('relatorio/', views.gerarRelatorios),
     path('relatorio/pdf', views.visualizarRelatorios)
 ]

@@ -18,10 +18,27 @@
             href="{% static 'bootstrap/css/bootstrap.min.css' %}"
         />
         <title>Atualizar Voo | FlightOps</title>
+        <style>
+            table {
+                margin-top: 20px;
+            }
+            table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                text-align: center;
+                font-size: small;
+            }
+            button {
+                border-radius: 10px;
+                background-color: #cecccc;
+            }
+        </style>
     </head>
     <body>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="/">FlightOps</a>
+            <a class="navbar-brand" href="/home">FlightOps</a>
             <button
                 class="navbar-toggler"
                 type="button"
@@ -53,18 +70,17 @@
         <main role="main">
             <div class="jumbotron">
                 <div class="container">
-                    <h1 class="display-3">Informações do Voo ABC0123</h1>
+                    <br />
+                    <h2 style="font-weight: 300">Informações do Voo ABC0123</h2>
                     <br />
                     <table>
                         <tr>
-                            <td>Código de Voo</td>
-                            <td>Origem</td>
-                            <td>Conexões</td>
-                            <td>Destino</td>
-                            <td>Data Prevista Partida</td>
-                            <td>Horário Previsto Partida</td>
-                            <td>Data Prevista Chegada</td>
-                            <td>Horário Previsto Chegada</td>
+                            <th>Código de Voo</th>
+                            <th>Origem</th>
+                            <th>Conexões</th>
+                            <th>Destino</th>
+                            <th colspan="2">Previsão de Partida</th>
+                            <th colspan="2">Previsão de Chegada</th>
                         </tr>
                         <tr>
                             <td>
@@ -76,6 +92,7 @@
                             </td>
                             <td>
                                 <input
+                                    style="max-width: 50%"
                                     type="text"
                                     placeholder="POA"
                                     value="POA"
@@ -90,6 +107,7 @@
                             </td>
                             <td>
                                 <input
+                                    style="max-width: 50%"
                                     type="text"
                                     placeholder="SSA"
                                     value="SSA"
@@ -127,14 +145,15 @@
                     </table>
                     <br />
                     <br />
-                    <button class="button">
-                        <a href="..">Confirmar Atualização</a>
-                    </button>
+                    <a href=".."
+                        ><button class="button">
+                            Confirmar Atualização
+                        </button></a
+                    >
+
                     <br />
                     <br />
-                    <button class="button">
-                        <a href="..">Retornar</a>
-                    </button>
+                    <a href=".."><button class="button">Retornar</button></a>
                 </div>
             </div>
         </main>
