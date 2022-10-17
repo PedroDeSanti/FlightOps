@@ -20,4 +20,16 @@ from book import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('FIRST/', views.bookview),
+    path('', views.home),
+    path('administrar/', views.administrarVoos),
+    path('administrar/cadastrar/', views.cadastrarVoo),
+    path('administrar/atualizar/', views.atualizarVoo),
+    path('administrar/atualizar/codigoDeVoo', views.informarCodigoDeVoo),
+    path('administrar/consultar/', views.consultarVoo),
+    path('administrar/consultar/codigoDeVoo', views.informarCodigoDeVoo),
+    path('administrar/remover/', views.removerVoo),
+    path('administrar/remover/confirmarRemocao', views.confirmarRemocaoVoo),
+    path('administrar/remover/codigoDeVoo', views.informarCodigoDeVoo),
+    path('monitorar/', views.monitorarVoos),
+    path('relatorio/', views.gerarRelatorios),
 ]

@@ -1,0 +1,130 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link
+    rel="stylesheet"
+    href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+  />
+  <link
+    rel="stylesheet"
+    href="{% static 'fontawesome/css/all.min.css' %}"
+  />
+  <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+  <link
+    rel="stylesheet"
+    href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+  />
+  <link
+    rel="stylesheet"
+    href="{% static 'fontawesome/css/all.min.css' %}"
+  />
+  <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+  <h1 
+    class="display-4 px-5"
+    style="text-align: center;"  
+  > 
+    Gerar o Relatório 
+  </h1>
+  <p class="lead px-5">
+    Preencha os filtros desejados para gerar o relatório
+  </p>
+  <form>
+    <div class="mb-3">
+      <label for="inputCodigoVoo" class="form-label">Código de Voo</label>
+      <input type="text" class="form-control" placeholder="ABC0123" value="ABC0123" id="inputCodigoVoo"/> 
+    </div>
+    
+    <div class="mb-3">
+      <label for="inputOrigem" class="form-label">Origem</label>
+      <input type="text" class="form-control" placeholder="POA" value="POA" id="inputOrigem"/> 
+    </div>
+
+    <div class="mb-3">
+      <label for="inputDestino" class="form-label">Destino</label>
+      <input type="text" class="form-control" placeholder="GRU" value="GRU" id="inputDestino"/> 
+    </div>
+    
+    <div class="mb-3">
+      <label for="inputOrigem" class="form-label">Origem</label>
+      <input type="text" class="form-control" placeholder="POA" value="POA" id="inputOrigem"/> 
+    </div>
+    
+    <div class="mb-3">
+      <label for="inputOrigem" class="form-label">Origem</label>
+      <input type="text" class="form-control" placeholder="POA" value="POA" id="inputOrigem"/> 
+    </div>
+    
+    <div class="mb-3">
+      <label for="inputOrigem" class="form-label">Origem</label>
+      <input type="text" class="form-control" placeholder="POA" value="POA" id="inputOrigem"/> 
+    </div>
+  </form>
+  
+  
+  <table>
+    <tr>
+      
+      <td></td>
+      <td>Destino</td>
+      <td>Estado do Voo</td>
+      <td>Data Partida</td>
+      <td>Horário Partida</td>
+      <td>Data Chegada</td>
+      <td>Horário Chegada</td>
+    </tr>
+    <tr>
+      <td>
+        
+      </td>
+      <td></td>
+      <td></td>
+      <td>
+        <select type="text" placeholder="embarcando" value="SSA">
+          <option value="embarcando">Embarcando</option>
+          <option value="cancelado">Cancelado</option>
+          <option value="programado">Programado</option>
+          <option value="taxiando">Taxiando</option>
+          <option value="pronto">Pronto</option>
+          <option value="autorizado">Autorizado</option>
+          <option value="emvoo">Em Voo</option>
+          <option value="aterrisado">Aterrisado</option>
+        </select> 
+      </td>
+      <td>
+        <input
+            type="date"
+            placeholder="2022-11-11"
+            value="2022-11-11"
+        />
+      </td>
+      <td><input type="time" placeholder="23:58" value="23:58" /></td>
+      <td>
+        <input
+            type="date"
+            placeholder="2022-11-12"
+            value="2022-11-12"
+        />
+      </td>
+      <td><input type="time" placeholder="08:03" value="08:03" /></td>
+    </tr>
+  </table>
+  <br />
+  <br />
+  <button class="button">
+    <a href="..">Gerar Relatório</a>
+  </button>
+  <br />
+  <br />
+  <button class="button">
+    <a href="..">Retornar</a>
+  </button>
+</body>
+</html>

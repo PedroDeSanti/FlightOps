@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+        />
+        <link
+            rel="stylesheet"
+            href="{% static 'fontawesome/css/all.min.css' %}"
+        />
+        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+        <title>Cadastrar Voo | FlightOps</title>
+    </head>
+    <body>
+        <h1>Insira abaixo as informações do voo</h1>
+        <br />
+        Código de Voo:<input type="text" placeholder="ABC0123" />
+        <br />
+        Rota entre origem e destino:
+        <ul>
+            <li>Origem: <input type="text" placeholder="POA" /></li>
+            <li>Conexões: <input type="text" placeholder="GRU" /></li>
+            <li>Destino: <input type="text" placeholder="SSA" /></li>
+        </ul>
+        <br />
+        Partida:
+        <ul>
+            <li>
+                Data Prevista:<input type="date" placeholder="2022-11-11" />
+            </li>
+            <li>Horário Previsto:<input type="time" placeholder="23:58" /></li>
+        </ul>
+        <br />
+        Chegada:
+        <ul>
+            <li>
+                Data Prevista:<input type="date" placeholder="2022-11-12" />
+            </li>
+            <li>Horário Previsto:<input type="time" placeholder="08:03" /></li>
+        </ul>
+        <br />
+        <button class="button">
+            <a href="..">Cadastrar Voo</a>
+        </button>
+        <br />
+        <br />
+        <button class="button">
+            <a href="..">Retornar</a>
+        </button>
+    </body>
+</html>

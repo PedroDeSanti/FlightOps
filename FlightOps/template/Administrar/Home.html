@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+        />
+        <link
+            rel="stylesheet"
+            href="{% static 'fontawesome/css/all.min.css' %}"
+        />
+        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+        <title>CRUD | FlightOps</title>
+    </head>
+    <body>
+        <h2>Selecione a opção que você deseja acessar:</h2>
+        <br />
+        <div>
+            <button class="button">
+                <a href="cadastrar">Cadastrar Novo Voo</a>
+            </button>
+            <br />
+            <button class="button">
+                <a href="consultar/codigoDeVoo">Consultar Voo</a>
+            </button>
+            <br />
+            <button class="button">
+                <a href="atualizar/codigoDeVoo">Atualizar Voo</a>
+            </button>
+            <br />
+            <button class="button">
+                <a href="remover/codigoDeVoo">Remover Voo</a>
+            </button>
+            <br />
+            <br />
+            <button class="button">
+                <a href="/">Retornar</a>
+            </button>
+        </div>
+    </body>
+</html>
