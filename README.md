@@ -25,7 +25,7 @@ Para clonar utilizando o protocolo SSH, utilize o comando abaixo:
 git clone git@github.com:PedroDeSanti/FlightOps.git
 ```
 
-A branch mais atual de desenvolvimento é a "develop". Para acessá-la, utilize o comando:
+A branch mais atual de desenvolvimento é a "develop". Essa já é a branch principal do repositório, mas caso esteja em outra ramificação, para acessá-la, utilize o comando:
 ```bash
 git checkout develop
 ```
