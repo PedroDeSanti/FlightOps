@@ -25,6 +25,11 @@ Para clonar utilizando o protocolo SSH, utilize o comando abaixo:
 git clone git@github.com:PedroDeSanti/FlightOps.git
 ```
 
+A branch mais atual de desenvolvimento é a "develop". Para acessá-la, utilize o comando:
+```bash
+git checkout develop
+```
+
 ## Etapa 2: Criação do ambiente virtual
 Inicialmente é necessário criar o ambiente virtual para executar o projeto, para isso abra o Powershell e execute o seguinte comando:
 
