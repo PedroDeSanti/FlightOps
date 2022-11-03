@@ -1,148 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-            rel="stylesheet"
-            id="bootstrap-css"
-        />
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-        <!------ Include the above in your HEAD tag ---------->
-        <style>
-            body {
-                font-family: 'Lato', sans-serif;
-            }
+{% extends "registration/base.html" %}
 
-            .main-head {
-                height: 150px;
-                background: #fff;
-            }
+{% block content %}
 
-            .sidenav {
-                height: 100%;
-                background-color: #343a40;
-                overflow-x: hidden;
-                padding-top: 20px;
-            }
+    {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
 
-            .main {
-                padding: 0px 10px;
-            }
+    {% if next %}
+        {% if user.is_authenticated %}
+        <p>Your account doesn't have access to this page. To proceed,
+        please login with an account that has access.</p>
+        {% else %}
+        <p>Please login to see this page.</p>
+        {% endif %}
+    {% endif %}
 
-            @media screen and (max-height: 450px) {
-                .sidenav {
-                    padding-top: 15px;
-                }
-            }
-
-            @media screen and (max-width: 450px) {
-                .login-form {
-                    margin-top: 10%;
-                }
-
-                .register-form {
-                    margin-top: 10%;
-                }
-            }
-
-            @media screen and (min-width: 768px) {
-                .main {
-                    margin-left: 40%;
-                }
-
-                .sidenav {
-                    width: 40%;
-                    position: fixed;
-                    z-index: 1;
-                    top: 0;
-                    left: 0;
-                }
-
-                .login-form {
-                    margin-top: 80%;
-                }
-
-                .register-form {
-                    margin-top: 20%;
-                }
-            }
-
-            .login-main-text {
-                margin-top: 20%;
-                padding: 60px;
-                color: #fff;
-            }
-
-            .login-main-text h2 {
-                font-weight: 300;
-            }
-
-            .btn-black {
-                background-color: #343a40 !important;
-                color: #fff;
-            }
-        </style>
-        <title>Login | FlightOps</title>
-    </head>
-    <body>
-        <div class="sidenav">
-            <div class="login-main-text">
-                <h2>
-                    FlightOps<br />
-                    <h4>A ferramente ideal para seu aeroporto!</h4>
-                </h2>
-                <br />
-                <p>Realize seu login ou registre-se para acessar.</p>
-            </div>
-        </div>
-        <div class="main">
-            <div class="col-md-6 col-sm-12">
-
-                {% if form.errors %}
-                    <p>Your username and password didn't match. Please try again.</p>
-                {% endif %}
-
-                {% if next %}
-                    {% if user.is_authenticated %}
-                    <p>Your account doesn't have access to this page. To proceed,
-                    please login with an account that has access.</p>
-                    {% else %}
-                    <p>Please login to see this page.</p>
-                    {% endif %}
-                {% endif %}
-
-                <div class="login-form">
-                    <form method="post" action="{% url 'login' %}">
-                        <div class="form-group">
-                            <label>Nome do Usuário</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                placeholder="usuarioLegal321"
-                            />
-                        </div>
-                        <div class="form-group">
-                            <label>Senha</label>
-                            <input
-                                type="password"
-                                class="form-control"
-                                placeholder="senhaForte@123"
-                            />
-                        </div>
-                        <!-- <a href="/home">
-                            <button type="button" class="btn btn-black">
-                                Realizar Login
-                            </button>
-                        </a> -->
-
-                    </form>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
-
+    <div class="login-form">
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>{{ form.username.label_tag }}</td>
+                    <td>{{ form.username }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.password.label_tag }}</td>
+                    <td>{{ form.password }}</td>
+                </tr>
+                </table>
+            <input type="submit" value="login">
+            <input type="hidden" name="next" value="{{ next }}">
+        </form>
+    </div>
+{% endblock content %}

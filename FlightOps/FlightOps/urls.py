@@ -21,9 +21,7 @@ from django.conf.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('FIRST/', views.bookview),
-    path('', views.login),
-    path('login', views.login),
-    path('home', views.home),
+    path('', views.home),
     path('administrar/', views.administrarVoos),
     path('administrar/cadastrar/', views.cadastrarVoo),
     path('administrar/atualizar/', views.atualizarVoo),
