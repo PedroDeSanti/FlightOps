@@ -14,6 +14,8 @@ def bookview(request):
 def login(request):
     return render(request, "registration/login.html")
 
+
+
 @login_required
 def home(request):
     return render(request, "HomePage.html")
@@ -26,30 +28,37 @@ def home(request):
 def administrarVoos(request):
     return render(request, "Administrar/Home.html")
 
+
 @login_required
 @permission_required('auth.administrarvoo')
 def cadastrarVoo(request):
+
     return render(request, "Administrar/CadastroVoo.html")
+
 
 @login_required
 @permission_required('auth.administrarvoo')
 def atualizarVoo(request):
     return render(request, "Administrar/AtualizacaoVoo.html")
 
+
 @login_required
 @permission_required('auth.administrarvoo')
 def consultarVoo(request):
     return render(request, "Administrar/ConsultaVoo.html")
+
 
 @login_required
 @permission_required('auth.administrarvoo')
 def removerVoo(request):
     return render(request, "Administrar/RemocaoVoo.html")
 
+
 @login_required
 @permission_required('auth.administrarvoo')
 def confirmarRemocaoVoo(request):
-    return render(request, "Administrar/ConfirmarRemocaoVoo.html")
+    return render(request, "Administrar/confirmarRemocaoVoo.html")
+
 
 @login_required
 @permission_required('auth.administrarvoo')
@@ -58,15 +67,18 @@ def informarCodigoDeVoo(request):
 
 # Monitorar Voos
 
+
 @login_required
 @permission_required('auth.monitorarvoo')
 def monitorarVoos(request):
     return render(request, "Monitorar/MonitoracaoVoos.html")
 
+
 @login_required
 @permission_required('auth.monitorarvoo')
 def atualizarEstadoVoo(request):
     return render(request, 'Monitorar/AtualizarEstadoVoo.html')
+
 
 @login_required
 @permission_required('auth.monitorarvoo')
@@ -79,6 +91,7 @@ def verVooAtualizado(request):
 @permission_required('auth.gerarrelatorio')
 def gerarRelatorios(request):
     return render(request, "GerarRelatorios/FiltroRelatorio.html")
+
 
 @login_required
 @permission_required('auth.gerarrelatorio')
