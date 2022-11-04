@@ -93,7 +93,7 @@
             <div class="login-main-text">
                 <h2>
                     FlightOps<br />
-                    <h4>A ferramente ideal para seu aeroporto!</h4>
+                    <h4>A ferramenta ideal para seu aeroporto!</h4>
                 </h2>
                 <br />
                 <p>Realize seu login ou registre-se para acessar.</p>
@@ -101,32 +101,9 @@
         </div>
         <div class="main">
             <div class="col-md-6 col-sm-12">
-                <div class="login-form">
-                    <form>
-                        <div class="form-group">
-                            <label>Nome do Usuário</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                placeholder="usuarioLegal321"
-                            />
-                        </div>
-                        <div class="form-group">
-                            <label>Senha</label>
-                            <input
-                                type="password"
-                                class="form-control"
-                                placeholder="senhaForte@123"
-                            />
-                        </div>
-                        <a href="/home">
-                            <button type="button" class="btn btn-black">
-                                Realizar Login
-                            </button>
-                        </a>
-                    </form>
-                </div>
+                {% block content %}{% endblock content %}
             </div>
         </div>
     </body>
 </html>
+

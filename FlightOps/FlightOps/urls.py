@@ -16,13 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from book import views
+from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('FIRST/', views.bookview),
-    path('', views.login),
-    path('login', views.login),
-    path('home', views.home),
+    path('', views.home),
     path('administrar/', views.administrarVoos),
     path('administrar/cadastrar/', views.cadastrarVoo),
     path('administrar/atualizar/', views.atualizarVoo),
@@ -36,5 +35,6 @@ urlpatterns = [
     path('monitorar/voo/', views.atualizarEstadoVoo),
     path('monitorar/atualizado/', views.verVooAtualizado),
     path('relatorio/', views.gerarRelatorios),
-    path('relatorio/pdf', views.visualizarRelatorios)
+    path('relatorio/pdf', views.visualizarRelatorios),
+    path('accounts/', include('django.contrib.auth.urls'))
 ]

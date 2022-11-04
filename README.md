@@ -25,6 +25,11 @@ Para clonar utilizando o protocolo SSH, utilize o comando abaixo:
 git clone git@github.com:PedroDeSanti/FlightOps.git
 ```
 
+A branch mais atual de desenvolvimento é a "develop". Essa já é a branch principal do repositório, mas caso esteja em outra ramificação, para acessá-la, utilize o comando:
+```bash
+git checkout develop
+```
+
 ## Etapa 2: Criação do ambiente virtual
 Inicialmente é necessário criar o ambiente virtual para executar o projeto, para isso abra o Powershell e execute o seguinte comando:
 
@@ -42,8 +47,7 @@ Como o projeto foi desenvolvido em Django, para utilizá-lo é necessário ter a
 
 Rode, em seu terminal de comando favorito, os seguintes comandos, que realizam os downloads e instalações das bibliotecas necessárias:
 ```bash
-pip install django
-pip install fpdf2
+pip install -r requirements.txt
 ```
 
 ## Etapa 4:  Executando o Projeto Localmente
@@ -51,7 +55,36 @@ Estando, pelo seu Terminal de Comando preferido, na pasta do projeto, navegue at
 ```bash
 cd FlightOps
 ```
-e em seguida rode o comando
+Para conseguir rodar o projeto, deve-se executar os seguintes dois comandos para criar e executar as migracoes:
+```bash
+python manage.py makemigrations
+```
+
+```bash
+python manage.py migrate
+```
+
+Em sequencia, deve-se executar o seguinte comando para criar os usuarios que serao utilizados como exemplo
+
+```bash
+python manage.py createusers
+```
+
+Esse comando realiza a criacao dos seguintes 4 usuarios:
+|Username|Password|Permissoes|
+|-----|--------|-------------|
+|usuario_1|senha_1| Administrar Voos|
+|usuario_2|senha_2| Monitorar Voos|
+|usuario_3|senha_3| Gerar Relatorios|
+|dev|senha| Todas permissoes|
+
+Em sequencia, para executar os testes automatizados, deve-se executar o seguinte comando:
+
+```bash
+python manage.py test
+```
+
+Por fim, para executar o projeto localmente, deve-se executar o seguinte comando:
 ```bash
 python manage.py runserver
 ```
@@ -62,18 +95,6 @@ Com isso, ao acessar o link http://localhost:8000/, você deverá visualizar a t
 
 
 ## Etapa 5: Testando o projeto localmente
-Para executar os testes elaborados, deve-se executar os seguintes tres comandos:
-```bash
-python manage.py makemigrations
-```
-
-```bash
-python manage.py migrate
-```
-
-```bash
-python manage.py test
-```
 
 # Contributors ✨
 
