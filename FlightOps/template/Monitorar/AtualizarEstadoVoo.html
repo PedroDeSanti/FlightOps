@@ -1,107 +1,43 @@
-{% load static %}
+{% extends "../registration/html_base.html" %} {% block content %}
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
-        <link
-            rel="icon"
-            href="https://yt3.ggpht.com/ytc/AMLnZu80FStsJ8x_OVaY9chU1OiJna80kKBJTPpF5Vwb4w=s900-c-k-c0x00ffffff-no-rj"
-        />
-        <link
-            rel="stylesheet"
-            href="{% static 'bootstrap/css/bootstrap.min.css' %}"
-        />
-        <title>Monitoração | FlightOps</title>
-        <style>
-            button {
-                border-radius: 10px;
-                background-color: #cecccc;
-            }
-        </style>
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="/">FlightOps</a>
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarsExampleDefault"
-                aria-controls="navbarsExampleDefault"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/administrar/">
-                            Administração
-                        </a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/monitorar/">Monitoração</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/relatorio/">Relatórios</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <main role="main">
-            <div class="jumbotron">
-                <div class="container">
-                    <h2 style="font-weight: 300">
-                        Selecione o novo estado desse voo:
-                    </h2>
+<main role="main">
+    <div class="jumbotron">
+        <div class="container">
+            <h2 style="font-weight: 300">Selecione o novo estado desse voo:</h2>
+            <br />
+            <form style="width: 80%; height: 100%">
+                <div class="mb-5 container">
+                    <label
+                        for="inputEstadoVooRelatorio"
+                        class="form-label form-label-lg"
+                    >
+                        Estado do Voo
+                    </label>
                     <br />
-                    <form style="width: 80%; height: 100%">
-                        <div class="mb-5 container">
-                            <label
-                                for="inputEstadoVooRelatorio"
-                                class="form-label form-label-lg"
-                            >
-                                Estado do Voo
-                            </label>
-                            <br />
-                            <select
-                                class="form-select"
-                                aria-label="Estado do Voo Select"
-                                id="inputEstadoVooRelatorio"
-                            >
-                                <option selected>
-                                    Selecione um filtro para o estado
-                                </option>
-                                <option value="embarcando">Embarcando</option>
-                                <option value="programado">Programado</option>
-                                <option value="taxiando">Taxiando</option>
-                                <option value="pronto">Pronto</option>
-                                <option value="autorizado">Autorizado</option>
-                                <option value="emvoo">Em Voo</option>
-                                <option value="aterrisado">Aterrisado</option>
-                                <option value="cancelado">Cancelado</option>
-                            </select>
-                        </div>
-                        <a href="/monitorar/atualizado/">
-                            <button type="button" class="button">
-                                Monitorar Voo
-                            </button>
-                        </a>
-                    </form>
+                    <select
+                        class="form-select"
+                        aria-label="Estado do Voo Select"
+                        id="inputEstadoVooRelatorio"
+                    >
+                        <option selected>
+                            Selecione um filtro para o estado
+                        </option>
+                        <option value="embarcando">Embarcando</option>
+                        <option value="programado">Programado</option>
+                        <option value="taxiando">Taxiando</option>
+                        <option value="pronto">Pronto</option>
+                        <option value="autorizado">Autorizado</option>
+                        <option value="emvoo">Em Voo</option>
+                        <option value="aterrisado">Aterrisado</option>
+                        <option value="cancelado">Cancelado</option>
+                    </select>
                 </div>
-            </div>
-        </main>
+                <a href="/monitorar/atualizado/">
+                    <button type="button" class="button">Monitorar Voo</button>
+                </a>
+            </form>
+        </div>
+    </div>
+</main>
 
-        <!-- <footer class="container">
-            <p>© FlightOps 2022</p>
-        </footer> -->
-    </body>
-</html>
+{% endblock content %}

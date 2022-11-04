@@ -1,85 +1,23 @@
-{% load static %}
+{% extends "../registration/html_base.html" %} {% block content %}
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
-        <link
-            rel="icon"
-            href="https://yt3.ggpht.com/ytc/AMLnZu80FStsJ8x_OVaY9chU1OiJna80kKBJTPpF5Vwb4w=s900-c-k-c0x00ffffff-no-rj"
-        />
-        <link
-            rel="stylesheet"
-            href="{% static 'bootstrap/css/bootstrap.min.css' %}"
-        />
-        <title>Monitoração | FlightOps</title>
-        <style>
-            button {
-                border-radius: 10px;
-                background-color: #cecccc;
-            }
-        </style>
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="/">FlightOps</a>
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarsExampleDefault"
-                aria-controls="navbarsExampleDefault"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<main role="main">
+    <div class="jumbotron">
+        <div class="container" style="width: 80%">
+            <h2 style="font-weight: 300">Atualização realizada com sucesso</h2>
+            <br />
+            <p class="lead-lg">
+                <strong> Estado do voo: </strong>
+                Cancelado
+            </p>
 
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/administrar/">
-                            Administração
-                        </a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/monitorar/">Monitoração</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/relatorio/">Relatórios</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <main role="main">
-            <div class="jumbotron">
-                <div class="container" style="width: 80%">
-                    <h2 style="font-weight: 300">
-                        Atualização realizada com sucesso
-                    </h2>
-                    <br />
-                    <p class="lead-lg">
-                        <strong> Estado do voo: </strong>
-                        Cancelado
-                    </p>
+            <br />
+            <a href="/">
+                <button type="button" class="button">
+                    Retornar à Tela Inicial
+                </button>
+            </a>
+        </div>
+    </div>
+</main>
 
-                    <br />
-                    <a href="/">
-                        <button type="button" class="button">
-                            Retornar à Tela Inicial
-                        </button>
-                    </a>
-                </div>
-            </div>
-        </main>
-
-        <!-- <footer class="container">
-            <p>© FlightOps 2022</p>
-        </footer> -->
-    </body>
-</html>
+{% endblock content %}
