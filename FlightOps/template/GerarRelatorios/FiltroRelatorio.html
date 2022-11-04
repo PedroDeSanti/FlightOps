@@ -1,4 +1,15 @@
-{% extends "../registration/html_base.html" %} {% block content %}
+{% extends "html_base.html" %} {% block navbar %}
+<li class="nav-item">
+    <a class="nav-link" href="/administrar/"> Administração </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/monitorar/">Monitoração</a>
+</li>
+<li class="nav-item active">
+    <a class="nav-link" href="/relatorio/">Relatórios</a>
+</li>
+
+{% endblock navbar %} {% block content %}
 
 <main role="main" style="min-height: 100%">
     <div class="jumbotron" style="min-height: 100%">
@@ -151,12 +162,20 @@
                         </div>
                     </div>
                 </div>
-                <br />
-                <a class="btn btn-secondary" href="/relatorio/pdf" role="button"
-                    >Gerar Relatório</a
-                >
-
-                <a class="btn btn-secondary" href="/" role="button">Retornar</a>
+                <div>
+                    <a
+                        class="btn btn-secondary button"
+                        href="/relatorio/pdf"
+                        role="button"
+                    >
+                        Gerar Relatório
+                    </a>
+                </div>
+                <div>
+                    <a class="btn btn-secondary button" href="/" role="button">
+                        Retornar
+                    </a>
+                </div>
             </form>
         </div>
     </div>

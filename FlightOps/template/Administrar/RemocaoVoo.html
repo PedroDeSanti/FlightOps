@@ -1,4 +1,15 @@
-{% extends "../registration/html_base.html" %} {% block content %}
+{% extends "html_base.html" %} {% block navbar %}
+<li class="nav-item active">
+    <a class="nav-link" href="/administrar/"> Administração </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/monitorar/">Monitoração</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/relatorio/">Relatórios</a>
+</li>
+
+{% endblock navbar %} {% block content %}
 
 <main role="main">
     <div class="jumbotron">
@@ -30,12 +41,21 @@
             </table>
             <br />
             <br />
-            <a href="confirmarRemocao">
-                <button class="button">Remover Voo</button>
-            </a>
-            <br />
-            <br />
-            <a href=".."><button class="button">Retornar</button></a>
+
+            <div>
+                <a
+                    class="btn btn-secondary button"
+                    href="confirmarRemocao"
+                    role="button"
+                >
+                    Remover Voo
+                </a>
+            </div>
+            <div>
+                <a class="btn btn-secondary button" href=".." role="button">
+                    Retornar
+                </a>
+            </div>
         </div>
     </div>
 </main>

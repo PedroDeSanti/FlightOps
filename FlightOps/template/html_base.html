@@ -34,9 +34,13 @@
                 border-radius: 10px;
                 background-color: #cecccc;
             }
+            .button {
+                margin: 10px 10px;
+                width: 200px;
+            }
         </style>
     </head>
-    <body>
+    <body style="background-color: #e9ecef">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <a class="navbar-brand" href="/">FlightOps</a>
             <button
@@ -53,6 +57,7 @@
 
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
+                    {% block navbar %}
                     <li class="nav-item active">
                         <a class="nav-link" href="/administrar/">
                             Administração
@@ -64,6 +69,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/relatorio/">Relatórios</a>
                     </li>
+
+                    {% endblock navbar %}
                 </ul>
             </div>
         </nav>
