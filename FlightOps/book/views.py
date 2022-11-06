@@ -2,7 +2,13 @@ from django.conf import LazySettings
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render
 from django.http import FileResponse
+from datetime import datetime
 from fpdf import FPDF
+from book.repositorio.HorariosRepositorio import cria_horarios  
+from book.repositorio.RotasRepositorio import cria_rota
+from book.repositorio.EstadoRepositorio import cria_estado
+from book.repositorio.VooRepositorio import cria_voo
+
 
 # Create your views here.
 
@@ -32,8 +38,44 @@ def administrarVoos(request):
 @login_required
 @permission_required('auth.administrarvoo')
 def cadastrarVoo(request):
+    voo = None
+    erro = None 
+    
+    if request.method == "POST":
+        try:
+            horarios = cria_horarios(
+                request.POST["data_chegada_previsao"],
+                request.POST["horario_chegada_previsao"],
+                request.POST["data_partida_previsao"],
+                request.POST["horario_partida_previsao"]
+            )
 
-    return render(request, "Administrar/CadastroVoo.html")
+            rota = cria_rota(
+                request.POST["aeroporto_origem"],
+                request.POST["aeroporto_destino"],
+                request.POST["conexoes"]
+            )
+
+            estado = cria_estado(
+                "Inicial"
+            )
+
+            voo = cria_voo(
+                request.POST["codigo_de_voo"],
+                rota, 
+                horarios,
+                estado
+            )
+            
+            
+        except Exception as err:
+            erro = err
+        
+    contexto = {
+        "voo": voo,
+        "erro": erro        
+    }
+    return render(request, "Administrar/CadastroVoo.html", contexto)
 
 
 @login_required
