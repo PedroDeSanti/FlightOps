@@ -1,14 +1,20 @@
-from book.models import Voo
+from book.models import Voo, Voo_Estado
 
 def cria_voo(codigo_de_voo, rota, horarios, estado):
      
-    objeto = Voo.objects.create(
+    voo = Voo.objects.create(
         codigo_de_voo=codigo_de_voo,
         rota=rota,
         estado_atual=estado,
         horarios=horarios
     )
-    return objeto
+
+    voo_estado = Voo_Estado.objects.create(
+        voo=voo,
+        estado=estado
+    )
+    
+    return voo
 
 # def obtem_voo():
 #     rota = obtem_rota()
