@@ -1,6 +1,5 @@
-from django.test import TestCase
 from django.utils import timezone
-from book.models import Voo, Rota, Estado, Horarios, Voo_Estado
+from book.models import Horarios
 from datetime import datetime
 
 def cria_horarios(data_chegada_previsao_str, horario_chegada_previsao_str, data_partida_previsao_str, horario_partida_previsao_str, ):
@@ -24,3 +23,9 @@ def obtem_horarios():
         partida_real=datetime(2022, 7, 23, 13, 10, 23, tzinfo=timezone.utc),
         chegada_real=datetime(2022, 7, 23, 19, 21, 35, tzinfo=timezone.utc)
     )
+
+def atualiza_horarios(horarios, chegada_previsao, partida_previsao):
+    horarios.partida_previsao = partida_previsao
+    horarios.chegada_previsao = chegada_previsao
+
+    horarios.save()

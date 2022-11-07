@@ -14,3 +14,9 @@ def obtem_rota(conexoes='GRU'):
         aeroporto_destino='SSA',
         conexoes=conexoes
     )
+
+def atualiza_rota(rota, aeroporto_origem, conexoes, aeroporto_destino):
+    rota.aeroporto_origem = aeroporto_origem
+    rota.conexoes= conexoes
+    rota.aeroporto_destino = aeroporto_destino
+    rota.save()

@@ -7,7 +7,7 @@ from fpdf import FPDF
 from book.repositorio.HorariosRepositorio import cria_horarios  
 from book.repositorio.RotasRepositorio import cria_rota
 from book.repositorio.EstadoRepositorio import cria_estado
-from book.repositorio.VooRepositorio import cria_voo, obtem_voo, obtem_todos_voos
+from book.repositorio.VooRepositorio import cria_voo, obtem_voo, obtem_todos_voos, atualiza_voo, obtem_voo_por_id
 
 
 # Create your views here.
@@ -82,7 +82,55 @@ def cadastrarVoo(request):
 @login_required
 @permission_required('auth.administrarvoo')
 def atualizarVoo(request):
-    return render(request, "Administrar/AtualizacaoVoo.html")
+    todos_voos = obtem_todos_voos()
+    voo = None
+    erro = None
+    sucesso = None 
+    
+    if request.method == "POST":
+        if "search_codigo_voo" in request.POST: 
+            try:
+                voo = obtem_voo(
+                    request.POST["codigo_de_voo"],
+                )
+                
+                if voo == None:
+                    raise Exception("Insira um código de voo válido")
+                voo.horarios.partida_previsao=voo.horarios.partida_previsao.strftime("%Y-%m-%dT%H:%M")
+                voo.horarios.chegada_previsao=voo.horarios.chegada_previsao.strftime("%Y-%m-%dT%H:%M")
+                voo.horarios.partida_real= None if voo.horarios.partida_real == None else voo.horarios.partida_real.strftime("%Y-%m-%dT%H:%M")
+                voo.horarios.chegada_real= None if voo.horarios.chegada_real == None else voo.horarios.chegada_real.strftime("%Y-%m-%dT%H:%M")
+            except Exception as err:
+                erro = err
+
+        else:
+            try:
+                voo_atualizado = obtem_voo_por_id(request.POST["id"])
+                chegada_previsao_str = request.POST["data_chegada_previsao"]
+                partida_previsao_str = request.POST["data_partida_previsao"]
+                chegada_previsao = datetime.strptime(chegada_previsao_str, '%Y-%m-%dT%H:%M')
+                partida_previsao = datetime.strptime(partida_previsao_str, '%Y-%m-%dT%H:%M')
+                atualiza_voo(
+                    voo_atualizado,
+                    request.POST["codigo_de_voo"],
+                    request.POST["companhia_aerea"],
+                    request.POST["aeroporto_origem"],
+                    request.POST["conexoes"],
+                    request.POST["aeroporto_destino"],
+                    chegada_previsao,
+                    partida_previsao
+                )  
+                sucesso=True  
+            except Exception as err:
+                erro = err
+        
+    contexto = {
+        "voo": voo,
+        "erro": erro,
+        "sucesso": sucesso,
+        "voos": todos_voos
+    }
+    return render(request, "Administrar/AtualizacaoVoo.html", contexto)
 
 
 @login_required
