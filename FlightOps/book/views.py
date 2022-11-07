@@ -3,12 +3,11 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render
 from django.http import FileResponse
 from datetime import datetime
-from fpdf import FPDF
 from book.repositorio.HorariosRepositorio import cria_horarios  
 from book.repositorio.RotasRepositorio import cria_rota
 from book.repositorio.EstadoRepositorio import cria_estado
-from book.repositorio.VooRepositorio import cria_voo, obtem_voo, obtem_todos_voos, atualiza_voo, obtem_voo_por_id, remover_voo, atualiza_estado
-
+from book.repositorio.VooRepositorio import cria_voo, obtem_voo, obtem_todos_voos, atualiza_voo, obtem_voo_por_id, remover_voo, atualiza_estado, filtra_voos
+from book.gerador_relatorio.GeraRelatorio import gera_relatorio_menos_detalhes, gera_relatorio_mais_detalhes
 
 # Create your views here.
 
@@ -271,23 +270,27 @@ def gerarRelatorios(request):
 @login_required
 @permission_required('auth.gerarrelatorio')
 def visualizarRelatorios(request):
-    sales = [
-        {"codigoDeVoo": "ABC0123", "origem": "POA", "destino": "GRU"},
-        {"codigoDeVoo": "ABC0124", "origem": "GRU", "destino": "POA"}
-    ]
-    pdf = FPDF('P', 'mm', 'A4')
-    pdf.add_page()
-    pdf.set_font('courier', 'B', 16)
-    pdf.cell(40, 10, 'Relatório de voos:', 0, 1)
-    pdf.cell(40, 10, '', 0, 1)
-    pdf.set_font('courier', '', 12)
-    pdf.cell(
-        200, 8, f"{'Código de Voo'.ljust(30)} {'Origem'.center(5) } {'Destino'.rjust(20)}", 0, 1)
-    pdf.line(10, 30, 150, 30)
-    pdf.line(10, 38, 150, 38)
-    for line in sales:
-        pdf.cell(
-            200, 8, f"{line['codigoDeVoo'].ljust(30)} {line['origem'].center(5)} {line['destino'].rjust(20)}", 0, 1)
+    codigo_de_voo       = request.POST["codigo_de_voo"] if request.POST["codigo_de_voo"] != "" else None
+    companhia_aerea     = request.POST["companhia_aerea"] if request.POST["companhia_aerea"] != "" else None
+    nome_estado         = request.POST["nome_estado"] if request.POST["nome_estado"] != "" else None
+    aeroporto_origem    = request.POST["aeroporto_origem"] if request.POST["aeroporto_origem"] != "" else None
+    aeroporto_destino   = request.POST["aeroporto_destino"] if request.POST["aeroporto_destino"] != "" else None
+    partida_inferior    = request.POST["partida_inferior"]+"-03:00" if request.POST["partida_inferior"] != "" else None
+    partida_superior    = request.POST["partida_superior"]+"-03:00" if request.POST["partida_superior"] != "" else None
+    
+    voos = filtra_voos(
+        codigo_de_voo,
+        companhia_aerea,
+        nome_estado,
+        aeroporto_origem,
+        aeroporto_destino,
+        partida_inferior,
+        partida_superior
+    )
 
-    pdf.output('relatorio.pdf', 'F')
+    if "detalhes" in request.POST:         
+        gera_relatorio_mais_detalhes(voos)
+
+    else:
+        gera_relatorio_menos_detalhes(voos)
     return FileResponse(open('relatorio.pdf', 'rb'), as_attachment=False, content_type='application/pdf')

@@ -29,6 +29,6 @@ urlpatterns = [
     path('administrar/remover/', views.removerVoo),
     path('monitorar/', views.monitorarVoos),
     path('relatorio/', views.gerarRelatorios),
-    path('relatorio/pdf', views.visualizarRelatorios),
+    path('relatorio/pdf/', views.visualizarRelatorios),
     path('accounts/', include('django.contrib.auth.urls'))
 ]
