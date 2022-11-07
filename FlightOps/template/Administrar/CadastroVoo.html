@@ -14,6 +14,16 @@
 <main role="main">
     <div class="jumbotron">
         <div class="container">
+            {% if voo %}
+            <div class="alert alert-success" role="alert">
+                Voo criado com sucesso!
+            </div>
+            {% endif %} 
+            {% if erro %}
+                <div class="alert alert-danger" role="alert">
+                {{erro}}
+                </div>
+            {% endif %} 
             <br />
             <h2 style="font-weight: 300">
                 Insira abaixo as informações do voo
@@ -31,6 +41,7 @@
                                 Código de Voo
                             </label>
                             <input
+                                required
                                 type="text"
                                 class="form-control"
                                 name="codigo_de_voo"
@@ -47,6 +58,7 @@
                                 Origem
                             </label>
                             <input
+                                required
                                 type="text"
                                 class="form-control"
                                 name="aeroporto_origem"
@@ -59,6 +71,7 @@
                                 Conexoes
                             </label>
                             <input
+                                required
                                 type="text"
                                 class="form-control"
                                 name="conexoes"
@@ -71,6 +84,7 @@
                                 Destino
                             </label>
                             <input
+                                required
                                 type="text"
                                 class="form-control"
                                 name="aeroporto_destino"
@@ -87,6 +101,7 @@
                                 Data Partida Previsão
                             </label>
                             <input
+                                required
                                 type="date"
                                 class="form-control"
                                 name="data_partida_previsao"
@@ -99,6 +114,7 @@
                                 Horário Partida Previsao
                             </label>
                             <input
+                                required
                                 type="time"
                                 class="form-control"
                                 name="horario_partida_previsao"
@@ -115,6 +131,7 @@
                                 Data Chegada Previsao
                             </label>
                             <input
+                                required
                                 type="date"
                                 class="form-control"
                                 name="data_chegada_previsao"
@@ -126,6 +143,7 @@
                                 Horário Chegada Previsao
                             </label>
                             <input
+                                required
                                 type="time"
                                 class="form-control"
                                 name="horario_chegada_previsao"
@@ -147,15 +165,6 @@
     </div>
 </main>
 
-{% if voo %}
-    <div class="alert alert-success" role="alert">
-      Voo criado com sucesso!
-    </div>
-    {% endif %} 
-    {% if erro %}
-    <div class="alert alert-danger" role="alert">
-      {{erro}}
-    </div>
-{% endif %} 
+
 
 {% endblock content %}

@@ -7,7 +7,7 @@ from fpdf import FPDF
 from book.repositorio.HorariosRepositorio import cria_horarios  
 from book.repositorio.RotasRepositorio import cria_rota
 from book.repositorio.EstadoRepositorio import cria_estado
-from book.repositorio.VooRepositorio import cria_voo
+from book.repositorio.VooRepositorio import cria_voo, obtem_voo
 
 
 # Create your views here.
@@ -87,7 +87,28 @@ def atualizarVoo(request):
 @login_required
 @permission_required('auth.administrarvoo')
 def consultarVoo(request):
-    return render(request, "Administrar/ConsultaVoo.html")
+    voo = None
+    erro = None 
+    
+    if request.method == "POST":
+        try:
+            voo = obtem_voo(
+                request.POST["codigo_de_voo"],
+            )
+            if voo == None:
+                raise Exception("Insira um código de voo válido")
+            voo.horarios.partida_previsao=voo.horarios.partida_previsao.strftime("%Y-%m-%dT%H:%M")
+            voo.horarios.chegada_previsao=voo.horarios.chegada_previsao.strftime("%Y-%m-%dT%H:%M")
+            voo.horarios.partida_real= None if voo.horarios.partida_real == None else voo.horarios.partida_real.strftime("%Y-%m-%dT%H:%M")
+            voo.horarios.chegada_real= None if voo.horarios.chegada_real == None else voo.horarios.chegada_real.strftime("%Y-%m-%dT%H:%M")
+        except Exception as err:
+            erro = err
+        
+    contexto = {
+        "voo": voo,
+        "erro": erro        
+    }
+    return render(request, "Administrar/ConsultaVoo.html", contexto)
 
 
 @login_required

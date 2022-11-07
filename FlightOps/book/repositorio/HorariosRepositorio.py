@@ -4,10 +4,10 @@ from book.models import Voo, Rota, Estado, Horarios, Voo_Estado
 from datetime import datetime
 
 def cria_horarios(data_chegada_previsao_str, horario_chegada_previsao_str, data_partida_previsao_str, horario_partida_previsao_str, ):
-    chegada_previsao_str = data_chegada_previsao_str + " " + horario_chegada_previsao_str
-    partida_previsao_str = data_partida_previsao_str + " " + horario_partida_previsao_str
-    chegada_previsao = datetime.strptime(chegada_previsao_str, '%Y-%m-%d %H:%M')
-    partida_previsao = datetime.strptime(partida_previsao_str, '%Y-%m-%d %H:%M')
+    chegada_previsao_str = data_chegada_previsao_str + "T" + horario_chegada_previsao_str
+    partida_previsao_str = data_partida_previsao_str + "T" + horario_partida_previsao_str
+    chegada_previsao = datetime.strptime(chegada_previsao_str, '%Y-%m-%dT%H:%M')
+    partida_previsao = datetime.strptime(partida_previsao_str, '%Y-%m-%dT%H:%M')
 
     objeto = Horarios.objects.create(
         partida_previsao=partida_previsao,

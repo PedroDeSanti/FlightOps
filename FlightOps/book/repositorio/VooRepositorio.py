@@ -16,15 +16,8 @@ def cria_voo(codigo_de_voo, rota, horarios, estado):
     
     return voo
 
-# def obtem_voo():
-#     rota = obtem_rota()
-#     estado_atual = obtem_estado()
-#     horarios = obtem_horarios()
-
-#     return Voo.objects.get(
-#         codigo_de_voo="AZCBJ3",
-#         rota=rota,
-#         estado_atual=estado_atual,
-#         horarios=horarios,
-#     )
-#     )
+def obtem_voo(codigo_voo):
+    
+    return Voo.objects.filter(
+        codigo_de_voo=codigo_voo,
+    ).last()

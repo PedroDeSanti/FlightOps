@@ -27,7 +27,6 @@ urlpatterns = [
     path('administrar/atualizar/', views.atualizarVoo),
     path('administrar/atualizar/codigoDeVoo', views.informarCodigoDeVoo),
     path('administrar/consultar/', views.consultarVoo),
-    path('administrar/consultar/codigoDeVoo', views.informarCodigoDeVoo),
     path('administrar/remover/', views.removerVoo),
     path('administrar/remover/confirmarRemocao', views.confirmarRemocaoVoo),
     path('administrar/remover/codigoDeVoo', views.informarCodigoDeVoo),
