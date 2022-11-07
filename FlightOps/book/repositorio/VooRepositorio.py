@@ -96,3 +96,15 @@ def filtra_voos(codigo_de_voo, companhia_aerea, nome_estado, aeroporto_origem, a
             horarios__partida_previsao__lte=partida_superior
         )
     return voos
+
+def obtem_estados_voo(voo):
+    estados = Voo_Estado.objects.filter(voo__id=voo.id).order_by('estado__data_atualizacao').all()
+    return estados
+
+def obtem_data_estado(voo, nome_estado):
+    estados = Voo_Estado.objects.filter(voo__id=voo.id, estado__nome=nome_estado).all()
+    if len(estados)==0:
+        return ""
+    else:
+        return estados[0].estado.data_atualizacao.strftime('%d/%m/%Y %H:%M')
+    
