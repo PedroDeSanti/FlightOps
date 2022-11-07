@@ -28,8 +28,6 @@ urlpatterns = [
     path('administrar/consultar/', views.consultarVoo),
     path('administrar/remover/', views.removerVoo),
     path('monitorar/', views.monitorarVoos),
-    path('monitorar/voo/', views.atualizarEstadoVoo),
-    path('monitorar/atualizado/', views.verVooAtualizado),
     path('relatorio/', views.gerarRelatorios),
     path('relatorio/pdf', views.visualizarRelatorios),
     path('accounts/', include('django.contrib.auth.urls'))

@@ -15,6 +15,11 @@
     <div class="jumbotron">
         <div class="container">
             <br />
+            {% if sucesso %}
+            <div class="alert alert-success" role="alert">
+                Voo atualizado com sucesso!
+            </div>
+            {% endif %} 
             {% if erro %}
                 <div class="alert alert-danger" role="alert">
                 {{erro}}
@@ -275,8 +280,8 @@
                       <th>{{voo.rota.aeroporto_destino}}</th>
                       <th>{{voo.horarios.partida_previsao|date:"d/m/Y H:i"}}</th>
                       <th>{{voo.horarios.chegada_previsao|date:"d/m/Y H:i"}}</th>
-                      <th>{{voo.horarios.partida_real}}</th>
-                      <th>{{voo.horarios.chegada_real}}</th>
+                      <th>{{voo.horarios.partida_real|date:"d/m/Y H:i"}}</th>
+                      <th>{{voo.horarios.chegada_real|date:"d/m/Y H:i"}}</th>
                     </tr>
                   {% endfor %}
                 </tbody>

@@ -7,7 +7,7 @@ from fpdf import FPDF
 from book.repositorio.HorariosRepositorio import cria_horarios  
 from book.repositorio.RotasRepositorio import cria_rota
 from book.repositorio.EstadoRepositorio import cria_estado
-from book.repositorio.VooRepositorio import cria_voo, obtem_voo, obtem_todos_voos, atualiza_voo, obtem_voo_por_id, remover_voo
+from book.repositorio.VooRepositorio import cria_voo, obtem_voo, obtem_todos_voos, atualiza_voo, obtem_voo_por_id, remover_voo, atualiza_estado
 
 
 # Create your views here.
@@ -170,15 +170,16 @@ def removerVoo(request):
     erro = None
     sucesso = False 
     
-    print("aqui")
+    
     if request.method == "POST":
         print("aqui")
         if "deletar_voo" in request.POST:
-            
-            voo_deletado = obtem_voo_por_id(request.POST["id"])
-            remover_voo(voo_deletado)
-            sucesso=True                 
-
+            try:
+                voo_deletado = obtem_voo_por_id(request.POST["id"])
+                remover_voo(voo_deletado)
+                sucesso=True                 
+            except Exception as err:
+                erro = err
         else:
             try:
                 voo = obtem_voo(
@@ -209,19 +210,55 @@ def removerVoo(request):
 @login_required
 @permission_required('auth.monitorarvoo')
 def monitorarVoos(request):
-    return render(request, "Monitorar/MonitoracaoVoos.html")
+    todas_opcoes = {
+        "Inicial": ["Embarcando", "Cancelado"],
+        "Embarcando": ["Programado"],
+        "Programado": ["Taxiando"],
+        "Taxiando": ["Pronto"],
+        "Pronto": ["Autorizado"],
+        "Autorizado": ["Voando"],
+        "Voando": ["Aterrissado"] 
+    }
+    todos_voos = obtem_todos_voos()
+    voo = None
+    erro = None
+    sucesso = False 
+    opcoes = None
+    
+    
+    if request.method == "POST":
+        if "search_codigo_voo" in request.POST:
+            try:
+                voo = obtem_voo(
+                    request.POST["codigo_de_voo"],
+                )
+                if voo == None:
+                    raise Exception("Insira um código de voo válido")
+                opcoes=todas_opcoes[voo.estado_atual.nome]
+            except Exception as err:
+                erro = err                 
 
+        else:
+            try:
+                print("aqui")
+                voo_atualizado = obtem_voo_por_id(request.POST["id"])
+                estado = cria_estado(
+                    request.POST["nome_estado"]
+                )
+                atualiza_estado(voo_atualizado, estado)
+                sucesso=True
+            except Exception as err:
+                erro = err
+    
+    contexto = {
+        "voo": voo,
+        "erro": erro,
+        "voos": todos_voos,
+        "sucesso": sucesso,
+        "opcoes": opcoes
+    }
 
-@login_required
-@permission_required('auth.monitorarvoo')
-def atualizarEstadoVoo(request):
-    return render(request, 'Monitorar/AtualizarEstadoVoo.html')
-
-
-@login_required
-@permission_required('auth.monitorarvoo')
-def verVooAtualizado(request):
-    return render(request, 'Monitorar/EstadoAtualizado.html')
+    return render(request, "Monitorar/MonitoracaoVoos.html", contexto)
 
 
 # Gerar Relatorios

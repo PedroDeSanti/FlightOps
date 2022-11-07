@@ -16,16 +16,19 @@ def cria_horarios(data_chegada_previsao_str, horario_chegada_previsao_str, data_
     )
     return objeto
 
-def obtem_horarios():
-    return Horarios.objects.get(
-        partida_previsao=datetime(2022, 7, 23, 12, 53, 11, tzinfo=timezone.utc),
-        chegada_previsao=datetime(2022, 7, 23, 18, 42, 16, tzinfo=timezone.utc),
-        partida_real=datetime(2022, 7, 23, 13, 10, 23, tzinfo=timezone.utc),
-        chegada_real=datetime(2022, 7, 23, 19, 21, 35, tzinfo=timezone.utc)
-    )
-
 def atualiza_horarios(horarios, chegada_previsao, partida_previsao):
     horarios.partida_previsao = partida_previsao
     horarios.chegada_previsao = chegada_previsao
 
     horarios.save()
+    return 
+
+def preenche_horario_partida_real(horarios):
+    horarios.partida_real=datetime.now()
+    horarios.save()
+    return
+
+def preenche_horario_chegada_real(horarios):
+    horarios.chegada_real=datetime.now()
+    horarios.save()
+    return 

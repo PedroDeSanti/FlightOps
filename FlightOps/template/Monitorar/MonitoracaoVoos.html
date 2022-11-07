@@ -9,36 +9,135 @@
     <a class="nav-link" href="/relatorio/">Relatórios</a>
 </li>
 
-{% endblock navbar %}{% block content %}
+{% endblock navbar %} {% block content %}
 
 <main role="main">
     <div class="jumbotron">
         <div class="container">
-            <h2 style="font-weight: 300">Informe o código de voo:</h2>
-            <form style="width: 80%; height: 100%">
-                <div class="mb-5 container">
-                    <label for="inputCodigoVooRelatorio" class="form-label">
-                        Código de Voo
-                    </label>
-                    <input
-                        type="text"
-                        class="form-control form-control-lg"
-                        placeholder="ABC0123"
-                        value="ABC0123"
-                        id="inputCodigoVooRelatorio"
-                        style="max-width: 25%"
-                    />
+            <br />
+            {% if sucesso %}
+            <div class="alert alert-success" role="alert">
+                Voo atualizado com sucesso!
+            </div>
+            {% endif %} 
+            {% if erro %}
+                <div class="alert alert-danger" role="alert">
+                {{erro}}
+                </div>
+            {% endif %} 
+            <br />
+            {% if voo %}
+            <h2 style="font-weight: 300">
+                Selecione o novo estado do voo {{voo.codigo_de_voo}}
+            </h2>
+            <br />
+            <form action="/monitorar/" method="POST" style="width: 80%; height: 100%">
+                <input
+                    readonly
+                    hidden
+                    type="text"
+                    name="id"
+                    value={{voo.id}}
+                />
+                {% csrf_token %}
+                <div class="mb-3 container">
+                    <div class="row">
+                        <div class="col">
+                            <select
+                                required
+                                class="form-control"
+                                aria-label="Estado do Voo Select"
+                                name="nome_estado"
+                                id="inputEstadoVooRelatorio"
+                            >
+                                
+                                {% for estado in opcoes %}
+                                    <option value={{estado}}>{{estado}}</option>
+                                {% endfor %}
+                                
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-primary button">Alterar estado</button>
                 </div>
                 <div>
-                    <a
-                        class="btn btn-secondary button"
-                        href="/monitorar/voo"
-                        role="button"
-                    >
-                        Monitorar Voo
+                    <a class="btn btn-secondary button" href="/" role="button">
+                        Retornar
                     </a>
                 </div>
             </form>
+            {% endif %} 
+            {% if not voo %}
+            <h2 style="font-weight: 300">
+                Informe os dados do voo que deseja Monitorar
+            </h2>
+            <form action="/monitorar/" method="POST" style="width: 80%; height: 100%">
+                {% csrf_token %}
+                <div class="mb-3 container">
+                    <div class="row">
+                        <div class="col">
+                            <label
+                                for="inputCodigoVooMonitorar"
+                                class="form-label"
+                            >
+                                Código de Voo
+                            </label>
+                            <input
+                                required
+                                type="text"
+                                class="form-control"
+                                name="codigo_de_voo"
+                                id="inputCodigoVooMonitorar"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" name="search_codigo_voo" class="btn btn-primary button">Monitorar voo</button>
+                </div>
+                <div>
+                    <a class="btn btn-secondary button" href="/" role="button">
+                        Retornar
+                    </a>
+                </div>
+            </form>
+
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>Código de voo</th>
+                    <th>Companhia aerea</th>
+                    <th>Status</th>
+                    <th>Origem</th>
+                    <th>Conexoes</th>
+                    <th>Destino</th>
+                    <th>Partida Prevista</th>
+                    <th>Chegada Prevista</th>
+                    <th>Partida Real</th>
+                    <th>Chegada Real</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for voo in voos %}
+                    <tr>
+                      <th>{{voo.codigo_de_voo}}</th>
+                      <th>{{voo.companhia_aerea}}</th>
+                      <th>{{voo.estado_atual.nome}}</th>
+                      <th>{{voo.rota.aeroporto_origem}}</th>
+                      <th>{{voo.rota.conexoes}}</th>
+                      <th>{{voo.rota.aeroporto_destino}}</th>
+                      <th>{{voo.horarios.partida_previsao|date:"d/m/Y H:i"}}</th>
+                      <th>{{voo.horarios.chegada_previsao|date:"d/m/Y H:i"}}</th>
+                      <th>{{voo.horarios.partida_real|date:"d/m/Y H:i"}}</th>
+                      <th>{{voo.horarios.chegada_real|date:"d/m/Y H:i"}}</th>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            {% endif %}
         </div>
     </div>
 </main>

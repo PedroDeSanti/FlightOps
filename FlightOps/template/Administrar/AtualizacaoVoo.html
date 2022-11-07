@@ -223,8 +223,8 @@
                       <th>{{voo.rota.aeroporto_destino}}</th>
                       <th>{{voo.horarios.partida_previsao|date:"d/m/Y H:i"}}</th>
                       <th>{{voo.horarios.chegada_previsao|date:"d/m/Y H:i"}}</th>
-                      <th>{{voo.horarios.partida_real}}</th>
-                      <th>{{voo.horarios.chegada_real}}</th>
+                      <th>{{voo.horarios.partida_real|date:"d/m/Y H:i"}}</th>
+                      <th>{{voo.horarios.chegada_real|date:"d/m/Y H:i"}}</th>
                     </tr>
                   {% endfor %}
                 </tbody>
