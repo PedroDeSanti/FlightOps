@@ -46,6 +46,22 @@
                                 id="fieldCodigoVooConsultar"
                             />
                         </div>
+                        <div class="col">
+                            <label
+                                for="inputCompanhiaAereaConsultar"
+                                class="form-label"
+                            >
+                                Companhia Aérea
+                            </label>
+                            <input
+                                readonly
+                                type="text"
+                                class="form-control"
+                                name="companhia_aerea"
+                                value={{voo.companhia_aerea}}
+                                id="inputCompanhiaAereaConsultar"
+                            />
+                        </div>
                     </div>
                 </div>
 
@@ -66,7 +82,7 @@
                         </div>
 
                         <div class="col">
-                            <label for="fieldDestinoConsultar" class="form-label">
+                            <label for="fieldConexoesConsultar" class="form-label">
                                 Conexoes
                             </label>
                             <input
@@ -74,7 +90,7 @@
                                 type="text"
                                 class="form-control"
                                 name="conexoes"
-                                value={{voo.rota.conexoes}}
+                                value={{voo.rota.conexoes|default:"Nenhuma" }}
                                 id="fieldConexoesConsultar"
                             />
                         </div>
@@ -202,6 +218,7 @@
                 <thead class="thead-dark">
                   <tr>
                     <th>Código de voo</th>
+                    <th>Companhia aerea</th>
                     <th>Status</th>
                     <th>Origem</th>
                     <th>Conexoes</th>
@@ -216,6 +233,7 @@
                   {% for voo in voos %}
                     <tr>
                       <th>{{voo.codigo_de_voo}}</th>
+                      <th>{{voo.companhia_aerea}}</th>
                       <th>{{voo.estado_atual.nome}}</th>
                       <th>{{voo.rota.aeroporto_origem}}</th>
                       <th>{{voo.rota.conexoes}}</th>

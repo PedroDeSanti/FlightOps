@@ -34,6 +34,7 @@ class Horarios(models.Model):
 class Voo(models.Model):
     id = models.AutoField(primary_key=True)
     codigo_de_voo = models.CharField(max_length=10, null=False)
+    companhia_aerea = models.CharField(max_length=10, null=False)
     estado_atual = models.ForeignKey(Estado, on_delete=models.CASCADE)
     rota = models.ForeignKey(Rota, on_delete=models.CASCADE)
     horarios = models.ForeignKey(Horarios, on_delete=models.CASCADE)

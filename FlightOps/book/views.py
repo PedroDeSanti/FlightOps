@@ -62,6 +62,7 @@ def cadastrarVoo(request):
 
             voo = cria_voo(
                 request.POST["codigo_de_voo"],
+                request.POST["companhia_aerea"],
                 rota, 
                 horarios,
                 estado
