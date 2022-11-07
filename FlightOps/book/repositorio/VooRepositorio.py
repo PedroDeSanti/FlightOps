@@ -41,3 +41,6 @@ def atualiza_voo(voo, codigo_de_voo, companhia_aerea, aeroporto_origem, conexoes
     atualiza_rota(voo.rota, aeroporto_origem, conexoes, aeroporto_destino)
     atualiza_horarios(voo.horarios, chegada_previsao, partida_previsao)
     voo.save()
+
+def remover_voo(voo):
+    voo.delete()

@@ -15,47 +15,273 @@
     <div class="jumbotron">
         <div class="container">
             <br />
+            {% if erro %}
+                <div class="alert alert-danger" role="alert">
+                {{erro}}
+                </div>
+            {% endif %} 
+            <br />
+            {% if voo %}
             <h2 style="font-weight: 300">
-                Por favor confira se o voo abaixo é o que você deseja remover
+                Deseja remover o voo:
             </h2>
             <br />
-            <table>
-                <tr>
-                    <th>Código de Voo</th>
-                    <th>Origem</th>
-                    <th>Conexões</th>
-                    <th>Destino</th>
-                    <th colspan="2">Previsão de Partida</th>
-                    <th colspan="2">Previsão de Chegada</th>
-                </tr>
-                <tr>
-                    <td>ABC0123</td>
-                    <td>POA</td>
-                    <td>GRU</td>
-                    <td>SSA</td>
-                    <td>11/11/2022</td>
-                    <td>23:58</td>
-                    <td>12/11/2022</td>
-                    <td>08:03</td>
-                </tr>
-            </table>
-            <br />
-            <br />
+            <form style="width: 80%; height: 100%">
+                {% csrf_token %}
+                <div class="mb-3 container">
+                    <div class="row">
+                        <div class="col">
+                            <label
+                                for="fieldCodigoVooRemover"
+                                class="form-label"
+                            >
+                                Código de Voo
+                            </label>
+                            <input
+                                readonly
+                                type="text"
+                                class="form-control"
+                                name="codigo_de_voo"
+                                value={{voo.codigo_de_voo}}
+                                id="fieldCodigoVooRemover"
+                            />
+                        </div>
+                        <div class="col">
+                            <label
+                                for="inputCompanhiaAereaRemover"
+                                class="form-label"
+                            >
+                                Companhia Aérea
+                            </label>
+                            <input
+                                readonly
+                                type="text"
+                                class="form-control"
+                                name="companhia_aerea"
+                                value={{voo.companhia_aerea}}
+                                id="inputCompanhiaAereaRemover"
+                            />
+                        </div>
+                    </div>
+                </div>
 
-            <div>
-                <a
-                    class="btn btn-secondary button vermelho"
-                    href="confirmarRemocao"
-                    role="button"
-                >
-                    Remover Voo
-                </a>
+                <div class="mb-3 container">
+                    <div class="row">
+                        <div class="col">
+                            <label for="fieldOrigemRemover" class="form-label">
+                                Origem
+                            </label>
+                            <input
+                                readonly
+                                type="text"
+                                class="form-control"
+                                name="aeroporto_origem"
+                                value={{voo.rota.aeroporto_origem}}
+                                id="fieldOrigemRemover"
+                            />
+                        </div>
+
+                        <div class="col">
+                            <label for="fieldConexoesRemover" class="form-label">
+                                Conexoes
+                            </label>
+                            <input
+                                readonly
+                                type="text"
+                                class="form-control"
+                                name="conexoes"
+                                value={{voo.rota.conexoes|default:"&nbsp" }}
+                                id="fieldConexoesRemover"
+                            />
+                        </div>
+
+                        <div class="col">
+                            <label for="fieldDestinoRemover" class="form-label">
+                                Destino
+                            </label>
+                            <input
+                                readonly
+                                type="text"
+                                class="form-control"
+                                name="aeroporto_destino"
+                                value={{voo.rota.aeroporto_destino}}
+                                id="fieldDestinoRemover"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3 container">
+                    <div class="row">
+                        <div class="col">
+                            <label for="fieldDataPartidaRemover" class="form-label">
+                                Partida Previsão
+                            </label>
+                            <input
+                                readonly
+                                type="datetime-local"
+                                class="form-control"
+                                name="data_partida_previsao"
+                                value={{voo.horarios.partida_previsao}}
+                                id="fieldDataPartidaRemover"
+                            />
+                        </div>
+                        <div class="col">
+                            <label for="fieldDataChegadaRemover" class="form-label">
+                                Chegada Previsao
+                            </label>
+                            <input
+                                readonly
+                                type="datetime-local"
+                                class="form-control"
+                                name="data_chegada_previsao"
+                                value={{voo.horarios.chegada_previsao}}
+                                id="fieldDataChegadaRemover"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3 container">
+                    <div class="row">
+                        <div class="col">
+                            <label for="fieldDataPartidaRealRemover" class="form-label">
+                                Partida Real
+                            </label>
+                            <input
+                                readonly
+                                type="datetime-local"
+                                class="form-control"
+                                name="data_partida_previsao"
+                                value={{voo.horarios.partida_real}}
+                                id="fieldDataPartidaRealRemover"
+                            />
+                        </div>
+                        <div class="col">
+                            <label for="fieldDataChegadaRealRemover" class="form-label">
+                                Chegada Real
+                            </label>
+                            <input
+                                readonly
+                                type="datetime-local"
+                                class="form-control"
+                                name="data_chegada_previsao"
+                                value={{voo.horarios.chegada_real}}
+                                id="fieldDataChegadaRealRemover"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-danger button" data-toggle="modal" data-target="#confirmacaoRemocaoVooModal">
+                        Remover
+                    </button>
+                </div>
+                <div>
+                    <a class="btn btn-secondary button" href="/" role="button">
+                        Retornar
+                    </a>
+                </div>
+            </form>
+            <!-- Modal -->
+            <div class="modal fade" id="confirmacaoRemocaoVooModal" tabindex="-1" aria-labelledby="confirmacaoRemocaoVooModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Remover voo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    Deseja mesmo remover o voo?
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <form action="/administrar/remover/" method="POST">
+                        {% csrf_token %}
+                        <input
+                            readonly
+                            hidden
+                            type="text"
+                            name="id"
+                            value={{voo.id}}
+                        />
+                        <button type="submit" name="deletar_voo" class="btn btn-danger">Remover</button>
+                    </form>
+                    </div>
+                </div>
+                </div>
             </div>
-            <div>
-                <a class="btn btn-secondary button" href=".." role="button">
-                    Retornar
-                </a>
-            </div>
+            {% endif %} 
+            {% if not voo %}
+            <h2 style="font-weight: 300">
+                Informe os dados do voo que deseja Remover
+            </h2>
+            <form action="/administrar/remover/" method="POST" style="width: 80%; height: 100%">
+                {% csrf_token %}
+                <div class="mb-3 container">
+                    <div class="row">
+                        <div class="col">
+                            <label
+                                for="inputCodigoVooRemover"
+                                class="form-label"
+                            >
+                                Código de Voo
+                            </label>
+                            <input
+                                required
+                                type="text"
+                                class="form-control"
+                                name="codigo_de_voo"
+                                id="inputCodigoVooRemover"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-danger button">Remover voo</button>
+                </div>
+                <div>
+                    <a class="btn btn-secondary button" href="/" role="button">
+                        Retornar
+                    </a>
+                </div>
+            </form>
+
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>Código de voo</th>
+                    <th>Companhia aerea</th>
+                    <th>Status</th>
+                    <th>Origem</th>
+                    <th>Conexoes</th>
+                    <th>Destino</th>
+                    <th>Partida Prevista</th>
+                    <th>Chegada Prevista</th>
+                    <th>Partida Real</th>
+                    <th>Chegada Real</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for voo in voos %}
+                    <tr>
+                      <th>{{voo.codigo_de_voo}}</th>
+                      <th>{{voo.companhia_aerea}}</th>
+                      <th>{{voo.estado_atual.nome}}</th>
+                      <th>{{voo.rota.aeroporto_origem}}</th>
+                      <th>{{voo.rota.conexoes}}</th>
+                      <th>{{voo.rota.aeroporto_destino}}</th>
+                      <th>{{voo.horarios.partida_previsao|date:"d/m/Y H:i"}}</th>
+                      <th>{{voo.horarios.chegada_previsao|date:"d/m/Y H:i"}}</th>
+                      <th>{{voo.horarios.partida_real}}</th>
+                      <th>{{voo.horarios.chegada_real}}</th>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            {% endif %}
         </div>
     </div>
 </main>

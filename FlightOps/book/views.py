@@ -7,7 +7,7 @@ from fpdf import FPDF
 from book.repositorio.HorariosRepositorio import cria_horarios  
 from book.repositorio.RotasRepositorio import cria_rota
 from book.repositorio.EstadoRepositorio import cria_estado
-from book.repositorio.VooRepositorio import cria_voo, obtem_voo, obtem_todos_voos, atualiza_voo, obtem_voo_por_id
+from book.repositorio.VooRepositorio import cria_voo, obtem_voo, obtem_todos_voos, atualiza_voo, obtem_voo_por_id, remover_voo
 
 
 # Create your views here.
@@ -153,7 +153,7 @@ def consultarVoo(request):
             voo.horarios.chegada_real= None if voo.horarios.chegada_real == None else voo.horarios.chegada_real.strftime("%Y-%m-%dT%H:%M")
         except Exception as err:
             erro = err
-        
+
     contexto = {
         "voo": voo,
         "erro": erro,
@@ -165,19 +165,43 @@ def consultarVoo(request):
 @login_required
 @permission_required('auth.administrarvoo')
 def removerVoo(request):
-    return render(request, "Administrar/RemocaoVoo.html")
+    todos_voos = obtem_todos_voos()
+    voo = None
+    erro = None
+    sucesso = False 
+    
+    print("aqui")
+    if request.method == "POST":
+        print("aqui")
+        if "deletar_voo" in request.POST:
+            
+            voo_deletado = obtem_voo_por_id(request.POST["id"])
+            remover_voo(voo_deletado)
+            sucesso=True                 
+
+        else:
+            try:
+                voo = obtem_voo(
+                    request.POST["codigo_de_voo"],
+                )
+                if voo == None:
+                    raise Exception("Insira um código de voo válido")
+                voo.horarios.partida_previsao=voo.horarios.partida_previsao.strftime("%Y-%m-%dT%H:%M")
+                voo.horarios.chegada_previsao=voo.horarios.chegada_previsao.strftime("%Y-%m-%dT%H:%M")
+                voo.horarios.partida_real= None if voo.horarios.partida_real == None else voo.horarios.partida_real.strftime("%Y-%m-%dT%H:%M")
+                voo.horarios.chegada_real= None if voo.horarios.chegada_real == None else voo.horarios.chegada_real.strftime("%Y-%m-%dT%H:%M")
+            except Exception as err:
+                erro = err
+    
+    contexto = {
+        "voo": voo,
+        "erro": erro,
+        "voos": todos_voos,
+        "sucesso": sucesso
+    }
+    return render(request, "Administrar/RemocaoVoo.html", contexto)
 
 
-@login_required
-@permission_required('auth.administrarvoo')
-def confirmarRemocaoVoo(request):
-    return render(request, "Administrar/confirmarRemocaoVoo.html")
-
-
-@login_required
-@permission_required('auth.administrarvoo')
-def informarCodigoDeVoo(request):
-    return render(request, "Administrar/InformarCodigoDeVoo.html")
 
 # Monitorar Voos
 
