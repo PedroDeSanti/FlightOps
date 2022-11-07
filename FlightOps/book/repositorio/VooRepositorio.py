@@ -21,3 +21,7 @@ def obtem_voo(codigo_voo):
     return Voo.objects.filter(
         codigo_de_voo=codigo_voo,
     ).last()
+
+def obtem_todos_voos():
+    
+    return Voo.objects.all()

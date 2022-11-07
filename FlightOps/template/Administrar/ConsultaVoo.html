@@ -107,7 +107,6 @@
                                 class="form-control"
                                 name="data_partida_previsao"
                                 value={{voo.horarios.partida_previsao}}
-                                value="2017-06-01T08:30"
                                 id="fieldDataPartidaConsultar"
                             />
                         </div>
@@ -198,6 +197,37 @@
                     </a>
                 </div>
             </form>
+
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>Código de voo</th>
+                    <th>Status</th>
+                    <th>Origem</th>
+                    <th>Conexoes</th>
+                    <th>Destino</th>
+                    <th>Partida Prevista</th>
+                    <th>Chegada Prevista</th>
+                    <th>Partida Real</th>
+                    <th>Chegada Real</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for voo in voos %}
+                    <tr>
+                      <th>{{voo.codigo_de_voo}}</th>
+                      <th>{{voo.estado_atual.nome}}</th>
+                      <th>{{voo.rota.aeroporto_origem}}</th>
+                      <th>{{voo.rota.conexoes}}</th>
+                      <th>{{voo.rota.aeroporto_destino}}</th>
+                      <th>{{voo.horarios.partida_previsao|date:"d/m/Y H:i"}}</th>
+                      <th>{{voo.horarios.chegada_previsao|date:"d/m/Y H:i"}}</th>
+                      <th>{{voo.horarios.partida_real}}</th>
+                      <th>{{voo.horarios.chegada_real}}</th>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
             {% endif %}
         </div>
     </div>

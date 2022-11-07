@@ -7,7 +7,7 @@ from fpdf import FPDF
 from book.repositorio.HorariosRepositorio import cria_horarios  
 from book.repositorio.RotasRepositorio import cria_rota
 from book.repositorio.EstadoRepositorio import cria_estado
-from book.repositorio.VooRepositorio import cria_voo, obtem_voo
+from book.repositorio.VooRepositorio import cria_voo, obtem_voo, obtem_todos_voos
 
 
 # Create your views here.
@@ -87,6 +87,7 @@ def atualizarVoo(request):
 @login_required
 @permission_required('auth.administrarvoo')
 def consultarVoo(request):
+    todos_voos = obtem_todos_voos()
     voo = None
     erro = None 
     
@@ -106,7 +107,8 @@ def consultarVoo(request):
         
     contexto = {
         "voo": voo,
-        "erro": erro        
+        "erro": erro,
+        "voos": todos_voos
     }
     return render(request, "Administrar/ConsultaVoo.html", contexto)
 
