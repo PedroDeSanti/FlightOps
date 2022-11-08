@@ -1,120 +1,184 @@
-{% load static %}
+{% extends "html_base.html" %} {% block navbar %}
+<li class="nav-item active">
+    <a class="nav-link" href="/administrar/"> Administração </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/monitorar/">Monitoração</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/relatorio/">Relatórios</a>
+</li>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
-        <link
-            rel="icon"
-            href="https://yt3.ggpht.com/ytc/AMLnZu80FStsJ8x_OVaY9chU1OiJna80kKBJTPpF5Vwb4w=s900-c-k-c0x00ffffff-no-rj"
-        />
-        <link
-            rel="stylesheet"
-            href="{% static 'bootstrap/css/bootstrap.min.css' %}"
-        />
-        <title>Cadastrar Voo | FlightOps</title>
-        <style>
-            button {
-                border-radius: 10px;
-                background-color: #cecccc;
-            }
-        </style>
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="/">FlightOps</a>
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarsExampleDefault"
-                aria-controls="navbarsExampleDefault"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
+{% endblock navbar %} {% block content %}
 
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/administrar/">
-                            Administração
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/monitorar/">Monitoração</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/relatorio/">Relatórios</a>
-                    </li>
-                </ul>
+<main role="main">
+    <div class="jumbotron">
+        <div class="container">
+            {% if voo %}
+            <div class="alert alert-success" role="alert">
+                Voo criado com sucesso!
             </div>
-        </nav>
-        <main role="main">
-            <div class="jumbotron">
-                <div class="container">
-                    <br />
-                    <h2 style="font-weight: 300">
-                        Insira abaixo as informações do voo
-                    </h2>
-                    <br />
-                    Código de Voo <input type="text" placeholder="ABC0123" />
-                    <br />
-                    <br />
-                    Rota entre origem e destino
-                    <ul>
-                        <li>Origem: <input type="text" placeholder="POA" /></li>
-                        <li>
-                            Conexões: <input type="text" placeholder="GRU" />
-                        </li>
-                        <li>
-                            Destino: <input type="text" placeholder="SSA" />
-                        </li>
-                    </ul>
-                    <br />
-                    Partida
-                    <ul>
-                        <li>
-                            Data Prevista
-                            <input type="date" placeholder="2022-11-11" />
-                        </li>
-                        <li>
-                            Horário Previsto
-                            <input type="time" placeholder="23:58" />
-                        </li>
-                    </ul>
-                    <br />
-                    Chegada
-                    <ul>
-                        <li>
-                            Data Prevista
-                            <input type="date" placeholder="2022-11-12" />
-                        </li>
-                        <li>
-                            Horário Previsto
-                            <input type="time" placeholder="08:03" />
-                        </li>
-                    </ul>
-                    <br />
-                    <a href="..">
-                        <button class="button">Cadastrar Voo</button>
-                    </a>
-
-                    <br />
-                    <br />
-                    <a href=".."><button class="button">Retornar</button></a>
+            {% endif %} 
+            {% if erro %}
+                <div class="alert alert-danger" role="alert">
+                {{erro}}
                 </div>
-            </div>
-        </main>
+            {% endif %} 
+            <br />
+            <h2 style="font-weight: 300">
+                Insira abaixo as informações do voo
+            </h2>
+            <br />
+            <form action="/administrar/cadastrar/" method = "POST" style="width: 80%; height: 100%">
+                {% csrf_token %}
+                <div class="mb-3 container">
+                    <div class="row">
+                        <div class="col">
+                            <label
+                                for="inputCodigoVooCadastrar"
+                                class="form-label"
+                            >
+                                Código de Voo
+                            </label>
+                            <input
+                                required
+                                type="text"
+                                class="form-control"
+                                name="codigo_de_voo"
+                                id="inputCodigoVooCadastrar"
+                            />
+                        </div>
+                        <div class="col">
+                            <label
+                                for="inputCompanhiaAereaCadastrar"
+                                class="form-label"
+                            >
+                                Companhia Aérea
+                            </label>
+                            <input
+                                required
+                                type="text"
+                                class="form-control"
+                                name="companhia_aerea"
+                                id="inputCompanhiaAereaCadastrar"
+                            />
+                        </div>
+                    </div>
+                </div>
 
-        <!-- <footer class="container">
-            <p>© FlightOps 2022</p>
-        </footer> -->
-    </body>
-</html>
+                <div class="mb-3 container">
+                    <div class="row">
+                        <div class="col">
+                            <label for="inputOrigemCadastrar" class="form-label">
+                                Origem
+                            </label>
+                            <input
+                                required
+                                type="text"
+                                class="form-control"
+                                name="aeroporto_origem"
+                                id="inputOrigemCadastrar"
+                            />
+                        </div>
+
+                        <div class="col">
+                            <label for="inputDestinoCadastrar" class="form-label">
+                                Conexoes
+                            </label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="conexoes"
+                                id="inputConexoesCadastrar"
+                            />
+                        </div>
+
+                        <div class="col">
+                            <label for="inputDestinoCadastrar" class="form-label">
+                                Destino
+                            </label>
+                            <input
+                                required
+                                type="text"
+                                class="form-control"
+                                name="aeroporto_destino"
+                                id="inputDestinoCadastrar"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3 container">
+                    <div class="row">
+                        <div class="col">
+                            <label for="inputDataPartidaCadastrar" class="form-label">
+                                Data Partida Previsão
+                            </label>
+                            <input
+                                required
+                                type="date"
+                                class="form-control"
+                                name="data_partida_previsao"
+                                id="inputDataPartidaCadastrar"
+                            />
+                        </div>
+
+                        <div class="col">
+                            <label for="inputHorarioPartidaCadastrar" class="form-label">
+                                Horário Partida Previsao
+                            </label>
+                            <input
+                                required
+                                type="time"
+                                class="form-control"
+                                name="horario_partida_previsao"
+                                id="inputHorarioPartidaCadastrar"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3 container">
+                    <div class="row">
+                        <div class="col">
+                            <label for="inputDataPartidaCadastrar" class="form-label">
+                                Data Chegada Previsao
+                            </label>
+                            <input
+                                required
+                                type="date"
+                                class="form-control"
+                                name="data_chegada_previsao"
+                                id="inputDataPartidaCadastrar"
+                            />
+                        </div>
+                        <div class="col">
+                            <label for="inputHorarioChegadaCadastrar" class="form-label">
+                                Horário Chegada Previsao
+                            </label>
+                            <input
+                                required
+                                type="time"
+                                class="form-control"
+                                name="horario_chegada_previsao"
+                                id="inputHorarioChegadaCadastrar"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary button">Cadastrar voo</button>
+                </div>
+                <div>
+                    <a class="btn btn-secondary button" href="/" role="button">
+                        Retornar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+
+
+{% endblock content %}

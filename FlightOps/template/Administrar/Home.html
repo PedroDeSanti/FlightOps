@@ -1,100 +1,77 @@
-{% load static %}
+{% extends "html_base.html" %} {% block navbar %}
+<li class="nav-item active">
+    <a class="nav-link" href="/administrar/"> Administração </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/monitorar/">Monitoração</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/relatorio/">Relatórios</a>
+</li>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
-        <link
-            rel="icon"
-            href="https://yt3.ggpht.com/ytc/AMLnZu80FStsJ8x_OVaY9chU1OiJna80kKBJTPpF5Vwb4w=s900-c-k-c0x00ffffff-no-rj"
-        />
-        <link
-            rel="stylesheet"
-            href="{% static 'bootstrap/css/bootstrap.min.css' %}"
-        />
-        <title>CRUD | FlightOps</title>
-        <style>
-            button {
-                margin: 10px 10%;
-                border-radius: 10px;
-                background-color: #cecccc;
-            }
-        </style>
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="/">FlightOps</a>
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarsExampleDefault"
-                aria-controls="navbarsExampleDefault"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
+{% endblock navbar %} {% block content %}
 
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/administrar/">
-                            Administração
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/monitorar/">Monitoração</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/relatorio/">Relatórios</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <main role="main">
-            <div class="jumbotron">
-                <div class="container">
-                    <br />
-                    <h2>Selecione a opção que você deseja acessar:</h2>
-                    <br />
-                    <div>
-                        <a href="cadastrar">
-                            <button class="button">Cadastrar Novo Voo</button>
-                        </a>
-
-                        <br />
-                        <a href="consultar/codigoDeVoo">
-                            <button class="button">Consultar Voo</button>
-                        </a>
-
-                        <br />
-                        <a href="atualizar/codigoDeVoo">
-                            <button class="button">Atualizar Voo</button>
-                        </a>
-
-                        <br />
-                        <a href="remover/codigoDeVoo"
-                            ><button class="button">Remover Voo</button>
-                        </a>
-
-                        <br />
-                        <br />
-                        <a href="/"
-                            ><button class="button">Retornar</button>
-                        </a>
-                    </div>
+<main role="main">
+    <div class="jumbotron">
+        <div class="container">
+            <br />
+            <h2 style="font-weight: 300">
+                Selecione a opção que você deseja acessar:
+            </h2>
+            <br />
+            <div>
+                <div>
+                    <a
+                        class="btn btn-primary button"
+                        href="cadastrar"
+                        role="button"
+                    >
+                        Cadastrar Novo Voo
+                    </a>
+                </div>
+                <div>
+                    <a
+                        class="btn btn-primary button"
+                        style="margin: 10px 10px; width: 200px"
+                        href="consultar"
+                        role="button"
+                    >
+                        Consultar Voo
+                    </a>
+                </div>
+                <div>
+                    <a
+                        class="btn btn-primary button"
+                        style="margin: 10px 10px; width: 200px"
+                        href="atualizar"
+                        role="button"
+                    >
+                        Atualizar Voo
+                    </a>
+                </div>
+                <div>
+                    <a
+                        class="btn btn-primary button"
+                        style="margin: 10px 10px; width: 200px"
+                        href="remover"
+                        role="button"
+                    >
+                        Remover Voo
+                    </a>
+                </div>
+                <div>
+                    <a
+                        class="btn btn-secondary button"
+                        style="margin: 10px 10px; width: 200px"
+                        href=".."
+                        role="button"
+                    >
+                        Retornar
+                    </a>
                 </div>
             </div>
-        </main>
+        </div>
+    </div>
+</main>
 
-        <!-- <footer class="container">
-            <p>© FlightOps 2022</p>
-        </footer> -->
-    </body>
-</html>
+{% endblock content %}

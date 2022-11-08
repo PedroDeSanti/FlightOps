@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.utils import timezone
 from book.models import Voo, Rota, Estado, Horarios, Voo_Estado
 from datetime import datetime
+from django.core.management import call_command
 
 def cria_rota(conexoes = 'GRU'):
     Rota.objects.create(
@@ -20,15 +21,13 @@ def obtem_rota(conexoes='GRU'):
 
 def cria_estado(nome='Taxiando'):
     Estado.objects.create(
-        nome=nome,
-        data_atualizacao=datetime(2022, 7, 23, 12, 53, 11, tzinfo=timezone.utc)
+        nome=nome
     )
     return 
     
 def obtem_estado(nome='Taxiando'):
     return Estado.objects.get(
-        nome=nome,
-        data_atualizacao=datetime(2022, 7, 23, 12, 53, 11, tzinfo=timezone.utc)
+        nome=nome
     )
 
 def cria_horarios():
@@ -60,6 +59,7 @@ def cria_voo():
     
     Voo.objects.create(
         codigo_de_voo="AZCBJ3",
+        companhia_aerea="GOL",
         rota=rota,
         estado_atual=estado_atual,
         horarios=horarios,
@@ -196,3 +196,47 @@ class Voo_EstadoModelTest(TestCase):
         voo_estado_1 = Voo_Estado.objects.get(voo=voo)
         voo_estado_1.delete()
         self.assertEqual(Voo_Estado.objects.count(),0)
+
+
+class ViewsTest(TestCase):
+    @classmethod
+    def setUp(self):
+        call_command("createusers")
+        
+    
+    def testViewAdministrar(self):
+        login = self.client.login(username='dev', password='senha')    
+        response = self.client.get('/administrar/')        
+        self.assertEqual(response.status_code, 200)
+
+    def testViewAdministrarCadastrar(self):    
+        login = self.client.login(username='dev', password='senha')
+        response = self.client.get('/administrar/cadastrar/')        
+        self.assertEqual(response.status_code, 200)
+
+    def testViewAdministrarAtualizar(self):    
+        login = self.client.login(username='dev', password='senha')
+        response = self.client.get('/administrar/atualizar/')        
+        self.assertEqual(response.status_code, 200)
+
+    def testViewAdministrarConsultar(self):    
+        login = self.client.login(username='dev', password='senha')
+        response = self.client.get('/administrar/consultar/')        
+        self.assertEqual(response.status_code, 200)
+
+    def testViewAdministrarRemover(self):    
+        login = self.client.login(username='dev', password='senha')
+        response = self.client.get('/administrar/remover/')        
+        self.assertEqual(response.status_code, 200)
+
+    def testViewMonitorar(self):    
+        login = self.client.login(username='dev', password='senha')
+        response = self.client.get('/monitorar/')        
+        self.assertEqual(response.status_code, 200)
+
+    def testViewRelatorio(self):    
+        login = self.client.login(username='dev', password='senha')
+        response = self.client.get('/relatorio/')        
+        self.assertEqual(response.status_code, 200)
+
+    

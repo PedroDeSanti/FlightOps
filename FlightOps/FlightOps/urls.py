@@ -25,16 +25,10 @@ urlpatterns = [
     path('administrar/', views.administrarVoos),
     path('administrar/cadastrar/', views.cadastrarVoo),
     path('administrar/atualizar/', views.atualizarVoo),
-    path('administrar/atualizar/codigoDeVoo', views.informarCodigoDeVoo),
     path('administrar/consultar/', views.consultarVoo),
-    path('administrar/consultar/codigoDeVoo', views.informarCodigoDeVoo),
     path('administrar/remover/', views.removerVoo),
-    path('administrar/remover/confirmarRemocao', views.confirmarRemocaoVoo),
-    path('administrar/remover/codigoDeVoo', views.informarCodigoDeVoo),
     path('monitorar/', views.monitorarVoos),
-    path('monitorar/voo/', views.atualizarEstadoVoo),
-    path('monitorar/atualizado/', views.verVooAtualizado),
     path('relatorio/', views.gerarRelatorios),
-    path('relatorio/pdf', views.visualizarRelatorios),
+    path('relatorio/pdf/', views.visualizarRelatorios),
     path('accounts/', include('django.contrib.auth.urls'))
 ]
