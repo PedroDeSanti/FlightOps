@@ -1,35 +1,32 @@
-{% extends "registration/base.html" %}
+{% extends "registration/base.html" %} {% block content %}
 
-{% block content %}
-
+<div class="login-form">
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>{{ form.username.label_tag }}</td>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.password.label_tag }}</td>
+                <td>{{ form.password }}</td>
+            </tr>
+        </table>
+        <input type="submit" value="login" />
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+</div>
+<div>
     {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
+    <p>Sua senha está incorreta. Por favor, verifique-a e tente novamente.</p>
+    {% endif %} {% if user.is_authenticated %}
+    <p>
+        Sua conta não possui permissão para acessar esta página. Por favor,
+        realize o login com uma conta que apresente esta permissão.
+    </p>
+    {% else %}
+    <p>Por favor realize o login para acessar a ferramenta.</p>
     {% endif %}
-
-    {% if next %}
-        {% if user.is_authenticated %}
-        <p>Your account doesn't have access to this page. To proceed,
-        please login with an account that has access.</p>
-        {% else %}
-        <p>Please login to see this page.</p>
-        {% endif %}
-    {% endif %}
-
-    <div class="login-form">
-        <form method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-            <table>
-                <tr>
-                    <td>{{ form.username.label_tag }}</td>
-                    <td>{{ form.username }}</td>
-                </tr>
-                <tr>
-                    <td>{{ form.password.label_tag }}</td>
-                    <td>{{ form.password }}</td>
-                </tr>
-                </table>
-            <input type="submit" value="login">
-            <input type="hidden" name="next" value="{{ next }}">
-        </form>
-    </div>
+</div>
 {% endblock content %}
