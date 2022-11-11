@@ -1,14 +1,17 @@
-from django.utils import timezone
-from book.models import Estado
 from datetime import datetime
+
+from book.models import Estado
+from django.utils import timezone
+
 
 def cria_estado(nome):
     objeto = Estado.objects.create(
         nome=nome
     )
 
-    return objeto 
-    
+    return objeto
+
+
 def obtem_estado(nome='Taxiando'):
     return Estado.objects.get(
         nome=nome,

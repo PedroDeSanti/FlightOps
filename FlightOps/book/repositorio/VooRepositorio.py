@@ -1,6 +1,9 @@
 from book.models import Voo, Voo_Estado
+from book.repositorio.HorariosRepositorio import (
+    atualiza_horarios, preenche_horario_chegada_real,
+    preenche_horario_partida_real)
 from book.repositorio.RotasRepositorio import atualiza_rota
-from book.repositorio.HorariosRepositorio import atualiza_horarios, preenche_horario_chegada_real, preenche_horario_partida_real
+
 
 def cria_voo(codigo_de_voo, companhia_aerea, rota, horarios, estado):
      
