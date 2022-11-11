@@ -8,7 +8,9 @@
 <li class="nav-item">
     <a class="nav-link" href="/relatorio/">Relatórios</a>
 </li>
-
+<li class="nav-item">
+    <a class="nav-link" href="/painel/">Painel</a>
+</li>
 {% endblock navbar %} {% block content %}
 
 <main role="main">
@@ -18,18 +20,19 @@
             <div class="alert alert-success" role="alert">
                 Voo criado com sucesso!
             </div>
-            {% endif %} 
-            {% if erro %}
-                <div class="alert alert-danger" role="alert">
-                {{erro}}
-                </div>
-            {% endif %} 
+            {% endif %} {% if erro %}
+            <div class="alert alert-danger" role="alert">{{erro}}</div>
+            {% endif %}
             <br />
             <h2 style="font-weight: 300">
                 Insira abaixo as informações do voo
             </h2>
             <br />
-            <form action="/administrar/cadastrar/" method = "POST" style="width: 80%; height: 100%">
+            <form
+                action="/administrar/cadastrar/"
+                method="POST"
+                style="width: 80%; height: 100%"
+            >
                 {% csrf_token %}
                 <div class="mb-3 container">
                     <div class="row">
@@ -69,7 +72,10 @@
                 <div class="mb-3 container">
                     <div class="row">
                         <div class="col">
-                            <label for="inputOrigemCadastrar" class="form-label">
+                            <label
+                                for="inputOrigemCadastrar"
+                                class="form-label"
+                            >
                                 Origem
                             </label>
                             <input
@@ -82,7 +88,10 @@
                         </div>
 
                         <div class="col">
-                            <label for="inputDestinoCadastrar" class="form-label">
+                            <label
+                                for="inputDestinoCadastrar"
+                                class="form-label"
+                            >
                                 Conexoes
                             </label>
                             <input
@@ -94,7 +103,10 @@
                         </div>
 
                         <div class="col">
-                            <label for="inputDestinoCadastrar" class="form-label">
+                            <label
+                                for="inputDestinoCadastrar"
+                                class="form-label"
+                            >
                                 Destino
                             </label>
                             <input
@@ -111,7 +123,10 @@
                 <div class="mb-3 container">
                     <div class="row">
                         <div class="col">
-                            <label for="inputDataPartidaCadastrar" class="form-label">
+                            <label
+                                for="inputDataPartidaCadastrar"
+                                class="form-label"
+                            >
                                 Data Partida Previsão
                             </label>
                             <input
@@ -124,7 +139,10 @@
                         </div>
 
                         <div class="col">
-                            <label for="inputHorarioPartidaCadastrar" class="form-label">
+                            <label
+                                for="inputHorarioPartidaCadastrar"
+                                class="form-label"
+                            >
                                 Horário Partida Previsao
                             </label>
                             <input
@@ -141,7 +159,10 @@
                 <div class="mb-3 container">
                     <div class="row">
                         <div class="col">
-                            <label for="inputDataPartidaCadastrar" class="form-label">
+                            <label
+                                for="inputDataPartidaCadastrar"
+                                class="form-label"
+                            >
                                 Data Chegada Previsao
                             </label>
                             <input
@@ -153,7 +174,10 @@
                             />
                         </div>
                         <div class="col">
-                            <label for="inputHorarioChegadaCadastrar" class="form-label">
+                            <label
+                                for="inputHorarioChegadaCadastrar"
+                                class="form-label"
+                            >
                                 Horário Chegada Previsao
                             </label>
                             <input
@@ -167,7 +191,9 @@
                     </div>
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-primary button">Cadastrar voo</button>
+                    <button type="submit" class="btn btn-primary button">
+                        Cadastrar voo
+                    </button>
                 </div>
                 <div>
                     <a class="btn btn-secondary button" href="/" role="button">
@@ -178,7 +204,5 @@
         </div>
     </div>
 </main>
-
-
 
 {% endblock content %}

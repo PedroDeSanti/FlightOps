@@ -1,0 +1,59 @@
+{% extends "html_base.html" %} {% block navbar %}
+<li class="nav-item">
+    <a class="nav-link" href="/administrar/"> Administração </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/monitorar/">Monitoração</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/relatorio/">Relatórios</a>
+</li>
+<li class="nav-item active">
+    <a class="nav-link" href="/painel/">Painel</a>
+</li>
+{% endblock navbar %} {% block content %}
+
+<main role="main">
+    <div class="jumbotron">
+        <div class="container">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Código de voo</th>
+                        <th>Companhia aerea</th>
+                        <th>Status</th>
+                        <th>Origem</th>
+                        <th>Conexoes</th>
+                        <th>Destino</th>
+                        <th>Partida Prevista</th>
+                        <th>Chegada Prevista</th>
+                        <th>Partida Real</th>
+                        <th>Chegada Real</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for voo in voos %}
+                    <tr>
+                        <th>{{voo.codigo_de_voo}}</th>
+                        <th>{{voo.companhia_aerea}}</th>
+                        <th>{{voo.estado_atual.nome}}</th>
+                        <th>{{voo.rota.aeroporto_origem}}</th>
+                        <th>{{voo.rota.conexoes}}</th>
+                        <th>{{voo.rota.aeroporto_destino}}</th>
+                        <th>
+                            {{voo.horarios.partida_previsao|date:"d/m/Y H:i"}}
+                        </th>
+                        <th>
+                            {{voo.horarios.chegada_previsao|date:"d/m/Y H:i"}}
+                        </th>
+                        <th>{{voo.horarios.partida_real|date:"d/m/Y H:i"}}</th>
+                        <th>{{voo.horarios.chegada_real|date:"d/m/Y H:i"}}</th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+{% endblock content %}

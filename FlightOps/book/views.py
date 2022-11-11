@@ -260,6 +260,17 @@ def monitorarVoos(request):
     return render(request, "Monitorar/MonitoracaoVoos.html", contexto)
 
 
+@login_required
+def visualizarPainel(request):
+
+    todos_voos = obtem_todos_voos()
+
+    contexto = {
+        "voos": todos_voos,
+    }
+
+    return render(request, "Monitorar/Painel.html", contexto)
+
 # Gerar Relatorios
 @login_required
 @permission_required('auth.gerarrelatorio')
