@@ -20,7 +20,11 @@
                 Preencha os filtros desejados para gerar o relatório
             </h2>
             <br />
-            <form action="/relatorio/pdf/" method="POST" style="width: 80%; height: 100%">
+            <form
+                action="/relatorio/pdf/"
+                method="POST"
+                style="width: 80%; height: 100%"
+            >
                 {% csrf_token %}
                 <div class="mb-3 container">
                     <div class="row">
@@ -69,6 +73,7 @@
                                 <option selected value="">
                                     Selecione um estado
                                 </option>
+                                <option value="Inicial">Inicial</option>
                                 <option value="Embarcando">Embarcando</option>
                                 <option value="Cancelado">Cancelado</option>
                                 <option value="Programado">Programado</option>
@@ -85,7 +90,10 @@
                 <div class="mb-3 container">
                     <div class="row">
                         <div class="col">
-                            <label for="inputOrigemRelatorio" class="form-label">
+                            <label
+                                for="inputOrigemRelatorio"
+                                class="form-label"
+                            >
                                 Origem
                             </label>
                             <input
@@ -135,7 +143,7 @@
                                 for="inputDataPartidaSuperiorRelatorio"
                                 class="form-label"
                             >
-                            Data partida: limite superior
+                                Data partida: limite superior
                             </label>
                             <input
                                 type="datetime-local"
@@ -150,21 +158,28 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-check">
-                                <input name="detalhes" type="checkbox" class="form-check-input" id="detalhesRelatorio">
-                                <label class="form-check-label" for="detalhesRelatorio">Desejo imprimir relatório com mais detalhes</label>
+                                <input
+                                    name="detalhes"
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    id="detalhesRelatorio"
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="detalhesRelatorio"
+                                    >Desejo imprimir relatório com mais
+                                    detalhes</label
+                                >
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
                 <div>
-                    <button
-                        type="submit"
-                        class="btn btn-primary button"
-                    >
+                    <button type="submit" class="btn btn-primary button">
                         Gerar Relatório
                     </button>
                 </div>
-            <div>
+                <div>
                     <a class="btn btn-secondary button" href="/" role="button">
                         Retornar
                     </a>

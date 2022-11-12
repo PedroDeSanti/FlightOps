@@ -127,65 +127,31 @@
                                 for="inputDataPartidaCadastrar"
                                 class="form-label"
                             >
-                                Data Partida Previsão
+                                Partida Previsão
                             </label>
                             <input
                                 required
-                                type="date"
+                                type="datetime-local"
                                 class="form-control"
                                 name="data_partida_previsao"
+                                value="{{voo.horarios.partida_previsao}}"
                                 id="inputDataPartidaCadastrar"
                             />
                         </div>
-
                         <div class="col">
                             <label
-                                for="inputHorarioPartidaCadastrar"
+                                for="inputDataChegadaCadastrar"
                                 class="form-label"
                             >
-                                Horário Partida Previsao
+                                Chegada Previsao
                             </label>
                             <input
                                 required
-                                type="time"
-                                class="form-control"
-                                name="horario_partida_previsao"
-                                id="inputHorarioPartidaCadastrar"
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-3 container">
-                    <div class="row">
-                        <div class="col">
-                            <label
-                                for="inputDataPartidaCadastrar"
-                                class="form-label"
-                            >
-                                Data Chegada Previsao
-                            </label>
-                            <input
-                                required
-                                type="date"
+                                type="datetime-local"
                                 class="form-control"
                                 name="data_chegada_previsao"
-                                id="inputDataPartidaCadastrar"
-                            />
-                        </div>
-                        <div class="col">
-                            <label
-                                for="inputHorarioChegadaCadastrar"
-                                class="form-label"
-                            >
-                                Horário Chegada Previsao
-                            </label>
-                            <input
-                                required
-                                type="time"
-                                class="form-control"
-                                name="horario_chegada_previsao"
-                                id="inputHorarioChegadaCadastrar"
+                                value="{{voo.horarios.chegada_previsao}}"
+                                id="inputDataChegadaCadastrar"
                             />
                         </div>
                     </div>
@@ -196,7 +162,7 @@
                     </button>
                 </div>
                 <div>
-                    <a class="btn btn-secondary button" href="/" role="button">
+                    <a class="btn btn-secondary button" href="/administrar" role="button">
                         Retornar
                     </a>
                 </div>
