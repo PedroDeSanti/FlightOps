@@ -1,32 +1,30 @@
-from datetime import datetime
-
-from book.gerador_relatorio.GeraRelatorio import (
-    gera_relatorio_mais_detalhes, gera_relatorio_menos_detalhes)
+from book.gerador_relatorio.GeraRelatorio import gera_relatorio_mais_detalhes, gera_relatorio_menos_detalhes
 from book.repositorio.EstadoRepositorio import cria_estado
-from book.repositorio.HorariosRepositorio import cria_horarios
-from book.repositorio.RotasRepositorio import cria_rota
-from book.repositorio.VooRepositorio import (atualiza_estado, atualiza_voo,
-                                             cria_voo, filtra_voos,
-                                             obtem_todos_voos, obtem_voo,
-                                             obtem_voo_por_id, remover_voo)
-from django.conf import LazySettings
+from book.repositorio.HorariosRepositorio import cria_horarios_previstos, atualiza_horarios_previstos, gera_str_horarios
+from book.repositorio.RotasRepositorio import cria_rota, atualiza_rota
+from book.repositorio.VooRepositorio import (
+    atualiza_estado, atualiza_dados_voo,
+    cria_voo, filtra_voos,
+    obtem_todos_voos, obtem_voo,
+    obtem_voo_por_id, remover_voo
+)
 from django.contrib.auth.decorators import login_required, permission_required
-from django.http import FileResponse
+from django.http import FileResponse, HttpRequest
 from django.shortcuts import render
 
 # Create your views here.
 
 
-def bookview(request):
+def bookview(request: HttpRequest):
     return render(request, "FIRST.html")
 
 
-def login(request):
+def login(request: HttpRequest):
     return render(request, "registration/login.html")
 
 
 @login_required
-def home(request):
+def home(request: HttpRequest):
     return render(request, "HomePage.html")
 
 
@@ -34,23 +32,21 @@ def home(request):
 
 @login_required
 @permission_required('auth.administrarvoo')
-def administrarVoos(request):
+def administrarVoos(request: HttpRequest):
     return render(request, "Administrar/Home.html")
 
 
 @login_required
 @permission_required('auth.administrarvoo')
-def cadastrarVoo(request):
+def cadastrarVoo(request: HttpRequest):
     voo = None
     erro = None
 
     if request.method == "POST":
         try:
-            horarios = cria_horarios(
+            horarios = cria_horarios_previstos(
                 request.POST["data_chegada_previsao"],
-                request.POST["horario_chegada_previsao"],
                 request.POST["data_partida_previsao"],
-                request.POST["horario_partida_previsao"]
             )
 
             rota = cria_rota(
@@ -59,9 +55,7 @@ def cadastrarVoo(request):
                 request.POST["conexoes"]
             )
 
-            estado = cria_estado(
-                "Inicial"
-            )
+            estado = cria_estado("Inicial")
 
             voo = cria_voo(
                 request.POST["codigo_de_voo"],
@@ -83,52 +77,47 @@ def cadastrarVoo(request):
 
 @login_required
 @permission_required('auth.administrarvoo')
-def atualizarVoo(request):
+def atualizarVoo(request: HttpRequest):
     todos_voos = obtem_todos_voos()
     voo = None
     erro = None
     sucesso = None
 
     if request.method == "POST":
+        # Ainda não pesquisou
         if "search_codigo_voo" in request.POST:
             try:
-                voo = obtem_voo(
-                    request.POST["codigo_de_voo"],
-                )
+                voo = obtem_voo(request.POST["codigo_de_voo"])
 
                 if voo == None:
                     raise Exception("Insira um código de voo válido")
-                voo.horarios.partida_previsao = voo.horarios.partida_previsao.strftime(
-                    "%Y-%m-%dT%H:%M")
-                voo.horarios.chegada_previsao = voo.horarios.chegada_previsao.strftime(
-                    "%Y-%m-%dT%H:%M")
-                voo.horarios.partida_real = None if voo.horarios.partida_real == None else voo.horarios.partida_real.strftime(
-                    "%Y-%m-%dT%H:%M")
-                voo.horarios.chegada_real = None if voo.horarios.chegada_real == None else voo.horarios.chegada_real.strftime(
-                    "%Y-%m-%dT%H:%M")
+
+                voo.horarios = gera_str_horarios(voo.horarios)
+
             except Exception as err:
                 erro = err
 
         else:
             try:
                 voo_atualizado = obtem_voo_por_id(request.POST["id"])
-                chegada_previsao_str = request.POST["data_chegada_previsao"]
-                partida_previsao_str = request.POST["data_partida_previsao"]
-                chegada_previsao = datetime.strptime(
-                    chegada_previsao_str, '%Y-%m-%dT%H:%M')
-                partida_previsao = datetime.strptime(
-                    partida_previsao_str, '%Y-%m-%dT%H:%M')
-                atualiza_voo(
+                atualiza_dados_voo(
                     voo_atualizado,
                     request.POST["codigo_de_voo"],
                     request.POST["companhia_aerea"],
+                )
+                atualiza_rota(
+                    voo_atualizado.rota,
                     request.POST["aeroporto_origem"],
                     request.POST["conexoes"],
-                    request.POST["aeroporto_destino"],
-                    chegada_previsao,
-                    partida_previsao
+                    request.POST["aeroporto_destino"]
+                )
+                atualiza_horarios_previstos(
+                    voo_atualizado.horarios,
+                    request.POST["data_partida_previsao"],
+                    request.POST["data_chegada_previsao"]
                 )
                 sucesso = True
+
             except Exception as err:
                 erro = err
 
@@ -143,26 +132,21 @@ def atualizarVoo(request):
 
 @login_required
 @permission_required('auth.administrarvoo')
-def consultarVoo(request):
+def consultarVoo(request: HttpRequest):
     todos_voos = obtem_todos_voos()
     voo = None
     erro = None
 
+    # Ainda não pesquisou
     if request.method == "POST":
         try:
-            voo = obtem_voo(
-                request.POST["codigo_de_voo"],
-            )
+            voo = obtem_voo(request.POST["codigo_de_voo"])
+
             if voo == None:
                 raise Exception("Insira um código de voo válido")
-            voo.horarios.partida_previsao = voo.horarios.partida_previsao.strftime(
-                "%Y-%m-%dT%H:%M")
-            voo.horarios.chegada_previsao = voo.horarios.chegada_previsao.strftime(
-                "%Y-%m-%dT%H:%M")
-            voo.horarios.partida_real = None if voo.horarios.partida_real == None else voo.horarios.partida_real.strftime(
-                "%Y-%m-%dT%H:%M")
-            voo.horarios.chegada_real = None if voo.horarios.chegada_real == None else voo.horarios.chegada_real.strftime(
-                "%Y-%m-%dT%H:%M")
+
+            voo.horarios = gera_str_horarios(voo.horarios)
+
         except Exception as err:
             erro = err
 
@@ -176,14 +160,13 @@ def consultarVoo(request):
 
 @login_required
 @permission_required('auth.administrarvoo')
-def removerVoo(request):
+def removerVoo(request: HttpRequest):
     todos_voos = obtem_todos_voos()
     voo = None
     erro = None
     sucesso = False
 
     if request.method == "POST":
-        print("aqui")
         if "deletar_voo" in request.POST:
             try:
                 voo_deletado = obtem_voo_por_id(request.POST["id"])
@@ -193,19 +176,13 @@ def removerVoo(request):
                 erro = err
         else:
             try:
-                voo = obtem_voo(
-                    request.POST["codigo_de_voo"],
-                )
+                voo = obtem_voo(request.POST["codigo_de_voo"])
+
                 if voo == None:
                     raise Exception("Insira um código de voo válido")
-                voo.horarios.partida_previsao = voo.horarios.partida_previsao.strftime(
-                    "%Y-%m-%dT%H:%M")
-                voo.horarios.chegada_previsao = voo.horarios.chegada_previsao.strftime(
-                    "%Y-%m-%dT%H:%M")
-                voo.horarios.partida_real = None if voo.horarios.partida_real == None else voo.horarios.partida_real.strftime(
-                    "%Y-%m-%dT%H:%M")
-                voo.horarios.chegada_real = None if voo.horarios.chegada_real == None else voo.horarios.chegada_real.strftime(
-                    "%Y-%m-%dT%H:%M")
+
+                voo.horarios = gera_str_horarios(voo.horarios)
+
             except Exception as err:
                 erro = err
 
@@ -223,7 +200,7 @@ def removerVoo(request):
 
 @login_required
 @permission_required('auth.monitorarvoo')
-def monitorarVoos(request):
+def monitorarVoos(request: HttpRequest):
     todas_opcoes = {
         "Inicial": ["Embarcando", "Cancelado"],
         "Embarcando": ["Programado"],
@@ -242,24 +219,23 @@ def monitorarVoos(request):
     if request.method == "POST":
         if "search_codigo_voo" in request.POST:
             try:
-                voo = obtem_voo(
-                    request.POST["codigo_de_voo"],
-                )
+                voo = obtem_voo(request.POST["codigo_de_voo"])
+
                 if voo == None:
                     raise Exception("Insira um código de voo válido")
+
                 opcoes = todas_opcoes[voo.estado_atual.nome]
+
             except Exception as err:
                 erro = err
 
         else:
             try:
-                print("aqui")
                 voo_atualizado = obtem_voo_por_id(request.POST["id"])
-                estado = cria_estado(
-                    request.POST["nome_estado"]
-                )
+                estado = cria_estado(request.POST["nome_estado"])
                 atualiza_estado(voo_atualizado, estado)
                 sucesso = True
+
             except Exception as err:
                 erro = err
 
@@ -275,7 +251,7 @@ def monitorarVoos(request):
 
 
 @login_required
-def visualizarPainel(request):
+def visualizarPainel(request: HttpRequest):
 
     todos_voos = obtem_todos_voos()
 
@@ -290,31 +266,22 @@ def visualizarPainel(request):
 
 @login_required
 @permission_required('auth.gerarrelatorio')
-def gerarRelatorios(request):
+def gerarRelatorios(request: HttpRequest):
     return render(request, "GerarRelatorios/FiltroRelatorio.html")
 
 
 @login_required
 @permission_required('auth.gerarrelatorio')
-def visualizarRelatorios(request):
-    codigo_de_voo = request.POST["codigo_de_voo"] if request.POST["codigo_de_voo"] != "" else None
-    companhia_aerea = request.POST["companhia_aerea"] if request.POST["companhia_aerea"] != "" else None
-    nome_estado = request.POST["nome_estado"] if request.POST["nome_estado"] != "" else None
-    aeroporto_origem = request.POST["aeroporto_origem"] if request.POST["aeroporto_origem"] != "" else None
-    aeroporto_destino = request.POST["aeroporto_destino"] if request.POST["aeroporto_destino"] != "" else None
-    partida_inferior = request.POST["partida_inferior"] + \
-        "-03:00" if request.POST["partida_inferior"] != "" else None
-    partida_superior = request.POST["partida_superior"] + \
-        "-03:00" if request.POST["partida_superior"] != "" else None
+def visualizarRelatorios(request: HttpRequest):
 
     voos = filtra_voos(
-        codigo_de_voo,
-        companhia_aerea,
-        nome_estado,
-        aeroporto_origem,
-        aeroporto_destino,
-        partida_inferior,
-        partida_superior
+        request.POST["codigo_de_voo"],
+        request.POST["companhia_aerea"],
+        request.POST["nome_estado"],
+        request.POST["aeroporto_origem"],
+        request.POST["aeroporto_destino"],
+        request.POST["partida_inferior"],
+        request.POST["partida_superior"]
     )
 
     if "detalhes" in request.POST:
@@ -322,4 +289,5 @@ def visualizarRelatorios(request):
 
     else:
         gera_relatorio_menos_detalhes(voos)
+
     return FileResponse(open('relatorio.pdf', 'rb'), as_attachment=False, content_type='application/pdf')

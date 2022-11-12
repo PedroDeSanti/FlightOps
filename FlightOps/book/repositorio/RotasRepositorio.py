@@ -1,25 +1,18 @@
 from book.models import Rota
 
 
-def cria_rota(aeroporto_origem, aeroporto_destino, conexoes):
-    objeto = Rota.objects.create(
+def cria_rota(aeroporto_origem: str, aeroporto_destino: str, conexoes: str):
+    rota = Rota.objects.create(
         aeroporto_origem=aeroporto_origem,
         aeroporto_destino=aeroporto_destino,
         conexoes=conexoes
     )
-    return objeto
+    return rota
 
 
-def obtem_rota(conexoes='GRU'):
-    return Rota.objects.get(
-        aeroporto_origem='POA',
-        aeroporto_destino='SSA',
-        conexoes=conexoes
-    )
-
-
-def atualiza_rota(rota, aeroporto_origem, conexoes, aeroporto_destino):
+def atualiza_rota(rota: Rota, aeroporto_origem: str, conexoes: str, aeroporto_destino: str):
     rota.aeroporto_origem = aeroporto_origem
     rota.conexoes = conexoes
     rota.aeroporto_destino = aeroporto_destino
     rota.save()
+    return rota
