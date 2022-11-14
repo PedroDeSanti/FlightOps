@@ -1,7 +1,24 @@
+from book.repositorio.VooRepositorio import obtem_data_estado
 from fpdf import FPDF
-from book.repositorio.VooRepositorio import obtem_estados_voo, obtem_data_estado
-def gera_relatorio_menos_detalhes(voos):
-    pdf = FPDF('P', 'mm', 'A4')
+from book.models import Voo
+from datetime import datetime
+
+
+class PDF(FPDF):
+    def footer(self):
+        # Define fonte e cor (cinza)
+        self.set_font('courier', 'I', 11)
+        self.set_text_color(128)
+        # Posiciona o cursor a 1.5cm do final
+        self.set_y(-15)
+        # Adiciona célula contendo o número da página
+        self.cell(0, 10, 'Página ' + str(self.page_no()), 0, 0, 'C')
+        # Retorna a cor a preto
+        self.set_text_color(0)
+
+
+def gera_relatorio_menos_detalhes(voos: list[Voo]):
+    pdf = PDF('P', 'mm', 'A4')
     pdf.add_page(orientation="landscape")
     gera_cabecalho(pdf)
     pdf.set_font('courier', '', 11)
@@ -20,8 +37,9 @@ def gera_relatorio_menos_detalhes(voos):
     pdf.output('relatorio.pdf', 'F')
     return 
 
-def gera_relatorio_mais_detalhes(voos):
-    pdf = FPDF('P', 'mm', 'A4')
+
+def gera_relatorio_mais_detalhes(voos: list[Voo]):
+    pdf = PDF('P', 'mm', 'A4')
     pdf.add_page()
     gera_cabecalho(pdf)
 
