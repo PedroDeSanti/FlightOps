@@ -101,8 +101,10 @@ def obtem_estados_voo(voo: Voo):
 
 def obtem_data_estado(voo: Voo, nome_estado: Estado):
     estados = Voo_Estado.objects.filter(
-        voo__id=voo.id, estado__nome=nome_estado).all()
+        voo__id=voo.id,
+        estado__nome=nome_estado
+    ).all()
     if len(estados) == 0:
-        return ""
+        return None
     else:
-        return estados[0].estado.data_atualizacao.strftime('%d/%m/%Y %H:%M')
+        return estados[0].estado.data_atualizacao
