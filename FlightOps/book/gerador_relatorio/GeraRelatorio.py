@@ -20,22 +20,32 @@ class PDF(FPDF):
 def gera_relatorio_menos_detalhes(voos: list[Voo]):
     pdf = PDF('P', 'mm', 'A4')
     pdf.add_page(orientation="landscape")
-    gera_cabecalho(pdf)
-    pdf.set_font('courier', '', 11)
-    pdf.cell(
-        200, 8, f"{'Código'.ljust(10)} {'Companhia'.ljust(11)} {'Origem'.ljust(8)} {'Destino'.ljust(8)} {'Partida prevista'.ljust(18)} {'Chegada prevista'.ljust(18) } {'Partida real'.ljust(18)} {'Chegada real'.ljust(18)}", 0, 1)
-    pdf.line(10, 30, 285, 30)
-    pdf.line(10, 38, 285, 38)
+    gera_titulo_simples(pdf)
+    gera_cabeca_tabela_simples(pdf)
+
+    # define corpo da tabela
     for voo in voos:
-        partida_previsao = voo.horarios.partida_previsao.strftime('%d/%m/%Y %H:%M')
-        chegada_previsao = voo.horarios.chegada_previsao.strftime('%d/%m/%Y %H:%M')
-        partida_real = voo.horarios.partida_real.strftime('%d/%m/%Y %H:%M') if voo.horarios.partida_real != None else ""
-        chegada_real = voo.horarios.chegada_real.strftime('%d/%m/%Y %H:%M') if voo.horarios.chegada_real != None else ""
+        pdf.set_font('courier', '', 11)
+        partida_previsao = gera_str_datetime(voo.horarios.partida_previsao)
+        chegada_previsao = gera_str_datetime(voo.horarios.chegada_previsao)
+        partida_real = gera_str_datetime(voo.horarios.partida_real)
+        chegada_real = gera_str_datetime(voo.horarios.chegada_real)
         pdf.cell(
-        200, 8, f"{voo.codigo_de_voo.ljust(10)} {voo.companhia_aerea.ljust(11)} {voo.rota.aeroporto_origem.ljust(8)} {voo.rota.aeroporto_destino.ljust(8)} {partida_previsao.ljust(18)} {chegada_previsao.ljust(18) } {partida_real.ljust(18)} {chegada_real.ljust(18)}", 0, 1)
-        
+            200, 8, f"{voo.codigo_de_voo.ljust(10)} {voo.companhia_aerea.ljust(11)} {voo.rota.aeroporto_origem.ljust(8)} {voo.rota.aeroporto_destino.ljust(8)} {partida_previsao.ljust(18)} {chegada_previsao.ljust(18) } {partida_real.ljust(18)} {chegada_real.ljust(18)}", 0, 1)
+        if pdf.y + 8 > pdf.page_break_trigger:
+            pdf.add_page(orientation="landscape")
+            gera_cabeca_tabela_simples(pdf)
     pdf.output('relatorio.pdf', 'F')
-    return 
+    return
+
+
+def gera_cabeca_tabela_simples(pdf: FPDF):
+    pdf.set_font('courier', 'B', 11)
+    pdf.cell(
+        w=267, h=8,
+        txt=f"{'Código'.ljust(10)} {'Companhia'.ljust(11)} {'Origem'.ljust(8)} {'Destino'.ljust(8)} {'Partida prevista'.ljust(18)} {'Chegada prevista'.ljust(18) } {'Partida real'.ljust(18)} {'Chegada real'.ljust(18)}",
+        border="TB", ln=1
+    )
 
 
 def gera_relatorio_mais_detalhes(voos: list[Voo]):
@@ -76,7 +86,12 @@ def gera_relatorio_mais_detalhes(voos: list[Voo]):
     pdf.output('relatorio.pdf', 'F')
     return 
 
-def gera_cabecalho(pdf):
+
+def gera_titulo_simples(pdf: FPDF):
     pdf.set_font('courier', 'B', 18)
     pdf.cell(40, 10, 'Relatório de voos:', 0, 1)
-    pdf.cell(40, 10, '', 0, 1)
+    pdf.ln(10)
+
+
+def gera_str_datetime(data: datetime):
+    return "--:-- --/--/----" if data == None else data.strftime("%H:%M %d/%m/%Y")
