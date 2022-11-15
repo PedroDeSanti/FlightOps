@@ -7,15 +7,17 @@ from django.contrib.contenttypes.models import ContentType
 
 def create_user(username, email, password, permissions):
     # Create user and save to the database
-    user = User.objects.create_user(username, email, password)
-    for permission in permissions:
-        user.user_permissions.add(permission)
-    user.save()
+    user, created = User.objects.get_or_create(username=username, email=email)
+    if created:
+        user.set_password(password)
+        for permission in permissions:
+            user.user_permissions.add(permission)
+        user.save()
     return
 
 def create_permission(name, codename):
     content_type = ContentType.objects.get(app_label='auth', model='user')
-    permission = Permission.objects.create(name=name, codename=codename, content_type=content_type)
+    permission, created = Permission.objects.get_or_create(name=name, codename=codename, content_type=content_type)
     permission.save()
     return permission
 
