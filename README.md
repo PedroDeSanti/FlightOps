@@ -90,7 +90,9 @@ Esse comando realiza a criacao dos seguintes 4 usuarios:
 |Username|Password|Permissoes|
 |-----|--------|-------------|
 |usuario_1|senha_1| Administrar Voos|
-|usuario_2|senha_2| Monitorar Voos|
+|usuario_2_1|senha_2_1| Funcionários de companhias aéreas |
+|usuario_2_2|senha_2_2| Piloto |
+|usuario_2_3|senha_2_3| Torre de controle|
 |usuario_3|senha_3| Gerar Relatorios|
 |dev|senha| Todas permissoes|
 

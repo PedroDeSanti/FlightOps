@@ -242,6 +242,7 @@ def removerVoo(request: HttpRequest):
 @login_required
 @permission_required('auth.monitorarvoo')
 def monitorarVoos(request: HttpRequest):
+    user=request.user
     todas_opcoes = {
         "Inicial": ["Embarcando", "Cancelado"],
         "Embarcando": ["Programado"],
@@ -250,6 +251,16 @@ def monitorarVoos(request: HttpRequest):
         "Pronto": ["Autorizado"],
         "Autorizado": ["Voando"],
         "Voando": ["Aterrissado"]
+    }
+    permissoes= {
+        "Embarcando": "auth.funcionario",
+        "Cancelado": "auth.funcionario",
+        "Programado": "auth.funcionario",
+        "Taxiando": "auth.torre",
+        "Pronto": "auth.piloto",
+        "Autorizado": "auth.torre",
+        "Voando": "auth.piloto",
+        "Aterrissado": "auth.piloto"
     }
     todos_voos = obtem_todos_voos()
     voo = None
@@ -272,8 +283,13 @@ def monitorarVoos(request: HttpRequest):
 
         else:
             try:
+                novo_estado=request.POST["nome_estado"]
+                permissao_necessaria=permissoes[novo_estado]
+                if not user.has_perm(permissao_necessaria):
+                    raise Exception("Você não possui as permissões necessárias para alterar o estado do voo")
+
                 voo_atualizado = obtem_voo_por_id(request.POST["id"])
-                estado = cria_estado(request.POST["nome_estado"])
+                estado = cria_estado(novo_estado)
                 atualiza_estado(voo_atualizado, estado)
                 sucesso = True
 
