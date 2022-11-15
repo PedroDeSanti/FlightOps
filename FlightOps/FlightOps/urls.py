@@ -24,6 +24,8 @@ urlpatterns = [
     path('', views.home),
     path('administrar/', views.administrarVoos),
     path('administrar/cadastrar/', views.cadastrarVoo),
+    path('administrar/cadastrar/partida/', views.cadastrarPartida),
+    path('administrar/cadastrar/chegada/', views.cadastrarChegada),
     path('administrar/atualizar/', views.atualizarVoo),
     path('administrar/consultar/', views.consultarVoo),
     path('administrar/remover/', views.removerVoo),

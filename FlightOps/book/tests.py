@@ -1,5 +1,6 @@
 from datetime import datetime
-
+from django.http import HttpRequest
+from django.contrib.auth import authenticate
 from book.models import Estado, Horarios, Rota, Voo, Voo_Estado
 from django.core.management import call_command
 from django.test import TestCase
@@ -218,36 +219,43 @@ class ViewsTest(TestCase):
         call_command("createusers")
 
     def testViewAdministrar(self):
-        login = self.client.login(username='dev', password='senha')
+        request = HttpRequest()
+        self.client.login(request=request, username="dev", password="senha")
         response = self.client.get('/administrar/')
         self.assertEqual(response.status_code, 200)
 
     def testViewAdministrarCadastrar(self):
-        login = self.client.login(username='dev', password='senha')
+        request = HttpRequest()
+        self.client.login(request=request, username="dev", password="senha")
         response = self.client.get('/administrar/cadastrar/')
         self.assertEqual(response.status_code, 200)
 
     def testViewAdministrarAtualizar(self):
-        login = self.client.login(username='dev', password='senha')
+        request = HttpRequest()
+        self.client.login(request=request, username="dev", password="senha")
         response = self.client.get('/administrar/atualizar/')
         self.assertEqual(response.status_code, 200)
 
     def testViewAdministrarConsultar(self):
-        login = self.client.login(username='dev', password='senha')
+        request = HttpRequest()
+        self.client.login(request=request, username="dev", password="senha")
         response = self.client.get('/administrar/consultar/')
         self.assertEqual(response.status_code, 200)
 
     def testViewAdministrarRemover(self):
-        login = self.client.login(username='dev', password='senha')
+        request = HttpRequest()
+        self.client.login(request=request, username="dev", password="senha")
         response = self.client.get('/administrar/remover/')
         self.assertEqual(response.status_code, 200)
 
     def testViewMonitorar(self):
-        login = self.client.login(username='dev', password='senha')
+        request = HttpRequest()
+        self.client.login(request=request, username="dev", password="senha")
         response = self.client.get('/monitorar/')
         self.assertEqual(response.status_code, 200)
 
     def testViewRelatorio(self):
-        login = self.client.login(username='dev', password='senha')
+        request = HttpRequest()
+        self.client.login(request=request, username="dev", password="senha")
         response = self.client.get('/relatorio/')
         self.assertEqual(response.status_code, 200)

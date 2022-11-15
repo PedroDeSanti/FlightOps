@@ -1,0 +1,175 @@
+{% extends "html_base.html" %} {% block navbar %}
+<li class="nav-item active">
+    <a class="nav-link" href="/administrar/"> Administração </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/monitorar/">Monitoração</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/relatorio/">Relatórios</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="/painel/">Painel</a>
+</li>
+{% endblock navbar %} {% block content %}
+
+<main role="main">
+    <div class="jumbotron">
+        <div class="container">
+            {% if voo %}
+            <div class="alert alert-success" role="alert">
+                Voo criado com sucesso!
+            </div>
+            {% endif %} {% if erro %}
+            <div class="alert alert-danger" role="alert">{{erro}}</div>
+            {% endif %}
+            <br />
+            <h2 style="font-weight: 300">
+                Insira abaixo as informações do voo
+            </h2>
+            <br />
+            <form
+                action="/administrar/cadastrar/partida/"
+                method="POST"
+                style="width: 80%; height: 100%"
+            >
+                {% csrf_token %}
+                <div class="mb-3 container">
+                    <div class="row">
+                        <div class="col">
+                            <label
+                                for="inputCodigoVooCadastrar"
+                                class="form-label"
+                            >
+                                Código de Voo
+                            </label>
+                            <input
+                                required
+                                type="text"
+                                class="form-control"
+                                name="codigo_de_voo"
+                                id="inputCodigoVooCadastrar"
+                            />
+                        </div>
+                        <div class="col">
+                            <label
+                                for="inputCompanhiaAereaCadastrar"
+                                class="form-label"
+                            >
+                                Companhia Aérea
+                            </label>
+                            <input
+                                required
+                                type="text"
+                                class="form-control"
+                                name="companhia_aerea"
+                                id="inputCompanhiaAereaCadastrar"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3 container">
+                    <div class="row">
+                        <div class="col">
+                            <label
+                                for="inputOrigemCadastrar"
+                                class="form-label"
+                            >
+                                Origem
+                            </label>
+                            <input
+                                required
+                                type="text"
+                                class="form-control"
+                                name="aeroporto_origem"
+                                id="inputOrigemCadastrar"
+                            />
+                        </div>
+
+                        <div class="col">
+                            <label
+                                for="inputDestinoCadastrar"
+                                class="form-label"
+                            >
+                                Conexoes
+                            </label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="conexoes"
+                                id="inputConexoesCadastrar"
+                            />
+                        </div>
+
+                        <div class="col">
+                            <label
+                                for="inputDestinoCadastrar"
+                                class="form-label"
+                            >
+                                Destino
+                            </label>
+                            <input
+                                readonly
+                                value="VCP"
+                                type="text"
+                                class="form-control"
+                                name="aeroporto_destino"
+                                id="inputDestinoCadastrar"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3 container">
+                    <div class="row">
+                        <div class="col">
+                            <label
+                                for="inputDataPartidaCadastrar"
+                                class="form-label"
+                            >
+                                Partida Previsão
+                            </label>
+                            <input
+                                required
+                                type="datetime-local"
+                                class="form-control"
+                                name="data_partida_previsao"
+                                value="{{voo.horarios.partida_previsao}}"
+                                id="inputDataPartidaCadastrar"
+                            />
+                        </div>
+                        <div class="col">
+                            <label
+                                for="inputDataChegadaCadastrar"
+                                class="form-label"
+                            >
+                                Chegada Previsao
+                            </label>
+                            <input
+                                required
+                                type="datetime-local"
+                                class="form-control"
+                                name="data_chegada_previsao"
+                                value="{{voo.horarios.chegada_previsao}}"
+                                id="inputDataChegadaCadastrar"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary button">
+                        Cadastrar voo
+                    </button>
+                </div>
+                <div>
+                    <a class="btn btn-secondary button" href="/administrar" role="button">
+                        Retornar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+{% endblock content %}

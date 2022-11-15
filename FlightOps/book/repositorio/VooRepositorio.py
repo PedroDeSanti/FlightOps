@@ -19,6 +19,7 @@ def cria_voo(codigo_de_voo: str, companhia_aerea: str, rota: Rota, horarios: Hor
         voo=voo,
         estado=estado
     )
+    print("aqui")
 
     return voo
 
@@ -34,6 +35,11 @@ def obtem_voo_por_id(id: int):
 def obtem_todos_voos():
     return Voo.objects.all()
 
+def obtem_partidas():
+    return Voo.objects.filter(rota__aeroporto_origem="VCP").all()
+
+def obtem_chegadas():
+    return Voo.objects.filter(rota__aeroporto_destino="VCP").all()
 
 def atualiza_dados_voo(voo: Voo, codigo_de_voo: str, companhia_aerea: str):
     voo.codigo_de_voo = codigo_de_voo

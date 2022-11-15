@@ -5,6 +5,7 @@ from book.repositorio.RotasRepositorio import cria_rota, atualiza_rota
 from book.repositorio.VooRepositorio import (
     atualiza_estado, atualiza_dados_voo,
     cria_voo, filtra_voos,
+    obtem_chegadas, obtem_partidas,
     obtem_todos_voos, obtem_voo,
     obtem_voo_por_id, remover_voo
 )
@@ -39,6 +40,9 @@ def administrarVoos(request: HttpRequest):
 @login_required
 @permission_required('auth.administrarvoo')
 def cadastrarVoo(request: HttpRequest):
+    return render(request, "Administrar/CadastroVoo.html")
+
+def cadastrarPartida(request: HttpRequest):
     voo = None
     erro = None
 
@@ -72,7 +76,44 @@ def cadastrarVoo(request: HttpRequest):
         "voo": voo,
         "erro": erro
     }
-    return render(request, "Administrar/CadastroVoo.html", contexto)
+    return render(request, "Administrar/CadastroPartida.html", contexto)
+
+def cadastrarChegada(request: HttpRequest):
+    voo = None
+    erro = None
+
+    if request.method == "POST":
+        try:
+            horarios = cria_horarios_previstos(
+                request.POST["data_chegada_previsao"],
+                request.POST["data_partida_previsao"],
+            )
+
+            rota = cria_rota(
+                request.POST["aeroporto_origem"],
+                request.POST["aeroporto_destino"],
+                request.POST["conexoes"]
+            )
+
+            estado = cria_estado("Inicial")
+
+            voo = cria_voo(
+                request.POST["codigo_de_voo"],
+                request.POST["companhia_aerea"],
+                rota,
+                horarios,
+                estado
+            )
+
+        except Exception as err:
+            erro = err
+
+    contexto = {
+        "voo": voo,
+        "erro": erro
+    }
+    return render(request, "Administrar/CadastroChegada.html", contexto)
+
 
 
 @login_required
@@ -253,13 +294,17 @@ def monitorarVoos(request: HttpRequest):
 @login_required
 def visualizarPainel(request: HttpRequest):
 
+    partidas = obtem_partidas()
+    chegadas = obtem_chegadas()
     todos_voos = obtem_todos_voos()
 
     contexto = {
+        "partidas": partidas,
+        "chegadas": chegadas,
         "voos": todos_voos,
     }
 
-    return render(request, "Monitorar/Painel.html", contexto)
+    return render(request, "Painel.html", contexto)
 
 # Gerar Relatorios
 
