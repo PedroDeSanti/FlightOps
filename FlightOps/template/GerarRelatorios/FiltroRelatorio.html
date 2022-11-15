@@ -21,180 +21,160 @@
 </ul>
 {% endblock navbar %} {% block content %}
 
-<main role="main" style="min-height: 100%">
-    <div class="jumbotron" style="min-height: 100%">
-        <div class="container">
-            <h2 style="font-weight: 300">
-                Preencha os filtros desejados para gerar o relatório
-            </h2>
-            <br />
-            <form
-                action="/relatorio/pdf/"
-                method="POST"
-                style="width: 80%; height: 100%"
-            >
-                {% csrf_token %}
-                <div class="mb-3 container">
-                    <div class="row">
-                        <div class="col">
-                            <label
-                                for="inputCodigoVooRelatorio"
-                                class="form-label"
-                            >
-                                Código de Voo
-                            </label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                name="codigo_de_voo"
-                                id="inputCodigoVooRelatorio"
-                            />
-                        </div>
-                        <div class="col">
-                            <label
-                                for="inputCompanhiaAereaRelatorio"
-                                class="form-label"
-                            >
-                                Companhia Aerea
-                            </label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                name="companhia_aerea"
-                                id="inputCompanhiaAereaRelatorio"
-                            />
-                        </div>
-                        <div class="col">
-                            <label
-                                for="inputEstadoVooRelatorio"
-                                class="form-label form-label-lg"
-                            >
-                                Estado do Voo
-                            </label>
-                            <br />
-                            <select
-                                class="form-control"
-                                aria-label="Estado do Voo Select"
-                                name="nome_estado"
-                                id="inputEstadoVooRelatorio"
-                            >
-                                <option selected value="">
-                                    Selecione um estado
-                                </option>
-                                <option value="Inicial">Inicial</option>
-                                <option value="Embarcando">Embarcando</option>
-                                <option value="Cancelado">Cancelado</option>
-                                <option value="Programado">Programado</option>
-                                <option value="Taxiando">Taxiando</option>
-                                <option value="Pronto">Pronto</option>
-                                <option value="Autorizado">Autorizado</option>
-                                <option value="Voando">Voando</option>
-                                <option value="Aterrissado">Aterrissado</option>
-                            </select>
-                        </div>
-                    </div>
+<div class="container" style="min-height: 100%">
+    <h2 style="font-weight: 300; margin: 20px 0">
+        Preencha os filtros desejados para gerar o relatório
+    </h2>
+    <form
+        action="/relatorio/pdf/"
+        method="POST"
+        style="width: 80%; height: 100%"
+    >
+        {% csrf_token %}
+        <div class="mb-3 container">
+            <div class="row">
+                <div class="col">
+                    <label for="inputCodigoVooRelatorio" class="form-label">
+                        Código de Voo
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="codigo_de_voo"
+                        id="inputCodigoVooRelatorio"
+                    />
                 </div>
-
-                <div class="mb-3 container">
-                    <div class="row">
-                        <div class="col">
-                            <label
-                                for="inputOrigemRelatorio"
-                                class="form-label"
-                            >
-                                Origem
-                            </label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                name="aeroporto_origem"
-                                id="inputOrigemRelatorio"
-                            />
-                        </div>
-
-                        <div class="col">
-                            <label
-                                for="inputDestinoRelatorio"
-                                class="form-label"
-                            >
-                                Destino
-                            </label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                name="aeroporto_destino"
-                                id="inputDestinoRelatorio"
-                            />
-                        </div>
-                    </div>
+                <div class="col">
+                    <label
+                        for="inputCompanhiaAereaRelatorio"
+                        class="form-label"
+                    >
+                        Companhia Aerea
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="companhia_aerea"
+                        id="inputCompanhiaAereaRelatorio"
+                    />
                 </div>
-
-                <div class="mb-4 container">
-                    <div class="row">
-                        <div class="col">
-                            <label
-                                for="inputDataPartidaInferiorRelatorio"
-                                class="form-label"
-                            >
-                                Data partida: limite inferior
-                            </label>
-                            <input
-                                type="datetime-local"
-                                class="form-control"
-                                name="partida_inferior"
-                                id="inputDataPartidaInferiorRelatorio"
-                            />
-                        </div>
-
-                        <div class="col">
-                            <label
-                                for="inputDataPartidaSuperiorRelatorio"
-                                class="form-label"
-                            >
-                                Data partida: limite superior
-                            </label>
-                            <input
-                                type="datetime-local"
-                                class="form-control"
-                                name="partida_superior"
-                                id="inputDataPartidaSuperiorRelatorio"
-                            />
-                        </div>
-                    </div>
+                <div class="col">
+                    <label
+                        for="inputEstadoVooRelatorio"
+                        class="form-label form-label-lg"
+                    >
+                        Estado do Voo
+                    </label>
+                    <select
+                        class="form-control"
+                        aria-label="Estado do Voo Select"
+                        name="nome_estado"
+                        id="inputEstadoVooRelatorio"
+                    >
+                        <option selected value="">Selecione um estado</option>
+                        <option value="Inicial">Inicial</option>
+                        <option value="Embarcando">Embarcando</option>
+                        <option value="Cancelado">Cancelado</option>
+                        <option value="Programado">Programado</option>
+                        <option value="Taxiando">Taxiando</option>
+                        <option value="Pronto">Pronto</option>
+                        <option value="Autorizado">Autorizado</option>
+                        <option value="Voando">Voando</option>
+                        <option value="Aterrissado">Aterrissado</option>
+                    </select>
                 </div>
-                <div class="mb-4 container">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-check">
-                                <input
-                                    name="detalhes"
-                                    type="checkbox"
-                                    class="form-check-input"
-                                    id="detalhesRelatorio"
-                                />
-                                <label
-                                    class="form-check-label"
-                                    for="detalhesRelatorio"
-                                    >Desejo imprimir relatório com mais
-                                    detalhes</label
-                                >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <button type="submit" class="btn btn-primary button">
-                        Gerar Relatório
-                    </button>
-                </div>
-                <div>
-                    <a class="btn btn-secondary button" href="/" role="button">
-                        Retornar
-                    </a>
-                </div>
-            </form>
+            </div>
         </div>
-    </div>
-</main>
+
+        <div class="mb-3 container">
+            <div class="row">
+                <div class="col">
+                    <label for="inputOrigemRelatorio" class="form-label">
+                        Origem
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="aeroporto_origem"
+                        id="inputOrigemRelatorio"
+                    />
+                </div>
+
+                <div class="col">
+                    <label for="inputDestinoRelatorio" class="form-label">
+                        Destino
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="aeroporto_destino"
+                        id="inputDestinoRelatorio"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-4 container">
+            <div class="row">
+                <div class="col">
+                    <label
+                        for="inputDataPartidaInferiorRelatorio"
+                        class="form-label"
+                    >
+                        Data partida: limite inferior
+                    </label>
+                    <input
+                        type="datetime-local"
+                        class="form-control"
+                        name="partida_inferior"
+                        id="inputDataPartidaInferiorRelatorio"
+                    />
+                </div>
+
+                <div class="col">
+                    <label
+                        for="inputDataPartidaSuperiorRelatorio"
+                        class="form-label"
+                    >
+                        Data partida: limite superior
+                    </label>
+                    <input
+                        type="datetime-local"
+                        class="form-control"
+                        name="partida_superior"
+                        id="inputDataPartidaSuperiorRelatorio"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="mb-4 container">
+            <div class="row">
+                <div class="col">
+                    <div class="form-check">
+                        <input
+                            name="detalhes"
+                            type="checkbox"
+                            class="form-check-input"
+                            id="detalhesRelatorio"
+                        />
+                        <label class="form-check-label" for="detalhesRelatorio"
+                            >Desejo imprimir relatório com mais detalhes</label
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary button">
+                Gerar Relatório
+            </button>
+        </div>
+        <div>
+            <a class="btn btn-secondary button" href="/" role="button">
+                Retornar
+            </a>
+        </div>
+    </form>
+</div>
 
 {% endblock content %}

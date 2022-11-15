@@ -20,74 +20,68 @@
 </ul>
 {% endblock navbar %} {% block content %}
 
-<main role="main">
-    <div class="jumbotron">
-        <div class="container">
-            <div class="mb-3 container">
-                <div class="row">
-                    <div class="col">
-                        <table class="table table-striped">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Código de voo</th>
-                                    <th>Companhia aerea</th>
-                                    <th>Status</th>
-                                    <th>Destino</th>
-                                    <th>Partida Prevista</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for voo in partidas %}
-                                <tr>
-                                    <th>{{voo.codigo_de_voo}}</th>
-                                    <th>{{voo.companhia_aerea}}</th>
-                                    <th>{{voo.estado_atual.nome}}</th>
-                                    <th>{{voo.rota.aeroporto_destino}}</th>
-                                    <th>
-                                        {{voo.horarios.partida_previsao|date:"d/m/Y
-                                        H:i"}}
-                                    </th>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col">
-                        <table class="table table-striped">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Código de voo</th>
-                                    <th>Companhia aerea</th>
-                                    <th>Status</th>
-                                    <th>Origem</th>
-                                    <th>Chegada Prevista</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for voo in chegadas %}
-                                <tr>
-                                    <th>{{voo.codigo_de_voo}}</th>
-                                    <th>{{voo.companhia_aerea}}</th>
-                                    <th>{{voo.estado_atual.nome}}</th>
-                                    <th>{{voo.rota.aeroporto_origem}}</th>
-                                    <th>
-                                        {{voo.horarios.chegada_previsao|date:"d/m/Y
-                                        H:i"}}
-                                    </th>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <a class="btn btn-secondary button" href="/" role="button">
-                    Retornar
-                </a>
-            </div>
+<div class="container">
+    <div class="mb-3 container">
+        <h2 style="font-weight: 300; margin: 20px 0">Voos de Desembarque</h2>
+        <div>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Código de voo</th>
+                        <th>Companhia aerea</th>
+                        <th>Status</th>
+                        <th>Destino</th>
+                        <th>Partida Prevista</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for voo in partidas %}
+                    <tr>
+                        <th>{{voo.codigo_de_voo}}</th>
+                        <th>{{voo.companhia_aerea}}</th>
+                        <th>{{voo.estado_atual.nome}}</th>
+                        <th>{{voo.rota.aeroporto_destino}}</th>
+                        <th>
+                            {{voo.horarios.partida_previsao|date:"d/m/Y H:i"}}
+                        </th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <h2 style="font-weight: 300; margin: 20px 0">Voos de Embarque</h2>
+        <div>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Código de voo</th>
+                        <th>Companhia aerea</th>
+                        <th>Status</th>
+                        <th>Origem</th>
+                        <th>Chegada Prevista</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for voo in chegadas %}
+                    <tr>
+                        <th>{{voo.codigo_de_voo}}</th>
+                        <th>{{voo.companhia_aerea}}</th>
+                        <th>{{voo.estado_atual.nome}}</th>
+                        <th>{{voo.rota.aeroporto_origem}}</th>
+                        <th>
+                            {{voo.horarios.partida_previsao|date:"d/m/Y H:i"}}
+                        </th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
-</main>
+    <div>
+        <a class="btn btn-secondary button" href="/" role="button">
+            Retornar
+        </a>
+    </div>
+</div>
 
 {% endblock content %}
