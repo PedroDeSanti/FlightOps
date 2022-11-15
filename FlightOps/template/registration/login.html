@@ -13,11 +13,16 @@
                 <td>{{ form.password }}</td>
             </tr>
         </table>
-        <input type="submit" value="login" />
+        <input
+            type="submit"
+            style="margin-top: 10px"
+            class="btn-black"
+            value="Realizar Login"
+        />
         <input type="hidden" name="next" value="{{ next }}" />
     </form>
 </div>
-<div>
+<div style="margin: 20px">
     {% if form.errors %}
     <p>Sua senha está incorreta. Por favor, verifique-a e tente novamente.</p>
     {% endif %} {% if user.is_authenticated %}

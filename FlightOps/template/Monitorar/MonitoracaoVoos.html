@@ -1,16 +1,24 @@
 {% extends "html_base.html" %} {% block navbar %}
-<li class="nav-item">
-    <a class="nav-link" href="/administrar/"> Administração </a>
-</li>
-<li class="nav-item active">
-    <a class="nav-link" href="/monitorar/">Monitoração</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="/relatorio/">Relatórios</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="/painel/">Painel</a>
-</li>
+
+<ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+        <a class="nav-link" href="/administrar/"> Administração </a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link" href="/monitorar/">Monitoração</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/relatorio/">Relatórios</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/painel/">Painel</a>
+    </li>
+</ul>
+<ul class="navbar-nav ml-auto">
+    <li class="nav-item active">
+        <a class="nav-link" href="/accounts/logout/">Logout</a>
+    </li>
+</ul>
 {% endblock navbar %} {% block content %}
 
 <main role="main">
@@ -67,7 +75,11 @@
                     </button>
                 </div>
                 <div>
-                    <a class="btn btn-secondary button" href="/monitorar" role="button">
+                    <a
+                        class="btn btn-secondary button"
+                        href="/monitorar"
+                        role="button"
+                    >
                         Retornar
                     </a>
                 </div>
