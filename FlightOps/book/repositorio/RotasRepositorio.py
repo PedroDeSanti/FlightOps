@@ -1,4 +1,19 @@
 from book.models import Rota
+import re
+
+
+def erro_rota_aeroporto(aeroporto: str):
+    regex_aeroporto = re.compile('^[A-Z]{3,4}$')
+    if not bool(regex_aeroporto.match(aeroporto)):
+        return True
+    return False
+
+
+def erro_rota_conexoes(conexoes: str):
+    regex_conexoes = re.compile('^[A-Z]{3,4}(,[A-Z]{3,4})*$')
+    if not bool(regex_conexoes.match(conexoes)):
+        return True
+    return False
 
 
 def cria_rota(aeroporto_origem: str, aeroporto_destino: str, conexoes: str):

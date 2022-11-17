@@ -3,6 +3,25 @@ from book.repositorio.HorariosRepositorio import (
     atualiza_horarios_previstos, preenche_horario_chegada_real,
     preenche_horario_partida_real)
 from book.repositorio.RotasRepositorio import atualiza_rota
+import re
+
+
+def erro_codigo_de_voo(codigo_de_voo: str):
+    print("erro codigo voo")
+    regex_codigo = re.compile('^[A-Z]+[A-Z\d]{2,}$')
+    print(not bool(regex_codigo.match(codigo_de_voo)))
+    if not bool(regex_codigo.match(codigo_de_voo)):
+        return True
+    return False
+
+
+def erro_companhia_aerea(companhia: str):
+    print("erro companhia")
+    regex_companhia = re.compile('^[A-Z]{3,}$')
+    print(not bool(regex_companhia.match(companhia)))
+    if not bool(regex_companhia.match(companhia)):
+        return True
+    return False
 
 
 def cria_voo(codigo_de_voo: str, companhia_aerea: str, rota: Rota, horarios: Horarios, estado: Estado):
@@ -19,7 +38,6 @@ def cria_voo(codigo_de_voo: str, companhia_aerea: str, rota: Rota, horarios: Hor
         voo=voo,
         estado=estado
     )
-    print("aqui")
 
     return voo
 
@@ -35,11 +53,14 @@ def obtem_voo_por_id(id: int):
 def obtem_todos_voos():
     return Voo.objects.all()
 
+
 def obtem_partidas():
     return Voo.objects.filter(rota__aeroporto_origem="VCP").all()
 
+
 def obtem_chegadas():
     return Voo.objects.filter(rota__aeroporto_destino="VCP").all()
+
 
 def atualiza_dados_voo(voo: Voo, codigo_de_voo: str, companhia_aerea: str):
     voo.codigo_de_voo = codigo_de_voo

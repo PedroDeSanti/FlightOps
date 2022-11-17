@@ -1,10 +1,10 @@
 from book.gerador_relatorio.GeraRelatorio import gera_relatorio_mais_detalhes, gera_relatorio_menos_detalhes
 from book.repositorio.EstadoRepositorio import cria_estado
-from book.repositorio.HorariosRepositorio import cria_horarios_previstos, atualiza_horarios_previstos, gera_str_horarios
-from book.repositorio.RotasRepositorio import cria_rota, atualiza_rota
+from book.repositorio.HorariosRepositorio import erro_horarios_previstos, cria_horarios_previstos, atualiza_horarios_previstos, gera_str_horarios, parsea_str
+from book.repositorio.RotasRepositorio import cria_rota, atualiza_rota, erro_rota_aeroporto, erro_rota_conexoes
 from book.repositorio.VooRepositorio import (
     atualiza_estado, atualiza_dados_voo,
-    cria_voo, filtra_voos,
+    cria_voo, erro_codigo_de_voo, erro_companhia_aerea, filtra_voos,
     obtem_chegadas, obtem_partidas,
     obtem_todos_voos, obtem_voo,
     obtem_voo_por_id, remover_voo
@@ -42,32 +42,71 @@ def administrarVoos(request: HttpRequest):
 def cadastrarVoo(request: HttpRequest):
     return render(request, "Administrar/CadastroVoo.html")
 
-def cadastrarPartida(request: HttpRequest):
+
+def realizarCadastroVoo(request: HttpRequest):
     voo = None
     erro = None
 
     if request.method == "POST":
         try:
-            horarios = cria_horarios_previstos(
-                request.POST["data_chegada_previsao"],
-                request.POST["data_partida_previsao"],
-            )
+            # Obtem os parâmetros
+            previsao_chegada = request.POST["data_chegada_previsao"]
+            previsao_partida = request.POST["data_partida_previsao"]
 
-            rota = cria_rota(
-                request.POST["aeroporto_origem"],
-                request.POST["aeroporto_destino"],
-                request.POST["conexoes"]
-            )
+            aeroporto_origem = request.POST["aeroporto_origem"].upper()
+            aeroporto_destino = request.POST["aeroporto_destino"].upper()
+            conexoes = request.POST["conexoes"].upper()
 
-            estado = cria_estado("Inicial")
+            codigo_de_voo = request.POST["codigo_de_voo"].upper()
+            companhia_aerea = request.POST["companhia_aerea"].upper()
 
-            voo = cria_voo(
-                request.POST["codigo_de_voo"],
-                request.POST["companhia_aerea"],
-                rota,
-                horarios,
-                estado
-            )
+            # Chama as funções que realizam validação
+            erro_horarios = erro_horarios_previstos(
+                previsao_chegada, previsao_partida)
+            erro_aeroporto_origem = erro_rota_aeroporto(aeroporto_origem)
+            erro_aeroporto_destino = erro_rota_aeroporto(aeroporto_destino)
+            erro_conexoes = erro_rota_conexoes(conexoes)
+            erro_companhia = erro_companhia_aerea(companhia_aerea)
+            erro_codigo = erro_codigo_de_voo(codigo_de_voo)
+
+            # Verifica se houve erros
+            if erro_horarios or erro_aeroporto_origem or erro_conexoes or erro_aeroporto_destino or erro_companhia or erro_codigo:
+                erro = {
+                    "horarios": erro_horarios,
+                    "aeroporto_origem": erro_aeroporto_origem,
+                    "conexoes": erro_conexoes,
+                    "aeroporto_destino": erro_aeroporto_destino,
+                    "companhia_aerea": erro_companhia,
+                    "codigo_de_voo": erro_codigo
+                }
+                voo = {
+                    "chegada_previsao": previsao_chegada,
+                    "partida_previsao": previsao_partida,
+                    "aeroporto_origem": aeroporto_origem,
+                    "aeroporto_destino": aeroporto_destino,
+                    "conexoes": conexoes,
+                    "codigo_de_voo": codigo_de_voo,
+                    "companhia_aerea": companhia_aerea,
+                }
+            # Se não houve erros, realiza o cadastro
+            else:
+
+                horarios = cria_horarios_previstos(
+                    previsao_chegada,
+                    previsao_partida
+                )
+
+                rota = cria_rota(aeroporto_origem, aeroporto_destino, conexoes)
+
+                estado = cria_estado("Inicial")
+
+                voo = cria_voo(
+                    codigo_de_voo,
+                    companhia_aerea,
+                    rota,
+                    horarios,
+                    estado
+                )
 
         except Exception as err:
             erro = err
@@ -76,44 +115,17 @@ def cadastrarPartida(request: HttpRequest):
         "voo": voo,
         "erro": erro
     }
+    return contexto
+
+
+def cadastrarPartida(request: HttpRequest):
+    contexto = realizarCadastroVoo(request)
     return render(request, "Administrar/CadastroPartida.html", contexto)
 
+
 def cadastrarChegada(request: HttpRequest):
-    voo = None
-    erro = None
-
-    if request.method == "POST":
-        try:
-            horarios = cria_horarios_previstos(
-                request.POST["data_chegada_previsao"],
-                request.POST["data_partida_previsao"],
-            )
-
-            rota = cria_rota(
-                request.POST["aeroporto_origem"],
-                request.POST["aeroporto_destino"],
-                request.POST["conexoes"]
-            )
-
-            estado = cria_estado("Inicial")
-
-            voo = cria_voo(
-                request.POST["codigo_de_voo"],
-                request.POST["companhia_aerea"],
-                rota,
-                horarios,
-                estado
-            )
-
-        except Exception as err:
-            erro = err
-
-    contexto = {
-        "voo": voo,
-        "erro": erro
-    }
+    contexto = realizarCadastroVoo(request)
     return render(request, "Administrar/CadastroChegada.html", contexto)
-
 
 
 @login_required
@@ -242,7 +254,7 @@ def removerVoo(request: HttpRequest):
 @login_required
 @permission_required('auth.monitorarvoo')
 def monitorarVoos(request: HttpRequest):
-    user=request.user
+    user = request.user
     todas_opcoes = {
         "Inicial": ["Embarcando", "Cancelado"],
         "Embarcando": ["Programado"],
@@ -252,7 +264,7 @@ def monitorarVoos(request: HttpRequest):
         "Autorizado": ["Voando"],
         "Voando": ["Aterrissado"]
     }
-    permissoes= {
+    permissoes = {
         "Embarcando": "auth.funcionario",
         "Cancelado": "auth.funcionario",
         "Programado": "auth.funcionario",
@@ -283,10 +295,11 @@ def monitorarVoos(request: HttpRequest):
 
         else:
             try:
-                novo_estado=request.POST["nome_estado"]
-                permissao_necessaria=permissoes[novo_estado]
+                novo_estado = request.POST["nome_estado"]
+                permissao_necessaria = permissoes[novo_estado]
                 if not user.has_perm(permissao_necessaria):
-                    raise Exception("Você não possui as permissões necessárias para alterar o estado do voo")
+                    raise Exception(
+                        "Você não possui as permissões necessárias para alterar o estado do voo")
 
                 voo_atualizado = obtem_voo_por_id(request.POST["id"])
                 estado = cria_estado(novo_estado)

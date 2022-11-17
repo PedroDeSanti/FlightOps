@@ -22,16 +22,14 @@
 {% endblock navbar %} {% block content %}
 
 <div class="container">
-    {% if voo %}
+    {% if voo and not erro %}
     <div class="alert alert-success" role="alert">Voo criado com sucesso!</div>
-    {% endif %} {% if erro %}
-    <div class="alert alert-danger" role="alert">{{erro}}</div>
     {% endif %}
     <h2 style="font-weight: 300; margin: 20px 0">
         Insira abaixo as informações do voo
     </h2>
     <form
-        action="/administrar/cadastrar/partida/"
+        action="/administrar/cadastrar/chegada/"
         method="POST"
         style="width: 80%; height: 100%"
     >
@@ -48,7 +46,17 @@
                         class="form-control"
                         name="codigo_de_voo"
                         id="inputCodigoVooCadastrar"
+                        value="{{voo.codigo_de_voo}}"
                     />
+                    {% if erro.codigo_de_voo %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Código de Voo inválido
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="col">
                     <label
@@ -63,7 +71,17 @@
                         class="form-control"
                         name="companhia_aerea"
                         id="inputCompanhiaAereaCadastrar"
+                        value="{{voo.companhia_aerea}}"
                     />
+                    {% if erro.companhia_aerea %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Companhia Aérea inválida
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -80,7 +98,17 @@
                         class="form-control"
                         name="aeroporto_origem"
                         id="inputOrigemCadastrar"
+                        value="{{voo.aeroporto_origem}}"
                     />
+                    {% if erro.aeroporto_origem %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Aeroporto de Origem inválido
+                    </div>
+                    {% endif %}
                 </div>
 
                 <div class="col">
@@ -92,7 +120,17 @@
                         class="form-control"
                         name="conexoes"
                         id="inputConexoesCadastrar"
+                        value="{{voo.conexoes}}"
                     />
+                    {% if erro.conexoes %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Conexões inválidas
+                    </div>
+                    {% endif %}
                 </div>
 
                 <div class="col">
@@ -106,7 +144,17 @@
                         class="form-control"
                         name="aeroporto_destino"
                         id="inputDestinoCadastrar"
+                        value="{{voo.aeroporto_destino}}"
                     />
+                    {% if erro.aeroporto_destino %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Aeroporto de Destino inválido
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -122,7 +170,7 @@
                         type="datetime-local"
                         class="form-control"
                         name="data_partida_previsao"
-                        value="{{voo.horarios.partida_previsao}}"
+                        value="{{voo.partida_previsao}}"
                         id="inputDataPartidaCadastrar"
                     />
                 </div>
@@ -135,11 +183,20 @@
                         type="datetime-local"
                         class="form-control"
                         name="data_chegada_previsao"
-                        value="{{voo.horarios.chegada_previsao}}"
+                        value="{{voo.chegada_previsao}}"
                         id="inputDataChegadaCadastrar"
                     />
                 </div>
             </div>
+            {% if erro.horarios %}
+            <div
+                class="alert alert-danger"
+                style="text-align: center"
+                role="alert"
+            >
+                Partida não pode ser posterior à chegada
+            </div>
+            {% endif %}
         </div>
         <div>
             <button type="submit" class="btn btn-primary button">
