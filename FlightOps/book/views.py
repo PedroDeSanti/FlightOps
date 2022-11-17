@@ -336,6 +336,12 @@ def monitorarVoos(request: HttpRequest):
                 if voo == None:
                     raise Exception("Insira um código de voo válido")
 
+                if voo.estado_atual.nome == "Cancelado":
+                    raise Exception("O voo foi cancelado")
+
+                if voo.estado_atual.nome == "Aterrissado":
+                    raise Exception("O voo já aterrisou")
+
                 opcoes = todas_opcoes[voo.estado_atual.nome]
 
             except Exception as err:

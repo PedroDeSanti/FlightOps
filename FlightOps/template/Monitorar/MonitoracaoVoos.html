@@ -28,7 +28,7 @@
     </div>
     {% endif %} {% if erro %}
     <div class="alert alert-danger" role="alert">{{erro}}</div>
-    {% endif %} {% if voo %}
+    {% endif %} {% if voo %} {% if opcoes != None %}
     <h2 style="font-weight: 300; margin: 20px 0">
         Selecione o novo estado do voo {{voo.codigo_de_voo}}
     </h2>
@@ -58,12 +58,13 @@
                 Alterar estado
             </button>
         </div>
-        <div>
-            <a class="btn btn-secondary button" href="/monitorar" role="button">
-                Retornar
-            </a>
-        </div>
     </form>
+    {% endif %}
+    <div>
+        <a class="btn btn-secondary button" href="/monitorar" role="button">
+            Retornar
+        </a>
+    </div>
     {% endif %} {% if not voo %}
     <h2 style="font-weight: 300; margin: 20px 0">
         Informe os dados do voo que deseja Monitorar
