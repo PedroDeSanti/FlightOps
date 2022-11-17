@@ -162,6 +162,8 @@ def cadastrarChegada(request: HttpRequest):
 @ permission_required('auth.administrarvoo')
 def atualizarVoo(request: HttpRequest):
     todos_voos = obtem_todos_voos()
+    partidas = obtem_partidas()
+    chegadas = obtem_chegadas()
     voo = None
     erro = None
     sucesso = None
@@ -225,6 +227,8 @@ def atualizarVoo(request: HttpRequest):
         "voo": voo,
         "erro": erro,
         "sucesso": sucesso,
+        "partidas": partidas,
+        "chegadas": chegadas,
         "voos": todos_voos
     }
 
@@ -235,6 +239,9 @@ def atualizarVoo(request: HttpRequest):
 @ permission_required('auth.administrarvoo')
 def consultarVoo(request: HttpRequest):
     todos_voos = obtem_todos_voos()
+
+    partidas = obtem_partidas()
+    chegadas = obtem_chegadas()
     voo = None
     erro = None
 
@@ -254,6 +261,8 @@ def consultarVoo(request: HttpRequest):
     contexto = {
         "voo": voo,
         "erro": erro,
+        "partidas": partidas,
+        "chegadas": chegadas,
         "voos": todos_voos
     }
     return render(request, "Administrar/ConsultaVoo.html", contexto)
@@ -263,6 +272,8 @@ def consultarVoo(request: HttpRequest):
 @ permission_required('auth.administrarvoo')
 def removerVoo(request: HttpRequest):
     todos_voos = obtem_todos_voos()
+    partidas = obtem_partidas()
+    chegadas = obtem_chegadas()
     voo = None
     erro = None
     sucesso = False
@@ -277,7 +288,7 @@ def removerVoo(request: HttpRequest):
                 erro = err
         else:
             try:
-                voo = obtem_voo(request.POST["codigo_de_voo"])
+                voo = obtem_voo(request.POST["codigo_de_voo"].upper())
 
                 if voo == None:
                     raise Exception("Insira um código de voo válido")
@@ -290,6 +301,8 @@ def removerVoo(request: HttpRequest):
     contexto = {
         "voo": voo,
         "erro": erro,
+        "partidas": partidas,
+        "chegadas": chegadas,
         "voos": todos_voos,
         "sucesso": sucesso
     }
@@ -323,6 +336,8 @@ def monitorarVoos(request: HttpRequest):
         "Aterrissado": "auth.piloto"
     }
     todos_voos = obtem_todos_voos()
+    partidas = obtem_partidas()
+    chegadas = obtem_chegadas()
     voo = None
     erro = None
     sucesso = False
@@ -331,7 +346,7 @@ def monitorarVoos(request: HttpRequest):
     if request.method == "POST":
         if "search_codigo_voo" in request.POST:
             try:
-                voo = obtem_voo(request.POST["codigo_de_voo"])
+                voo = obtem_voo(request.POST["codigo_de_voo"].upper())
 
                 if voo == None:
                     raise Exception("Insira um código de voo válido")
@@ -366,6 +381,8 @@ def monitorarVoos(request: HttpRequest):
     contexto = {
         "voo": voo,
         "erro": erro,
+        "partidas": partidas,
+        "chegadas": chegadas,
         "voos": todos_voos,
         "sucesso": sucesso,
         "opcoes": opcoes

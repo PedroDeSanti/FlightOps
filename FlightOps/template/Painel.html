@@ -22,7 +22,7 @@
 
 <div class="container">
     <div class="mb-3 container">
-        <h2 style="font-weight: 300; margin: 20px 0">Voos de Desembarque</h2>
+        <h2 style="font-weight: 300; margin: 20px 0">Voos de Embarque</h2>
         <div>
             <table class="table table-striped">
                 <thead class="thead-dark">
@@ -36,6 +36,8 @@
                 </thead>
                 <tbody>
                     {% for voo in partidas %}
+                    <!-- -->
+                    {% if voo.estado_atual.nome != "Inicial" %}
                     <tr>
                         <th>{{voo.codigo_de_voo}}</th>
                         <th>{{voo.companhia_aerea}}</th>
@@ -45,11 +47,11 @@
                             {{voo.horarios.partida_previsao|date:"d/m/Y H:i"}}
                         </th>
                     </tr>
-                    {% endfor %}
+                    {% endif %} {% endfor %}
                 </tbody>
             </table>
         </div>
-        <h2 style="font-weight: 300; margin: 20px 0">Voos de Embarque</h2>
+        <h2 style="font-weight: 300; margin: 20px 0">Voos de Desembarque</h2>
         <div>
             <table class="table table-striped">
                 <thead class="thead-dark">
@@ -63,6 +65,8 @@
                 </thead>
                 <tbody>
                     {% for voo in chegadas %}
+                    <!-- -->
+                    {% if voo.estado_atual.nome != "Inicial" %}
                     <tr>
                         <th>{{voo.codigo_de_voo}}</th>
                         <th>{{voo.companhia_aerea}}</th>
@@ -72,6 +76,8 @@
                             {{voo.horarios.partida_previsao|date:"d/m/Y H:i"}}
                         </th>
                     </tr>
+                    {% endif %}
+                    <!-- -->
                     {% endfor %}
                 </tbody>
             </table>

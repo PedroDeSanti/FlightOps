@@ -282,38 +282,82 @@
         </div>
     </form>
 
-    <table class="table table-striped">
-        <thead class="thead-dark">
-            <tr>
-                <th>Código de voo</th>
-                <th>Companhia aerea</th>
-                <th>Status</th>
-                <th>Origem</th>
-                <th>Conexoes</th>
-                <th>Destino</th>
-                <th>Partida Prevista</th>
-                <th>Chegada Prevista</th>
-                <th>Partida Real</th>
-                <th>Chegada Real</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for voo in voos %}
-            <tr>
-                <th>{{voo.codigo_de_voo}}</th>
-                <th>{{voo.companhia_aerea}}</th>
-                <th>{{voo.estado_atual.nome}}</th>
-                <th>{{voo.rota.aeroporto_origem}}</th>
-                <th>{{voo.rota.conexoes}}</th>
-                <th>{{voo.rota.aeroporto_destino}}</th>
-                <th>{{voo.horarios.partida_previsao|date:"d/m/Y H:i"}}</th>
-                <th>{{voo.horarios.chegada_previsao|date:"d/m/Y H:i"}}</th>
-                <th>{{voo.horarios.partida_real|date:"d/m/Y H:i"}}</th>
-                <th>{{voo.horarios.chegada_real|date:"d/m/Y H:i"}}</th>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="mb-3 container">
+        <h2 style="font-weight: 300; margin: 20px 0">Voos de Embarque</h2>
+        <div>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Código de Voo</th>
+                        <th>Companhia</th>
+                        <th>Status</th>
+                        <th>Conexões</th>
+                        <th>Destino</th>
+                        <th>Partida Prevista</th>
+                        <th>Chegada Prevista</th>
+                        <th>Partida Real</th>
+                        <th>Chegada Real</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for voo in partidas %}
+                    <tr>
+                        <th>{{voo.codigo_de_voo}}</th>
+                        <th>{{voo.companhia_aerea}}</th>
+                        <th>{{voo.estado_atual.nome}}</th>
+                        <th>{{voo.rota.conexoes}}</th>
+                        <th>{{voo.rota.aeroporto_destino}}</th>
+                        <th>
+                            {{voo.horarios.partida_previsao|date:"d/m/Y H:i"}}
+                        </th>
+                        <th>
+                            {{voo.horarios.chegada_previsao|date:"d/m/Y H:i"}}
+                        </th>
+                        <th>{{voo.horarios.partida_real|date:"d/m/Y H:i"}}</th>
+                        <th>{{voo.horarios.chegada_real|date:"d/m/Y H:i"}}</th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <h2 style="font-weight: 300; margin: 20px 0">Voos de Desembarque</h2>
+        <div>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Código de Voo</th>
+                        <th>Companhia</th>
+                        <th>Status</th>
+                        <th>Origem</th>
+                        <th>Conexões</th>
+                        <th>Partida Prevista</th>
+                        <th>Chegada Prevista</th>
+                        <th>Partida Real</th>
+                        <th>Chegada Real</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for voo in chegadas %}
+                    <tr>
+                        <th>{{voo.codigo_de_voo}}</th>
+                        <th>{{voo.companhia_aerea}}</th>
+                        <th>{{voo.estado_atual.nome}}</th>
+                        <th>{{voo.rota.aeroporto_origem}}</th>
+                        <th>{{voo.rota.conexoes}}</th>
+                        <th>
+                            {{voo.horarios.partida_previsao|date:"d/m/Y H:i"}}
+                        </th>
+                        <th>
+                            {{voo.horarios.chegada_previsao|date:"d/m/Y H:i"}}
+                        </th>
+                        <th>{{voo.horarios.partida_real|date:"d/m/Y H:i"}}</th>
+                        <th>{{voo.horarios.chegada_real|date:"d/m/Y H:i"}}</th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
     {% endif %}
 </div>
 
