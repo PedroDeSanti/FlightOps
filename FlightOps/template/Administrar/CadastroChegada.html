@@ -47,6 +47,7 @@
                         name="codigo_de_voo"
                         id="inputCodigoVooCadastrar"
                         value="{{voo.codigo_de_voo}}"
+                        placeholder="ABC0123"
                     />
                     {% if erro.codigo_de_voo %}
                     <div
@@ -72,6 +73,7 @@
                         name="companhia_aerea"
                         id="inputCompanhiaAereaCadastrar"
                         value="{{voo.companhia_aerea}}"
+                        placeholder="LATAM"
                     />
                     {% if erro.companhia_aerea %}
                     <div
@@ -99,6 +101,7 @@
                         name="aeroporto_origem"
                         id="inputOrigemCadastrar"
                         value="{{voo.aeroporto_origem}}"
+                        placeholder="POA"
                     />
                     {% if erro.aeroporto_origem %}
                     <div
@@ -121,6 +124,7 @@
                         name="conexoes"
                         id="inputConexoesCadastrar"
                         value="{{voo.conexoes}}"
+                        placeholder="GRU,SBRJ"
                     />
                     {% if erro.conexoes %}
                     <div
@@ -145,6 +149,7 @@
                         name="aeroporto_destino"
                         id="inputDestinoCadastrar"
                         value="{{voo.aeroporto_destino}}"
+                        placeholder="SSA"
                     />
                     {% if erro.aeroporto_destino %}
                     <div
@@ -157,6 +162,15 @@
                     {% endif %}
                 </div>
             </div>
+            {% if erro.mesmo_aeroporto %}
+            <div
+                class="alert alert-danger"
+                style="text-align: center"
+                role="alert"
+            >
+                Aeroporto de Origem e de Destino não podem ser iguais
+            </div>
+            {% endif %}
         </div>
 
         <div class="mb-3 container">

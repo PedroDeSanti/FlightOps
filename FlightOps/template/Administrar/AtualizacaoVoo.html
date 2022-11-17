@@ -22,12 +22,10 @@
 {% endblock navbar %} {% block content %}
 
 <div class="container">
-    {% if sucesso %}
+    {% if sucesso and not erro %}
     <div class="alert alert-success" role="alert">
         Voo atualizado com sucesso!
     </div>
-    {% endif %} {% if erro %}
-    <div class="alert alert-danger" role="alert">{{erro}}</div>
     {% endif %} {% if voo %}
     <h2 style="font-weight: 300; margin: 20px 0">
         Informações do voo {{voo.codigo_de_voo}}
@@ -53,6 +51,15 @@
                         value="{{voo.codigo_de_voo}}"
                         id="fieldCodigoVooAtualizar"
                     />
+                    {% if erro.codigo_de_voo %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Código de Voo inválido
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="col">
                     <label
@@ -69,6 +76,15 @@
                         value="{{voo.companhia_aerea}}"
                         id="inputCompanhiaAereaAtualizar"
                     />
+                    {% if erro.companhia_aerea %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Companhia Aérea inválida
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -79,14 +95,35 @@
                     <label for="fieldOrigemAtualizar" class="form-label">
                         Origem
                     </label>
+
+                    {% if voo.aeroporto_origem == 'VCP'%}
+                    <input
+                        readonly
+                        required
+                        type="text"
+                        class="form-control"
+                        name="aeroporto_origem"
+                        value="{{voo.aeroporto_origem}}"
+                        id="fieldOrigemAtualizar"
+                    />
+                    {% else %}
                     <input
                         required
                         type="text"
                         class="form-control"
                         name="aeroporto_origem"
-                        value="{{voo.rota.aeroporto_origem}}"
+                        value="{{voo.aeroporto_origem}}"
                         id="fieldOrigemAtualizar"
                     />
+                    {% endif %} {% if erro.aeroporto_origem %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Aeroporto de Origem inválido
+                    </div>
+                    {% endif %}
                 </div>
 
                 <div class="col">
@@ -97,9 +134,18 @@
                         type="text"
                         class="form-control"
                         name="conexoes"
-                        value="{{voo.rota.conexoes}}"
+                        value="{{voo.conexoes}}"
                         id="fieldConexoesAtualizar"
                     />
+                    {% if erro.conexoes %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Conexões inválidas
+                    </div>
+                    {% endif %}
                 </div>
 
                 <div class="col">
@@ -111,11 +157,29 @@
                         type="text"
                         class="form-control"
                         name="aeroporto_destino"
-                        value="{{voo.rota.aeroporto_destino}}"
+                        value="{{voo.aeroporto_destino}}"
                         id="fieldDestinoAtualizar"
                     />
+                    {% if erro.aeroporto_destino %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Aeroporto de Destino inválido
+                    </div>
+                    {% endif %}
                 </div>
             </div>
+            {% if erro.mesmo_aeroporto %}
+            <div
+                class="alert alert-danger"
+                style="text-align: center"
+                role="alert"
+            >
+                Aeroporto de Origem e de Destino não podem ser iguais
+            </div>
+            {% endif %}
         </div>
 
         <div class="mb-3 container">
@@ -129,7 +193,7 @@
                         type="datetime-local"
                         class="form-control"
                         name="data_partida_previsao"
-                        value="{{voo.horarios.partida_previsao}}"
+                        value="{{voo.partida_previsao}}"
                         id="fieldDataPartidaAtualizar"
                     />
                 </div>
@@ -142,11 +206,20 @@
                         type="datetime-local"
                         class="form-control"
                         name="data_chegada_previsao"
-                        value="{{voo.horarios.chegada_previsao}}"
+                        value="{{voo.chegada_previsao}}"
                         id="fieldDataChegadaAtualizar"
                     />
                 </div>
             </div>
+            {% if erro.horarios %}
+            <div
+                class="alert alert-danger"
+                style="text-align: center"
+                role="alert"
+            >
+                Partida não pode ser posterior à chegada
+            </div>
+            {% endif %}
         </div>
         <div>
             <button type="submit" class="btn btn-primary button">

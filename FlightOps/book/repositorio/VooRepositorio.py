@@ -7,18 +7,14 @@ import re
 
 
 def erro_codigo_de_voo(codigo_de_voo: str):
-    print("erro codigo voo")
     regex_codigo = re.compile('^[A-Z]+[A-Z\d]{2,}$')
-    print(not bool(regex_codigo.match(codigo_de_voo)))
     if not bool(regex_codigo.match(codigo_de_voo)):
         return True
     return False
 
 
 def erro_companhia_aerea(companhia: str):
-    print("erro companhia")
     regex_companhia = re.compile('^[A-Z]{3,}$')
-    print(not bool(regex_companhia.match(companhia)))
     if not bool(regex_companhia.match(companhia)):
         return True
     return False
