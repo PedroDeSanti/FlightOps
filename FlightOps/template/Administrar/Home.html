@@ -1,77 +1,77 @@
 {% extends "html_base.html" %} {% block navbar %}
-<li class="nav-item active">
-    <a class="nav-link" href="/administrar/"> Administração </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="/monitorar/">Monitoração</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="/relatorio/">Relatórios</a>
-</li>
 
+<ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+        <a class="nav-link" href="/administrar/"> Administração </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/monitorar/">Monitoração</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/relatorio/">Relatórios</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/painel/">Painel</a>
+    </li>
+</ul>
+<ul class="navbar-nav ml-auto">
+    <li class="nav-item active">
+        <a class="nav-link" href="/accounts/logout/">Logout</a>
+    </li>
+</ul>
 {% endblock navbar %} {% block content %}
 
-<main role="main">
-    <div class="jumbotron">
-        <div class="container">
-            <br />
-            <h2 style="font-weight: 300">
-                Selecione a opção que você deseja acessar:
-            </h2>
-            <br />
-            <div>
-                <div>
-                    <a
-                        class="btn btn-primary button"
-                        href="cadastrar"
-                        role="button"
-                    >
-                        Cadastrar Novo Voo
-                    </a>
-                </div>
-                <div>
-                    <a
-                        class="btn btn-primary button"
-                        style="margin: 10px 10px; width: 200px"
-                        href="consultar"
-                        role="button"
-                    >
-                        Consultar Voo
-                    </a>
-                </div>
-                <div>
-                    <a
-                        class="btn btn-primary button"
-                        style="margin: 10px 10px; width: 200px"
-                        href="atualizar"
-                        role="button"
-                    >
-                        Atualizar Voo
-                    </a>
-                </div>
-                <div>
-                    <a
-                        class="btn btn-primary button"
-                        style="margin: 10px 10px; width: 200px"
-                        href="remover"
-                        role="button"
-                    >
-                        Remover Voo
-                    </a>
-                </div>
-                <div>
-                    <a
-                        class="btn btn-secondary button"
-                        style="margin: 10px 10px; width: 200px"
-                        href=".."
-                        role="button"
-                    >
-                        Retornar
-                    </a>
-                </div>
-            </div>
+<div class="container">
+    <h2 style="font-weight: 300; margin: 20px 0">
+        Selecione a opção que você deseja acessar:
+    </h2>
+    <div>
+        <div>
+            <a class="btn btn-primary button" href="cadastrar" role="button">
+                Cadastrar Novo Voo
+            </a>
+        </div>
+        <div>
+            <a
+                class="btn btn-primary button"
+                style="margin: 10px 10px; width: 200px"
+                href="consultar"
+                role="button"
+            >
+                Consultar Voo
+            </a>
+        </div>
+        <div>
+            <a
+                class="btn btn-primary button"
+                style="margin: 10px 10px; width: 200px"
+                href="atualizar"
+                role="button"
+            >
+                Atualizar Voo
+            </a>
+        </div>
+        <div>
+            <a
+                class="btn btn-primary button"
+                style="margin: 10px 10px; width: 200px"
+                href="remover"
+                role="button"
+            >
+                Remover Voo
+            </a>
+        </div>
+        <div>
+            <a
+                class="btn btn-secondary button"
+                style="margin: 10px 10px; width: 200px"
+                href="/"
+                role="button"
+            >
+                Retornar
+            </a>
         </div>
     </div>
-</main>
+</div>
 
 {% endblock content %}

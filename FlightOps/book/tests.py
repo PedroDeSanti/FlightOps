@@ -1,16 +1,21 @@
+from datetime import datetime
+
+from book.models import Estado, Horarios, Rota, Voo, Voo_Estado
+from django.contrib.auth import authenticate
+from django.core.management import call_command
+from django.http import HttpRequest
 from django.test import TestCase
 from django.utils import timezone
-from book.models import Voo, Rota, Estado, Horarios, Voo_Estado
-from datetime import datetime
-from django.core.management import call_command
 
-def cria_rota(conexoes = 'GRU'):
+
+def cria_rota(conexoes='GRU'):
     Rota.objects.create(
         aeroporto_origem='POA',
         aeroporto_destino='SSA',
         conexoes=conexoes
     )
     return
+
 
 def obtem_rota(conexoes='GRU'):
     return Rota.objects.get(
@@ -19,44 +24,53 @@ def obtem_rota(conexoes='GRU'):
         conexoes=conexoes
     )
 
+
 def cria_estado(nome='Taxiando'):
     Estado.objects.create(
         nome=nome
     )
-    return 
-    
+    return
+
+
 def obtem_estado(nome='Taxiando'):
     return Estado.objects.get(
         nome=nome
     )
 
+
 def cria_horarios():
     Horarios.objects.create(
-        partida_previsao=datetime(2022, 7, 23, 12, 53, 11, tzinfo=timezone.utc),
-        chegada_previsao=datetime(2022, 7, 23, 18, 42, 16, tzinfo=timezone.utc),
+        partida_previsao=datetime(
+            2022, 7, 23, 12, 53, 11, tzinfo=timezone.utc),
+        chegada_previsao=datetime(
+            2022, 7, 23, 18, 42, 16, tzinfo=timezone.utc),
         partida_real=datetime(2022, 7, 23, 13, 10, 23, tzinfo=timezone.utc),
         chegada_real=datetime(2022, 7, 23, 19, 21, 35, tzinfo=timezone.utc)
     )
+
 
 def obtem_horarios():
     return Horarios.objects.get(
-        partida_previsao=datetime(2022, 7, 23, 12, 53, 11, tzinfo=timezone.utc),
-        chegada_previsao=datetime(2022, 7, 23, 18, 42, 16, tzinfo=timezone.utc),
+        partida_previsao=datetime(
+            2022, 7, 23, 12, 53, 11, tzinfo=timezone.utc),
+        chegada_previsao=datetime(
+            2022, 7, 23, 18, 42, 16, tzinfo=timezone.utc),
         partida_real=datetime(2022, 7, 23, 13, 10, 23, tzinfo=timezone.utc),
         chegada_real=datetime(2022, 7, 23, 19, 21, 35, tzinfo=timezone.utc)
     )
 
+
 def cria_voo():
-    cria_rota()    
+    cria_rota()
     rota = obtem_rota()
     cria_rota(conexoes='GRU, SBRJ')
 
-    cria_estado()    
+    cria_estado()
     estado_atual = obtem_estado()
-    
+
     cria_horarios()
-    horarios = obtem_horarios() 
-    
+    horarios = obtem_horarios()
+
     Voo.objects.create(
         codigo_de_voo="AZCBJ3",
         companhia_aerea="GOL",
@@ -64,6 +78,7 @@ def cria_voo():
         estado_atual=estado_atual,
         horarios=horarios,
     )
+
 
 def obtem_voo():
     rota = obtem_rota()
@@ -96,7 +111,7 @@ class RotaModelTest(TestCase):
     def test_delete_conexoes(self):
         rota_1 = obtem_rota()
         rota_1.delete()
-        self.assertEqual(Rota.objects.count(),0)
+        self.assertEqual(Rota.objects.count(), 0)
 
 
 class EstadoModelTest(TestCase):
@@ -117,7 +132,7 @@ class EstadoModelTest(TestCase):
     def test_delete_conexoes(self):
         estado_1 = Estado.objects.get(id=1)
         estado_1.delete()
-        self.assertEqual(Estado.objects.count(),0)
+        self.assertEqual(Estado.objects.count(), 0)
 
 
 class HorariosModelTest(TestCase):
@@ -131,7 +146,8 @@ class HorariosModelTest(TestCase):
 
     def test_update_partida_real(self):
         horarios_1 = obtem_horarios()
-        horarios_1.partida_real = datetime(2022, 7, 23, 14, 14, 14, tzinfo=timezone.utc)
+        horarios_1.partida_real = datetime(
+            2022, 7, 23, 14, 14, 14, tzinfo=timezone.utc)
         horarios_1.save()
         self.assertEqual(horarios_1.partida_real,
                          datetime(2022, 7, 23, 14, 14, 14, tzinfo=timezone.utc))
@@ -139,7 +155,7 @@ class HorariosModelTest(TestCase):
     def test_delete_chegada_real(self):
         horarios_1 = Horarios.objects.get(id=1)
         horarios_1.delete()
-        self.assertEqual(Horarios.objects.count(),0)
+        self.assertEqual(Horarios.objects.count(), 0)
 
 
 class VooModelTest(TestCase):
@@ -161,7 +177,7 @@ class VooModelTest(TestCase):
     def test_delete_voo(self):
         voo_1 = Rota.objects.get(id=1)
         voo_1.delete()
-        self.assertEqual(Voo.objects.count(),0)
+        self.assertEqual(Voo.objects.count(), 0)
 
 
 class Voo_EstadoModelTest(TestCase):
@@ -170,7 +186,7 @@ class Voo_EstadoModelTest(TestCase):
         cria_voo()
         voo = obtem_voo()
         estado = obtem_estado()
-        
+
         Voo_Estado.objects.create(
             voo=voo,
             estado=estado
@@ -195,48 +211,52 @@ class Voo_EstadoModelTest(TestCase):
         voo = obtem_voo()
         voo_estado_1 = Voo_Estado.objects.get(voo=voo)
         voo_estado_1.delete()
-        self.assertEqual(Voo_Estado.objects.count(),0)
+        self.assertEqual(Voo_Estado.objects.count(), 0)
 
 
 class ViewsTest(TestCase):
     @classmethod
     def setUp(self):
         call_command("createusers")
-        
-    
+
     def testViewAdministrar(self):
-        login = self.client.login(username='dev', password='senha')    
-        response = self.client.get('/administrar/')        
+        request = HttpRequest()
+        self.client.login(request=request, username="dev", password="senha")
+        response = self.client.get('/administrar/')
         self.assertEqual(response.status_code, 200)
 
-    def testViewAdministrarCadastrar(self):    
-        login = self.client.login(username='dev', password='senha')
-        response = self.client.get('/administrar/cadastrar/')        
+    def testViewAdministrarCadastrar(self):
+        request = HttpRequest()
+        self.client.login(request=request, username="dev", password="senha")
+        response = self.client.get('/administrar/cadastrar/')
         self.assertEqual(response.status_code, 200)
 
-    def testViewAdministrarAtualizar(self):    
-        login = self.client.login(username='dev', password='senha')
-        response = self.client.get('/administrar/atualizar/')        
+    def testViewAdministrarAtualizar(self):
+        request = HttpRequest()
+        self.client.login(request=request, username="dev", password="senha")
+        response = self.client.get('/administrar/atualizar/')
         self.assertEqual(response.status_code, 200)
 
-    def testViewAdministrarConsultar(self):    
-        login = self.client.login(username='dev', password='senha')
-        response = self.client.get('/administrar/consultar/')        
+    def testViewAdministrarConsultar(self):
+        request = HttpRequest()
+        self.client.login(request=request, username="dev", password="senha")
+        response = self.client.get('/administrar/consultar/')
         self.assertEqual(response.status_code, 200)
 
-    def testViewAdministrarRemover(self):    
-        login = self.client.login(username='dev', password='senha')
-        response = self.client.get('/administrar/remover/')        
+    def testViewAdministrarRemover(self):
+        request = HttpRequest()
+        self.client.login(request=request, username="dev", password="senha")
+        response = self.client.get('/administrar/remover/')
         self.assertEqual(response.status_code, 200)
 
-    def testViewMonitorar(self):    
-        login = self.client.login(username='dev', password='senha')
-        response = self.client.get('/monitorar/')        
+    def testViewMonitorar(self):
+        request = HttpRequest()
+        self.client.login(request=request, username="dev", password="senha")
+        response = self.client.get('/monitorar/')
         self.assertEqual(response.status_code, 200)
 
-    def testViewRelatorio(self):    
-        login = self.client.login(username='dev', password='senha')
-        response = self.client.get('/relatorio/')        
+    def testViewRelatorio(self):
+        request = HttpRequest()
+        self.client.login(request=request, username="dev", password="senha")
+        response = self.client.get('/relatorio/')
         self.assertEqual(response.status_code, 200)
-
-    

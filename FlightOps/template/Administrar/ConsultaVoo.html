@@ -1,254 +1,306 @@
 {% extends "html_base.html" %} {% block navbar %}
-<li class="nav-item active">
-    <a class="nav-link" href="/administrar/"> Administração </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="/monitorar/">Monitoração</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="/relatorio/">Relatórios</a>
-</li>
 
+<ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+        <a class="nav-link" href="/administrar/"> Administração </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/monitorar/">Monitoração</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/relatorio/">Relatórios</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/painel/">Painel</a>
+    </li>
+</ul>
+<ul class="navbar-nav ml-auto">
+    <li class="nav-item active">
+        <a class="nav-link" href="/accounts/logout/">Logout</a>
+    </li>
+</ul>
 {% endblock navbar %} {% block content %}
 
-<main role="main">
-    <div class="jumbotron">
-        <div class="container">
-            <br />
-            {% if erro %}
-                <div class="alert alert-danger" role="alert">
-                {{erro}}
+<div class="container">
+    {% if erro %}
+    <div class="alert alert-danger" role="alert">{{erro}}</div>
+    {% endif %} {% if voo %}
+    <h2 style="font-weight: 300; margin: 20px 0">
+        Informações do voo {{voo.codigo_de_voo}}
+    </h2>
+    <form style="width: 80%; height: 100%">
+        {% csrf_token %}
+        <div class="mb-3 container">
+            <div class="row">
+                <div class="col">
+                    <label for="fieldCodigoVooConsultar" class="form-label">
+                        Código de Voo
+                    </label>
+                    <input
+                        readonly
+                        type="text"
+                        class="form-control"
+                        name="codigo_de_voo"
+                        value="{{voo.codigo_de_voo}}"
+                        id="fieldCodigoVooConsultar"
+                    />
                 </div>
-            {% endif %} 
-            <br />
-            {% if voo %}
-            <h2 style="font-weight: 300">
-                Informações do voo {{voo.codigo_de_voo}}
-            </h2>
-            <br />
-            <form style="width: 80%; height: 100%">
-                {% csrf_token %}
-                <div class="mb-3 container">
-                    <div class="row">
-                        <div class="col">
-                            <label
-                                for="fieldCodigoVooConsultar"
-                                class="form-label"
-                            >
-                                Código de Voo
-                            </label>
-                            <input
-                                readonly
-                                type="text"
-                                class="form-control"
-                                name="codigo_de_voo"
-                                value={{voo.codigo_de_voo}}
-                                id="fieldCodigoVooConsultar"
-                            />
-                        </div>
-                        <div class="col">
-                            <label
-                                for="inputCompanhiaAereaConsultar"
-                                class="form-label"
-                            >
-                                Companhia Aérea
-                            </label>
-                            <input
-                                readonly
-                                type="text"
-                                class="form-control"
-                                name="companhia_aerea"
-                                value={{voo.companhia_aerea}}
-                                id="inputCompanhiaAereaConsultar"
-                            />
-                        </div>
-                    </div>
+                <div class="col">
+                    <label
+                        for="inputCompanhiaAereaConsultar"
+                        class="form-label"
+                    >
+                        Companhia Aérea
+                    </label>
+                    <input
+                        readonly
+                        type="text"
+                        class="form-control"
+                        name="companhia_aerea"
+                        value="{{voo.companhia_aerea}}"
+                        id="inputCompanhiaAereaConsultar"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3 container">
+            <div class="row">
+                <div class="col">
+                    <label for="fieldOrigemConsultar" class="form-label">
+                        Origem
+                    </label>
+                    <input
+                        readonly
+                        type="text"
+                        class="form-control"
+                        name="aeroporto_origem"
+                        value="{{voo.rota.aeroporto_origem}}"
+                        id="fieldOrigemConsultar"
+                    />
                 </div>
 
-                <div class="mb-3 container">
-                    <div class="row">
-                        <div class="col">
-                            <label for="fieldOrigemConsultar" class="form-label">
-                                Origem
-                            </label>
-                            <input
-                                readonly
-                                type="text"
-                                class="form-control"
-                                name="aeroporto_origem"
-                                value={{voo.rota.aeroporto_origem}}
-                                id="fieldOrigemConsultar"
-                            />
-                        </div>
-
-                        <div class="col">
-                            <label for="fieldConexoesConsultar" class="form-label">
-                                Conexoes
-                            </label>
-                            <input
-                                readonly
-                                type="text"
-                                class="form-control"
-                                name="conexoes"
-                                value={{voo.rota.conexoes|default:"&nbsp" }}
-                                id="fieldConexoesConsultar"
-                            />
-                        </div>
-
-                        <div class="col">
-                            <label for="fieldDestinoConsultar" class="form-label">
-                                Destino
-                            </label>
-                            <input
-                                readonly
-                                type="text"
-                                class="form-control"
-                                name="aeroporto_destino"
-                                value={{voo.rota.aeroporto_destino}}
-                                id="fieldDestinoConsultar"
-                            />
-                        </div>
-                    </div>
+                <div class="col">
+                    <label for="fieldConexoesConsultar" class="form-label">
+                        Conexoes
+                    </label>
+                    <input readonly type="text" class="form-control"
+                    name="conexoes" value={{voo.rota.conexoes|default:"&nbsp" }}
+                    id="fieldConexoesConsultar" />
                 </div>
 
-                <div class="mb-3 container">
-                    <div class="row">
-                        <div class="col">
-                            <label for="fieldDataPartidaConsultar" class="form-label">
-                                Partida Previsão
-                            </label>
-                            <input
-                                readonly
-                                type="datetime-local"
-                                class="form-control"
-                                name="data_partida_previsao"
-                                value={{voo.horarios.partida_previsao}}
-                                id="fieldDataPartidaConsultar"
-                            />
-                        </div>
-                        <div class="col">
-                            <label for="fieldDataChegadaConsultar" class="form-label">
-                                Chegada Previsao
-                            </label>
-                            <input
-                                readonly
-                                type="datetime-local"
-                                class="form-control"
-                                name="data_chegada_previsao"
-                                value={{voo.horarios.chegada_previsao}}
-                                id="fieldDataChegadaConsultar"
-                            />
-                        </div>
-                    </div>
+                <div class="col">
+                    <label for="fieldDestinoConsultar" class="form-label">
+                        Destino
+                    </label>
+                    <input
+                        readonly
+                        type="text"
+                        class="form-control"
+                        name="aeroporto_destino"
+                        value="{{voo.rota.aeroporto_destino}}"
+                        id="fieldDestinoConsultar"
+                    />
                 </div>
+            </div>
+        </div>
 
-                <div class="mb-3 container">
-                    <div class="row">
-                        <div class="col">
-                            <label for="fieldDataPartidaRealConsultar" class="form-label">
-                                Partida Real
-                            </label>
-                            <input
-                                readonly
-                                type="datetime-local"
-                                class="form-control"
-                                name="data_partida_previsao"
-                                value={{voo.horarios.partida_real}}
-                                id="fieldDataPartidaRealConsultar"
-                            />
-                        </div>
-                        <div class="col">
-                            <label for="fieldDataChegadaRealConsultar" class="form-label">
-                                Chegada Previsao
-                            </label>
-                            <input
-                                readonly
-                                type="datetime-local"
-                                class="form-control"
-                                name="data_chegada_previsao"
-                                value={{voo.horarios.chegada_real}}
-                                id="fieldDataChegadaRealConsultar"
-                            />
-                        </div>
-                    </div>
+        <div class="mb-3 container">
+            <div class="row">
+                <div class="col">
+                    <label for="fieldDataPartidaConsultar" class="form-label">
+                        Partida Previsão
+                    </label>
+                    <input
+                        readonly
+                        type="datetime-local"
+                        class="form-control"
+                        name="data_partida_previsao"
+                        value="{{voo.horarios.partida_previsao}}"
+                        id="fieldDataPartidaConsultar"
+                    />
                 </div>
-                <div>
-                    <a class="btn btn-secondary button" href="/" role="button">
-                        Retornar
-                    </a>
+                <div class="col">
+                    <label for="fieldDataChegadaConsultar" class="form-label">
+                        Chegada Previsão
+                    </label>
+                    <input
+                        readonly
+                        type="datetime-local"
+                        class="form-control"
+                        name="data_chegada_previsao"
+                        value="{{voo.horarios.chegada_previsao}}"
+                        id="fieldDataChegadaConsultar"
+                    />
                 </div>
-            </form>
-            {% endif %} 
-            {% if not voo %}
-            <h2 style="font-weight: 300">
-                Informe os dados do voo que deseja consultar
-            </h2>
-            <form action="/administrar/consultar/" method="POST" style="width: 80%; height: 100%">
-                {% csrf_token %}
-                <div class="mb-3 container">
-                    <div class="row">
-                        <div class="col">
-                            <label
-                                for="inputCodigoVooConsultar"
-                                class="form-label"
-                            >
-                                Código de Voo
-                            </label>
-                            <input
-                                required
-                                type="text"
-                                class="form-control"
-                                name="codigo_de_voo"
-                                id="inputCodigoVooConsultar"
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <button type="submit" class="btn btn-primary button">Consultar voo</button>
-                </div>
-                <div>
-                    <a class="btn btn-secondary button" href="/" role="button">
-                        Retornar
-                    </a>
-                </div>
-            </form>
+            </div>
+        </div>
 
+        <div class="mb-3 container">
+            <div class="row">
+                <div class="col">
+                    <label
+                        for="fieldDataPartidaRealConsultar"
+                        class="form-label"
+                    >
+                        Partida Real
+                    </label>
+                    <input
+                        readonly
+                        type="datetime-local"
+                        class="form-control"
+                        name="data_partida_real"
+                        value="{{voo.horarios.partida_real}}"
+                        id="fieldDataPartidaRealConsultar"
+                    />
+                </div>
+                <div class="col">
+                    <label
+                        for="fieldDataChegadaRealConsultar"
+                        class="form-label"
+                    >
+                        Chegada Real
+                    </label>
+                    <input
+                        readonly
+                        type="datetime-local"
+                        class="form-control"
+                        name="data_chegada_real"
+                        value="{{voo.horarios.chegada_real}}"
+                        id="fieldDataChegadaRealConsultar"
+                    />
+                </div>
+            </div>
+        </div>
+        <div>
+            <a
+                class="btn btn-secondary button"
+                href="/administrar"
+                role="button"
+            >
+                Retornar
+            </a>
+        </div>
+    </form>
+    {% endif %} {% if not voo %}
+    <h2 style="font-weight: 300; margin: 20px 0">
+        Informe os dados do voo que deseja consultar
+    </h2>
+    <form
+        action="/administrar/consultar/"
+        method="POST"
+        style="width: 80%; height: 100%"
+    >
+        {% csrf_token %}
+        <div class="mb-3 container">
+            <div class="row">
+                <div class="col">
+                    <label for="inputCodigoVooConsultar" class="form-label">
+                        Código de Voo
+                    </label>
+                    <input
+                        required
+                        type="text"
+                        class="form-control"
+                        name="codigo_de_voo"
+                        id="inputCodigoVooConsultar"
+                    />
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary button">
+                Consultar voo
+            </button>
+        </div>
+        <div>
+            <a
+                class="btn btn-secondary button"
+                href="/administrar"
+                role="button"
+            >
+                Retornar
+            </a>
+        </div>
+    </form>
+
+    <div class="mb-3 container">
+        <h2 style="font-weight: 300; margin: 20px 0">Voos de Embarque</h2>
+        <div>
             <table class="table table-striped">
                 <thead class="thead-dark">
-                  <tr>
-                    <th>Código de voo</th>
-                    <th>Companhia aerea</th>
-                    <th>Status</th>
-                    <th>Origem</th>
-                    <th>Conexoes</th>
-                    <th>Destino</th>
-                    <th>Partida Prevista</th>
-                    <th>Chegada Prevista</th>
-                    <th>Partida Real</th>
-                    <th>Chegada Real</th>
-                  </tr>
+                    <tr>
+                        <th>Código de Voo</th>
+                        <th>Companhia</th>
+                        <th>Status</th>
+                        <th>Conexões</th>
+                        <th>Destino</th>
+                        <th>Partida Prevista</th>
+                        <th>Chegada Prevista</th>
+                        <th>Partida Real</th>
+                        <th>Chegada Real</th>
+                    </tr>
                 </thead>
                 <tbody>
-                  {% for voo in voos %}
+                    {% for voo in partidas %}
                     <tr>
-                      <th>{{voo.codigo_de_voo}}</th>
-                      <th>{{voo.companhia_aerea}}</th>
-                      <th>{{voo.estado_atual.nome}}</th>
-                      <th>{{voo.rota.aeroporto_origem}}</th>
-                      <th>{{voo.rota.conexoes}}</th>
-                      <th>{{voo.rota.aeroporto_destino}}</th>
-                      <th>{{voo.horarios.partida_previsao|date:"d/m/Y H:i"}}</th>
-                      <th>{{voo.horarios.chegada_previsao|date:"d/m/Y H:i"}}</th>
-                      <th>{{voo.horarios.partida_real|date:"d/m/Y H:i"}}</th>
-                      <th>{{voo.horarios.chegada_real|date:"d/m/Y H:i"}}</th>
+                        <th>{{voo.codigo_de_voo}}</th>
+                        <th>{{voo.companhia_aerea}}</th>
+                        <th>{{voo.estado_atual.nome}}</th>
+                        <th>{{voo.rota.conexoes}}</th>
+                        <th>{{voo.rota.aeroporto_destino}}</th>
+                        <th>
+                            {{voo.horarios.partida_previsao|date:"d/m/Y H:i"}}
+                        </th>
+                        <th>
+                            {{voo.horarios.chegada_previsao|date:"d/m/Y H:i"}}
+                        </th>
+                        <th>{{voo.horarios.partida_real|date:"d/m/Y H:i"}}</th>
+                        <th>{{voo.horarios.chegada_real|date:"d/m/Y H:i"}}</th>
                     </tr>
-                  {% endfor %}
+                    {% endfor %}
                 </tbody>
-              </table>
-            {% endif %}
+            </table>
+        </div>
+        <h2 style="font-weight: 300; margin: 20px 0">Voos de Desembarque</h2>
+        <div>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Código de Voo</th>
+                        <th>Companhia</th>
+                        <th>Status</th>
+                        <th>Origem</th>
+                        <th>Conexões</th>
+                        <th>Partida Prevista</th>
+                        <th>Chegada Prevista</th>
+                        <th>Partida Real</th>
+                        <th>Chegada Real</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for voo in chegadas %}
+                    <tr>
+                        <th>{{voo.codigo_de_voo}}</th>
+                        <th>{{voo.companhia_aerea}}</th>
+                        <th>{{voo.estado_atual.nome}}</th>
+                        <th>{{voo.rota.aeroporto_origem}}</th>
+                        <th>{{voo.rota.conexoes}}</th>
+                        <th>
+                            {{voo.horarios.partida_previsao|date:"d/m/Y H:i"}}
+                        </th>
+                        <th>
+                            {{voo.horarios.chegada_previsao|date:"d/m/Y H:i"}}
+                        </th>
+                        <th>{{voo.horarios.partida_real|date:"d/m/Y H:i"}}</th>
+                        <th>{{voo.horarios.chegada_real|date:"d/m/Y H:i"}}</th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
-</main>
+    {% endif %}
+</div>
 
 {% endblock content %}

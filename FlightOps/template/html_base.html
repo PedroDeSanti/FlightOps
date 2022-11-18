@@ -62,8 +62,8 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                {% block navbar %}
                 <ul class="navbar-nav mr-auto">
-                    {% block navbar %}
                     <li class="nav-item active">
                         <a class="nav-link" href="/administrar/">
                             Administração
@@ -75,19 +75,27 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/relatorio/">Relatórios</a>
                     </li>
-
-                    {% endblock navbar %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/painel/">Painel</a>
+                    </li>
                 </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/accounts/logout/">Logout</a>
+                    </li>
+                </ul>
+
+                {% endblock navbar %}
             </div>
         </nav>
 
-        {% block content %}
         <main role="main">
             <div class="jumbotron">
+                {% block content %}
                 <div class="container">
-                    <br />
-                    <h2 style="font-weight: 300">Informações do Voo ABC0123</h2>
-                    <br />
+                    <h2 style="font-weight: 300; margin: 20px 0">
+                        Informações do Voo ABC0123
+                    </h2>
                     <table>
                         <tr>
                             <th>Código de Voo</th>
@@ -158,26 +166,22 @@
                             </td>
                         </tr>
                     </table>
-                    <br />
-                    <br />
-                    <a href=".."
+                    <a href=".." style="margin: 40px 0"
                         ><button class="button azul">
                             Confirmar Atualização
                         </button></a
                     >
 
-                    <br />
-                    <br />
                     <a href=".."><button class="button">Retornar</button></a>
                 </div>
+                {% endblock content %}
             </div>
         </main>
-        {% endblock content %}
         <script
             src="https://code.jquery.com/jquery-3.3.1.js"
             integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-            crossorigin="anonymous">
-        </script>
+            crossorigin="anonymous"
+        ></script>
 
         <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     </body>
