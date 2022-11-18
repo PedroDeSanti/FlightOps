@@ -45,6 +45,7 @@
                     </label>
                     <input
                         required
+                        readonly
                         type="text"
                         class="form-control"
                         name="codigo_de_voo"
@@ -152,15 +153,27 @@
                     <label for="fieldDestinoAtualizar" class="form-label">
                         Destino
                     </label>
+
+                    {% if voo.aeroporto_destino == 'VCP'%}
+                    <input
+                        readonly
+                        required
+                        type="text"
+                        class="form-control"
+                        name="aeroporto_destino"
+                        value="{{voo.aeroporto_destino}}"
+                        id="fieldOrigemAtualizar"
+                    />
+                    {% else %}
                     <input
                         required
                         type="text"
                         class="form-control"
                         name="aeroporto_destino"
                         value="{{voo.aeroporto_destino}}"
-                        id="fieldDestinoAtualizar"
+                        id="fieldOrigemAtualizar"
                     />
-                    {% if erro.aeroporto_destino %}
+                    {% endif %} {% if erro.aeroporto_destino %}
                     <div
                         class="alert alert-danger"
                         style="text-align: center"

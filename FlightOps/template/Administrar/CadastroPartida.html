@@ -33,6 +33,7 @@
         method="POST"
         style="width: 80%; height: 100%"
     >
+        <input readonly hidden type="text" name="id" value="{{voo.id}}" />
         {% csrf_token %}
         <div class="mb-3 container">
             <div class="row">

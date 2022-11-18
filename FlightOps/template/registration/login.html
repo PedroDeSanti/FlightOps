@@ -26,10 +26,18 @@
     {% if form.errors %}
     <p>Sua senha está incorreta. Por favor, verifique-a e tente novamente.</p>
     {% endif %} {% if user.is_authenticated %}
-    <p>
-        Sua conta não possui permissão para acessar esta página. Por favor,
-        realize o login com uma conta que apresente esta permissão.
-    </p>
+    <div>
+        <p>
+            Sua conta não possui permissão para acessar esta página. Por favor,
+            realize o login com uma conta que apresente esta permissão.
+        </p>
+    </div>
+
+    <div>
+        <a href="/" class="btn-black">
+            <button class="btn-black" style="margin-top: 10px">Retornar</button>
+        </a>
+    </div>
     {% else %}
     <p>Por favor realize o login para acessar a ferramenta.</p>
     {% endif %}

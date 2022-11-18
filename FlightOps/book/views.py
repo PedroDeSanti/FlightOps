@@ -1,26 +1,24 @@
+from book.gerador_relatorio.GeraRelatorio import (
+    gera_relatorio_mais_detalhes, gera_relatorio_menos_detalhes)
+from book.repositorio.EstadoRepositorio import cria_estado
+from book.repositorio.HorariosRepositorio import (atualiza_horarios_previstos,
+                                                  cria_horarios_previstos,
+                                                  erro_horarios_previstos,
+                                                  gera_str_horarios)
+from book.repositorio.RotasRepositorio import (atualiza_rota, cria_rota,
+                                               erro_rota_aeroporto,
+                                               erro_rota_conexoes,
+                                               erro_rota_mesmo_aeroporto)
+from book.repositorio.VooRepositorio import (atualiza_dados_voo,
+                                             atualiza_estado, cria_voo,
+                                             erro_codigo_de_voo,
+                                             erro_companhia_aerea, filtra_voos,
+                                             obtem_chegadas, obtem_partidas,
+                                             obtem_todos_voos, obtem_voo,
+                                             obtem_voo_por_id, remover_voo)
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import FileResponse, HttpRequest
 from django.shortcuts import render
-
-from book.gerador_relatorio.GeraRelatorio import (
-    gera_relatorio_mais_detalhes, gera_relatorio_menos_detalhes
-)
-from book.repositorio.EstadoRepositorio import cria_estado
-from book.repositorio.HorariosRepositorio import (
-    cria_horarios_previstos, atualiza_horarios_previstos, gera_str_horarios,
-    erro_horarios_previstos,
-)
-from book.repositorio.RotasRepositorio import (
-    cria_rota, atualiza_rota,
-    erro_rota_aeroporto, erro_rota_conexoes, erro_rota_mesmo_aeroporto
-)
-from book.repositorio.VooRepositorio import (
-    atualiza_estado, atualiza_dados_voo,
-    cria_voo, remover_voo,
-    filtra_voos, obtem_chegadas, obtem_partidas,
-    obtem_todos_voos, obtem_voo, obtem_voo_por_id,
-    erro_codigo_de_voo, erro_companhia_aerea,
-)
 
 # Create your views here.
 
@@ -32,8 +30,10 @@ def bookview(request: HttpRequest):
 def login(request: HttpRequest):
     return render(request, "registration/login.html")
 
+
 def lockout(request, credentials):
     return render(request, "registration/lockout.html")
+
 
 @ login_required
 def home(request: HttpRequest):
@@ -56,7 +56,6 @@ def cadastrarVoo(request: HttpRequest):
 
 def trataInformacoesVoo(request: HttpRequest):
     erro = None
-
     # Obtem os parâmetros
     previsao_partida = request.POST["data_partida_previsao"]
     previsao_chegada = request.POST["data_chegada_previsao"]
@@ -67,10 +66,11 @@ def trataInformacoesVoo(request: HttpRequest):
 
     codigo_de_voo = request.POST["codigo_de_voo"].upper()
     companhia_aerea = request.POST["companhia_aerea"].upper()
+    id = request.POST["id"]
 
     # Salva os valores obtidos
     voo = {
-        "id": request.POST["id"],
+        "id": id,
         "partida_previsao": previsao_partida,
         "chegada_previsao": previsao_chegada,
         "aeroporto_origem": aeroporto_origem,
@@ -104,7 +104,6 @@ def trataInformacoesVoo(request: HttpRequest):
             "companhia_aerea": erro_companhia,
             "codigo_de_voo": erro_codigo
         }
-
     return voo, erro
 
 
@@ -129,8 +128,8 @@ def realizarCadastroVoo(request: HttpRequest):
                     voo["aeroporto_destino"],
                     voo["conexoes"]
                 )
-
-                estado = cria_estado("Inicial")
+                estado_inicial = "Inicial" if voo["aeroporto_origem"] == "VCP" else "Voando"
+                estado = cria_estado(estado_inicial)
 
                 voo = cria_voo(
                     voo["codigo_de_voo"],
@@ -175,7 +174,9 @@ def atualizarVoo(request: HttpRequest):
         if "search_codigo_voo" in request.POST:
             try:
                 # obtem o voo do banco de dados
-                voo_bruto = obtem_voo(request.POST["codigo_de_voo"])
+                voo_bruto = obtem_voo(
+                    request.POST["codigo_de_voo"].upper()
+                )
 
                 if voo_bruto == None:
                     raise Exception("Insira um código de voo válido")
@@ -250,7 +251,7 @@ def consultarVoo(request: HttpRequest):
     # Ainda não pesquisou
     if request.method == "POST":
         try:
-            voo = obtem_voo(request.POST["codigo_de_voo"])
+            voo = obtem_voo(request.POST["codigo_de_voo"].upper())
 
             if voo == None:
                 raise Exception("Insira um código de voo válido")

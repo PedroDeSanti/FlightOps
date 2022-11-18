@@ -1,8 +1,9 @@
 from datetime import datetime
-from django.http import HttpRequest
-from django.contrib.auth import authenticate
+
 from book.models import Estado, Horarios, Rota, Voo, Voo_Estado
+from django.contrib.auth import authenticate
 from django.core.management import call_command
+from django.http import HttpRequest
 from django.test import TestCase
 from django.utils import timezone
 
