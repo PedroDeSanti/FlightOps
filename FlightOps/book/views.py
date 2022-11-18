@@ -32,6 +32,8 @@ def bookview(request: HttpRequest):
 def login(request: HttpRequest):
     return render(request, "registration/login.html")
 
+def lockout(request, credentials):
+    return render(request, "registration/lockout.html")
 
 @ login_required
 def home(request: HttpRequest):
