@@ -14,7 +14,7 @@ def erro_rota_mesmo_aeroporto(origem: str, destino: str):
 
 
 def erro_rota_conexoes(conexoes: str):
-    regex_conexoes = re.compile('^[A-Z]{3,4}(,[A-Z]{3,4})*$')
+    regex_conexoes = re.compile('^$|^[A-Z]{3,4}(,[A-Z]{3,4})*$')
     if not bool(regex_conexoes.match(conexoes)):
         return True
     return False

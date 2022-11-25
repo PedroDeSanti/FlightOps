@@ -131,7 +131,7 @@ def realizarCadastroVoo(request: HttpRequest):
                 estado_inicial = "Inicial" if voo["aeroporto_origem"] == "VCP" else "Voando"
                 estado = cria_estado(estado_inicial)
 
-                voo = cria_voo(
+                cria_voo(
                     voo["codigo_de_voo"],
                     voo["companhia_aerea"],
                     rota,
@@ -179,7 +179,7 @@ def atualizarVoo(request: HttpRequest):
                 )
 
                 if voo_bruto == None:
-                    raise Exception("Insira um código de voo válido")
+                    raise Exception("Não há voos com o código informado")
 
                 voo_bruto.horarios = gera_str_horarios(voo_bruto.horarios)
 
@@ -254,7 +254,7 @@ def consultarVoo(request: HttpRequest):
             voo = obtem_voo(request.POST["codigo_de_voo"].upper())
 
             if voo == None:
-                raise Exception("Insira um código de voo válido")
+                raise Exception("Não há voos com o código informado")
 
             voo.horarios = gera_str_horarios(voo.horarios)
 
@@ -294,7 +294,7 @@ def removerVoo(request: HttpRequest):
                 voo = obtem_voo(request.POST["codigo_de_voo"].upper())
 
                 if voo == None:
-                    raise Exception("Insira um código de voo válido")
+                    raise Exception("Não há voos com o código informado")
 
                 voo.horarios = gera_str_horarios(voo.horarios)
 
@@ -352,7 +352,7 @@ def monitorarVoos(request: HttpRequest):
                 voo = obtem_voo(request.POST["codigo_de_voo"].upper())
 
                 if voo == None:
-                    raise Exception("Insira um código de voo válido")
+                    raise Exception("Não há voos com o código informado")
 
                 if voo.estado_atual.nome == "Cancelado":
                     raise Exception("O voo foi cancelado")

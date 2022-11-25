@@ -24,7 +24,7 @@
 <div class="container">
     {% if sucesso %}
     <div class="alert alert-success" role="alert">
-        Voo atualizado com sucesso!
+        Voo removido com sucesso!
     </div>
     {% endif %} {% if erro %}
     <div class="alert alert-danger" role="alert">{{erro}}</div>
@@ -81,7 +81,7 @@
 
                 <div class="col">
                     <label for="fieldConexoesRemover" class="form-label">
-                        Conexoes
+                        Conexões
                     </label>
                     <input readonly type="text" class="form-control"
                     name="conexoes" value={{voo.rota.conexoes|default:"&nbsp" }}
@@ -108,7 +108,7 @@
             <div class="row">
                 <div class="col">
                     <label for="fieldDataPartidaRemover" class="form-label">
-                        Partida Previsão
+                        Previsão Partida
                     </label>
                     <input
                         readonly
@@ -121,7 +121,7 @@
                 </div>
                 <div class="col">
                     <label for="fieldDataChegadaRemover" class="form-label">
-                        Chegada Previsão
+                        Previsão Chegada
                     </label>
                     <input
                         readonly
@@ -294,7 +294,6 @@
                         <th>Partida Prevista</th>
                         <th>Chegada Prevista</th>
                         <th>Partida Real</th>
-                        <th>Chegada Real</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -312,7 +311,6 @@
                             {{voo.horarios.chegada_previsao|date:"d/m/Y H:i"}}
                         </th>
                         <th>{{voo.horarios.partida_real|date:"d/m/Y H:i"}}</th>
-                        <th>{{voo.horarios.chegada_real|date:"d/m/Y H:i"}}</th>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -330,7 +328,6 @@
                         <th>Conexões</th>
                         <th>Partida Prevista</th>
                         <th>Chegada Prevista</th>
-                        <th>Partida Real</th>
                         <th>Chegada Real</th>
                     </tr>
                 </thead>
@@ -348,7 +345,6 @@
                         <th>
                             {{voo.horarios.chegada_previsao|date:"d/m/Y H:i"}}
                         </th>
-                        <th>{{voo.horarios.partida_real|date:"d/m/Y H:i"}}</th>
                         <th>{{voo.horarios.chegada_real|date:"d/m/Y H:i"}}</th>
                     </tr>
                     {% endfor %}
