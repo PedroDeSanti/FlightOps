@@ -33,10 +33,10 @@ class Command(BaseCommand):
         permission_2_3 = create_permission("Torre de controle", "torre")
         permission_3 = create_permission("Gerar relatorios", "gerarrelatorio")
         
-        create_user("usuario_1", "usuario1@flightops.com", "senha_1", [permission_1])
-        create_user("usuario_2_1", "usuario21@flightops.com", "senha_2_1", [permission_2, permission_2_1])
-        create_user("usuario_2_2", "usuario22@flightops.com", "senha_2_2", [permission_2, permission_2_2])
-        create_user("usuario_2_3", "usuario23@flightops.com", "senha_2_3", [permission_2, permission_2_3])
-        create_user("usuario_3", "usuario3@flightops.com", "senha_3", [permission_3])
-        create_user("dev", "dev@flightops.com", "senha", [permission_1, permission_2, permission_2_1, permission_2_2, permission_2_3, permission_3])
+        create_user("administrar", "usuario1@flightops.com", "administrar", [permission_1])
+        create_user("monitorar_companhia", "usuario21@flightops.com", "monitorar_companhia", [permission_2, permission_2_1])
+        create_user("monitorar_piloto", "usuario22@flightops.com", "monitorar_piloto", [permission_2, permission_2_2])
+        create_user("monitorar_torre", "usuario23@flightops.com", "monitorar_torre", [permission_2, permission_2_3])
+        create_user("relatorio", "usuario3@flightops.com", "relatorio", [permission_3])
+        create_user("dev", "dev@flightops.com", "dev", [permission_1, permission_2, permission_2_1, permission_2_2, permission_2_3, permission_3])
         return 

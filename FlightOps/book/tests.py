@@ -221,42 +221,42 @@ class ViewsTest(TestCase):
 
     def testViewAdministrar(self):
         request = HttpRequest()
-        self.client.login(request=request, username="dev", password="senha")
+        self.client.login(request=request, username="dev", password="dev")
         response = self.client.get('/administrar/')
         self.assertEqual(response.status_code, 200)
 
     def testViewAdministrarCadastrar(self):
         request = HttpRequest()
-        self.client.login(request=request, username="dev", password="senha")
+        self.client.login(request=request, username="dev", password="dev")
         response = self.client.get('/administrar/cadastrar/')
         self.assertEqual(response.status_code, 200)
 
     def testViewAdministrarAtualizar(self):
         request = HttpRequest()
-        self.client.login(request=request, username="dev", password="senha")
+        self.client.login(request=request, username="dev", password="dev")
         response = self.client.get('/administrar/atualizar/')
         self.assertEqual(response.status_code, 200)
 
     def testViewAdministrarConsultar(self):
         request = HttpRequest()
-        self.client.login(request=request, username="dev", password="senha")
+        self.client.login(request=request, username="dev", password="dev")
         response = self.client.get('/administrar/consultar/')
         self.assertEqual(response.status_code, 200)
 
     def testViewAdministrarRemover(self):
         request = HttpRequest()
-        self.client.login(request=request, username="dev", password="senha")
+        self.client.login(request=request, username="dev", password="dev")
         response = self.client.get('/administrar/remover/')
         self.assertEqual(response.status_code, 200)
 
     def testViewMonitorar(self):
         request = HttpRequest()
-        self.client.login(request=request, username="dev", password="senha")
+        self.client.login(request=request, username="dev", password="dev")
         response = self.client.get('/monitorar/')
         self.assertEqual(response.status_code, 200)
 
     def testViewRelatorio(self):
         request = HttpRequest()
-        self.client.login(request=request, username="dev", password="senha")
+        self.client.login(request=request, username="dev", password="dev")
         response = self.client.get('/relatorio/')
         self.assertEqual(response.status_code, 200)
