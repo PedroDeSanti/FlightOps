@@ -22,6 +22,11 @@
 {% endblock navbar %} {% block content %}
 
 <div class="container" style="min-height: 100%">
+    {% if erroVoos %}
+    <div class="alert alert-danger" role="alert">
+        Não há voos que entrem no filtro colocado!
+    </div>
+    {% endif %}
     <h2 style="font-weight: 300; margin: 20px 0">
         Preencha os filtros desejados para gerar o relatório
     </h2>
@@ -42,7 +47,18 @@
                         class="form-control"
                         name="codigo_de_voo"
                         id="inputCodigoVooRelatorio"
+                        placeholder="ABC0123"
+                        value="{{filtro.codigo_de_voo}}"
                     />
+                    {% if erro.codigo_de_voo %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Código de Voo inválido
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="col">
                     <label
@@ -56,7 +72,18 @@
                         class="form-control"
                         name="companhia_aerea"
                         id="inputCompanhiaAereaRelatorio"
+                        placeholder="LATAM"
+                        value="{{filtro.companhia_aerea}}"
                     />
+                    {% if erro.companhia_aerea %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Companhia Aérea inválida
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="col">
                     <label
@@ -71,7 +98,14 @@
                         name="nome_estado"
                         id="inputEstadoVooRelatorio"
                     >
+                        {% if filtro.estado %}
+                        <option selected value="{{filtro.estado}}">
+                            {{filtro.estado}}
+                        </option>
+                        <option value="">Selecione um estado</option>
+                        {% else %}
                         <option selected value="">Selecione um estado</option>
+                        {% endif %}
                         <option value="Inicial">Inicial</option>
                         <option value="Embarcando">Embarcando</option>
                         <option value="Cancelado">Cancelado</option>
@@ -97,7 +131,40 @@
                         class="form-control"
                         name="aeroporto_origem"
                         id="inputOrigemRelatorio"
+                        placeholder="POA"
+                        value="{{filtro.aeroporto_origem}}"
                     />
+                    {% if erro.aeroporto_origem %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Aeroporto de Origem inválido
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col">
+                    <label for="inputConexoesRelatorio" class="form-label">
+                        Conexões
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="conexoes"
+                        id="inputConexoesRelatorio"
+                        placeholder="GRU,SBRJ"
+                        value="{{filtro.conexoes}}"
+                    />
+                    {% if erro.conexoes %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Conexões inválidas
+                    </div>
+                    {% endif %}
                 </div>
 
                 <div class="col">
@@ -109,9 +176,29 @@
                         class="form-control"
                         name="aeroporto_destino"
                         id="inputDestinoRelatorio"
+                        value="{{filtro.aeroporto_destino}}"
+                        placeholder="SSA"
                     />
+                    {% if erro.aeroporto_destino %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Aeroporto de Destino inválido
+                    </div>
+                    {% endif %}
                 </div>
             </div>
+            {% if erro.mesmo_aeroporto %}
+            <div
+                class="alert alert-danger"
+                style="text-align: center"
+                role="alert"
+            >
+                Aeroporto de Origem e de Destino não podem ser iguais
+            </div>
+            {% endif %}
         </div>
 
         <div class="mb-4 container">
@@ -128,6 +215,7 @@
                         class="form-control"
                         name="partida_inferior"
                         id="inputDataPartidaInferiorRelatorio"
+                        value="{{filtro.partida_inferior}}"
                     />
                 </div>
 
@@ -143,23 +231,87 @@
                         class="form-control"
                         name="partida_superior"
                         id="inputDataPartidaSuperiorRelatorio"
+                        value="{{filtro.partida_superior}}"
                     />
                 </div>
             </div>
+            {% if erro.partida %}
+            <div
+                class="alert alert-danger"
+                style="text-align: center"
+                role="alert"
+            >
+                Limite inferior não pode ser posterior ao limite superior
+            </div>
+            {% endif %}
+        </div>
+        <div class="mb-4 container">
+            <div class="row">
+                <div class="col">
+                    <label
+                        for="inputDataChegadaInferiorRelatorio"
+                        class="form-label"
+                    >
+                        Data chegada: limite inferior
+                    </label>
+                    <input
+                        type="datetime-local"
+                        class="form-control"
+                        name="chegada_inferior"
+                        id="inputDataChegadaInferiorRelatorio"
+                        value="{{filtro.chegada_inferior}}"
+                    />
+                </div>
+
+                <div class="col">
+                    <label
+                        for="inputDataChegadaSuperiorRelatorio"
+                        class="form-label"
+                    >
+                        Data chegada: limite superior
+                    </label>
+                    <input
+                        type="datetime-local"
+                        class="form-control"
+                        name="chegada_superior"
+                        id="inputDataChegadaSuperiorRelatorio"
+                        value="{{filtro.chegada_superior}}"
+                    />
+                </div>
+            </div>
+            {% if erro.chegada %}
+            <div
+                class="alert alert-danger"
+                style="text-align: center"
+                role="alert"
+            >
+                Limite inferior não pode ser posterior ao limite superior
+            </div>
+            {% endif %}
         </div>
         <div class="mb-4 container">
             <div class="row">
                 <div class="col">
                     <div class="form-check">
+                        {% if filtro.detalhes %}
+                        <input
+                            name="detalhes"
+                            type="checkbox"
+                            class="form-check-input"
+                            id="detalhesRelatorio"
+                            checked
+                        />
+                        {% else %}
                         <input
                             name="detalhes"
                             type="checkbox"
                             class="form-check-input"
                             id="detalhesRelatorio"
                         />
-                        <label class="form-check-label" for="detalhesRelatorio"
-                            >Desejo imprimir relatório com mais detalhes</label
-                        >
+                        {% endif %}
+                        <label class="form-check-label" for="detalhesRelatorio">
+                            Desejo imprimir relatório com mais detalhes
+                        </label>
                     </div>
                 </div>
             </div>

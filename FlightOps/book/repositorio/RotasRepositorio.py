@@ -3,14 +3,14 @@ import re
 
 
 def erro_rota_aeroporto(aeroporto: str):
-    regex_aeroporto = re.compile('^[A-Z]{3,4}$')
+    regex_aeroporto = re.compile('^$|^[A-Z]{3,4}$')
     if not bool(regex_aeroporto.match(aeroporto)):
         return True
     return False
 
 
 def erro_rota_mesmo_aeroporto(origem: str, destino: str):
-    return origem == destino
+    return origem != '' and destino != '' and origem == destino
 
 
 def erro_rota_conexoes(conexoes: str):

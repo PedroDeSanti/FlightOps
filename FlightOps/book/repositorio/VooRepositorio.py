@@ -1,20 +1,19 @@
 from book.models import Voo, Voo_Estado, Rota, Horarios, Estado
 from book.repositorio.HorariosRepositorio import (
-    atualiza_horarios_previstos, preenche_horario_chegada_real,
+    preenche_horario_chegada_real,
     preenche_horario_partida_real)
-from book.repositorio.RotasRepositorio import atualiza_rota
 import re
 
 
 def erro_codigo_de_voo(codigo_de_voo: str):
-    regex_codigo = re.compile('^[A-Z]+[A-Z\d]{2,}$')
+    regex_codigo = re.compile('^$|^[A-Z]+[A-Z\d]{2,}$')
     if not bool(regex_codigo.match(codigo_de_voo)):
         return True
     return False
 
 
 def erro_companhia_aerea(companhia: str):
-    regex_companhia = re.compile('^[A-Z]{3,}$')
+    regex_companhia = re.compile('^$|^[A-Z]{3,}$')
     if not bool(regex_companhia.match(companhia)):
         return True
     return False
@@ -85,7 +84,17 @@ def atualiza_estado(voo: Voo, estado: Estado):
     return voo
 
 
-def filtra_voos(codigo_de_voo, companhia_aerea, nome_estado, aeroporto_origem, aeroporto_destino, partida_inferior, partida_superior):
+def filtra_voos(
+    codigo_de_voo,
+    companhia_aerea,
+    nome_estado,
+    aeroporto_origem,
+    aeroporto_destino,
+    partida_inferior,
+    partida_superior,
+    chegada_inferior,
+    chegada_superior
+):
 
     voos = Voo.objects.all()
 
@@ -114,6 +123,15 @@ def filtra_voos(codigo_de_voo, companhia_aerea, nome_estado, aeroporto_origem, a
             horarios__partida_previsao__lte=partida_superior + "-03:00"
         )
 
+    if chegada_inferior != None and chegada_inferior != "":
+        voos = voos.filter(
+            horarios__chegada_previsao__gte=chegada_inferior + "-03:00"
+        )
+
+    if chegada_superior != None and chegada_superior != "":
+        voos = voos.filter(
+            horarios__chegada_previsao__lte=chegada_superior + "-03:00"
+        )
     return voos
 
 
