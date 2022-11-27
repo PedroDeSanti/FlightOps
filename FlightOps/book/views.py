@@ -352,13 +352,15 @@ def monitorarVoos(request: HttpRequest):
                 voo = obtem_voo(request.POST["codigo_de_voo"].upper())
 
                 if voo == None:
-                    raise Exception("Não há voos com o código informado")
+                    raise Exception("Não há voos com o código informado!")
 
                 if voo.estado_atual.nome == "Cancelado":
-                    raise Exception("O voo foi cancelado")
+                    voo = None
+                    raise Exception("O voo foi cancelado!")
 
                 if voo.estado_atual.nome == "Aterrissado":
-                    raise Exception("O voo já aterrisou")
+                    voo = None
+                    raise Exception("O voo já aterrisou!")
 
                 opcoes = todas_opcoes[voo.estado_atual.nome]
 

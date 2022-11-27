@@ -29,8 +29,14 @@
     {% endif %} {% if erro %}
     <div class="alert alert-danger" role="alert">{{erro}}</div>
     {% endif %} {% if voo %} {% if opcoes != None %}
+    <h1 style="font-weight: 300; margin: 20px 0">
+        Monitoração do voo <b>{{voo.codigo_de_voo}}</b>
+    </h1>
     <h2 style="font-weight: 300; margin: 20px 0">
-        Selecione o novo estado do voo {{voo.codigo_de_voo}}
+        Estado atual do voo: {{voo.estado_atual.nome}}
+    </h2>
+    <h2 style="font-weight: 300; margin: 20px 0">
+        Selecione o novo estado do voo
     </h2>
     <form action="/monitorar/" method="POST" style="width: 80%; height: 100%">
         <input readonly hidden type="text" name="id" value="{{voo.id}}" />
@@ -55,7 +61,7 @@
 
         <div>
             <button type="submit" class="btn btn-primary button">
-                Alterar estado
+                Atualizar estado
             </button>
         </div>
     </form>
@@ -73,7 +79,7 @@
                 <tr>
                     <th>Código de Voo</th>
                     <th>Companhia</th>
-                    <th>Status</th>
+                    <th>Estado</th>
                     {% if voo.rota.aeroporto_origem == "VCP" %}
                     <th>Conexões</th>
                     <th>Destino</th>
@@ -116,7 +122,7 @@
 
     {% endif %} {% if not voo %}
     <h2 style="font-weight: 300; margin: 20px 0">
-        Informe os dados do voo que deseja Monitorar
+        Informe os dados do voo que deseja monitorar
     </h2>
     <form action="/monitorar/" method="POST" style="width: 80%; height: 100%">
         {% csrf_token %}
@@ -160,7 +166,7 @@
                     <tr>
                         <th>Código de Voo</th>
                         <th>Companhia</th>
-                        <th>Status</th>
+                        <th>Estado</th>
                         <th>Conexões</th>
                         <th>Destino</th>
                         <th>Partida Prevista</th>
@@ -195,7 +201,7 @@
                     <tr>
                         <th>Código de Voo</th>
                         <th>Companhia</th>
-                        <th>Status</th>
+                        <th>Estado</th>
                         <th>Origem</th>
                         <th>Conexões</th>
                         <th>Partida Prevista</th>
