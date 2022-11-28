@@ -131,7 +131,7 @@ def realizarCadastroVoo(request: HttpRequest):
                 estado_inicial = "Inicial" if voo["aeroporto_origem"] == "VCP" else "Voando"
                 estado = cria_estado(estado_inicial)
 
-                voo = cria_voo(
+                cria_voo(
                     voo["codigo_de_voo"],
                     voo["companhia_aerea"],
                     rota,
@@ -179,7 +179,7 @@ def atualizarVoo(request: HttpRequest):
                 )
 
                 if voo_bruto == None:
-                    raise Exception("Insira um código de voo válido")
+                    raise Exception("Não há voos com o código informado")
 
                 voo_bruto.horarios = gera_str_horarios(voo_bruto.horarios)
 
@@ -254,7 +254,7 @@ def consultarVoo(request: HttpRequest):
             voo = obtem_voo(request.POST["codigo_de_voo"].upper())
 
             if voo == None:
-                raise Exception("Insira um código de voo válido")
+                raise Exception("Não há voos com o código informado")
 
             voo.horarios = gera_str_horarios(voo.horarios)
 
@@ -294,7 +294,7 @@ def removerVoo(request: HttpRequest):
                 voo = obtem_voo(request.POST["codigo_de_voo"].upper())
 
                 if voo == None:
-                    raise Exception("Insira um código de voo válido")
+                    raise Exception("Não há voos com o código informado")
 
                 voo.horarios = gera_str_horarios(voo.horarios)
 
@@ -352,13 +352,15 @@ def monitorarVoos(request: HttpRequest):
                 voo = obtem_voo(request.POST["codigo_de_voo"].upper())
 
                 if voo == None:
-                    raise Exception("Insira um código de voo válido")
+                    raise Exception("Não há voos com o código informado!")
 
                 if voo.estado_atual.nome == "Cancelado":
-                    raise Exception("O voo foi cancelado")
+                    voo = None
+                    raise Exception("O voo foi cancelado!")
 
                 if voo.estado_atual.nome == "Aterrissado":
-                    raise Exception("O voo já aterrisou")
+                    voo = None
+                    raise Exception("O voo já aterrisou!")
 
                 opcoes = todas_opcoes[voo.estado_atual.nome]
 
@@ -422,19 +424,84 @@ def gerarRelatorios(request: HttpRequest):
 @ permission_required('auth.gerarrelatorio')
 def visualizarRelatorios(request: HttpRequest):
 
-    voos = filtra_voos(
-        request.POST["codigo_de_voo"],
-        request.POST["companhia_aerea"],
-        request.POST["nome_estado"],
-        request.POST["aeroporto_origem"],
-        request.POST["aeroporto_destino"],
-        request.POST["partida_inferior"],
-        request.POST["partida_superior"]
+    # Obtem os parâmetros
+    partida_inferior = request.POST["partida_inferior"]
+    partida_superior = request.POST["partida_superior"]
+    chegada_inferior = request.POST["chegada_inferior"]
+    chegada_superior = request.POST["chegada_superior"]
+
+    aeroporto_origem = request.POST["aeroporto_origem"].upper()
+    aeroporto_destino = request.POST["aeroporto_destino"].upper()
+    conexoes = request.POST["conexoes"].upper()
+
+    codigo_de_voo = request.POST["codigo_de_voo"].upper()
+    companhia_aerea = request.POST["companhia_aerea"].upper()
+    estado = request.POST["nome_estado"]
+    detalhes = True if "detalhes" in request.POST else False
+
+    # Chama as funções que realizam validação
+    erro_partida = erro_horarios_previstos(
+        partida_inferior, partida_superior
     )
+    erro_chegada = erro_horarios_previstos(
+        chegada_inferior, chegada_superior
+    )
+    erro_conexoes = erro_rota_conexoes(conexoes)
+    erro_aeroporto_origem = erro_rota_aeroporto(aeroporto_origem)
+    erro_aeroporto_destino = erro_rota_aeroporto(aeroporto_destino)
+    erro_mesmo_aeroporto = erro_rota_mesmo_aeroporto(
+        aeroporto_origem, aeroporto_destino
+    )
+    erro_companhia = erro_companhia_aerea(companhia_aerea)
+    erro_codigo = erro_codigo_de_voo(codigo_de_voo)
 
-    if "detalhes" in request.POST:
+    erro = {
+        "partida": erro_partida,
+        "chegada": erro_chegada,
+        "aeroporto_origem": erro_aeroporto_origem,
+        "aeroporto_destino": erro_aeroporto_destino,
+        "conexoes": erro_conexoes,
+        "mesmo_aeroporto": erro_mesmo_aeroporto,
+        "companhia_aerea": erro_companhia,
+        "codigo_de_voo": erro_codigo
+    }
+    filtro = {
+        "partida_inferior": partida_inferior,
+        "partida_superior": partida_superior,
+        "chegada_inferior": chegada_inferior,
+        "chegada_superior": chegada_superior,
+        "aeroporto_origem": aeroporto_origem,
+        "aeroporto_destino": aeroporto_destino,
+        "conexoes": conexoes,
+        "codigo_de_voo": codigo_de_voo,
+        "companhia_aerea": companhia_aerea,
+        "estado": estado,
+        "detalhes": detalhes
+    }
+
+    contexto = {'erro': erro, 'filtro': filtro}
+    # Verifica se houve erros
+    if erro_partida or erro_chegada or erro_aeroporto_origem or erro_mesmo_aeroporto or erro_aeroporto_destino or erro_conexoes or erro_companhia or erro_codigo:
+        return render(request, "GerarRelatorios/FiltroRelatorio.html", contexto)
+
+    # Se não houve erros no filtro, obtém os voos
+    voos = filtra_voos(
+        codigo_de_voo,
+        companhia_aerea,
+        estado,
+        aeroporto_origem,
+        aeroporto_destino,
+        partida_inferior,
+        partida_superior,
+        chegada_inferior,
+        chegada_superior,
+    )
+    if len(voos) == 0:
+        contexto['erroVoos'] = True
+        return render(request, "GerarRelatorios/FiltroRelatorio.html", contexto)
+
+    if detalhes:
         gera_relatorio_mais_detalhes(voos)
-
     else:
         gera_relatorio_menos_detalhes(voos)
 

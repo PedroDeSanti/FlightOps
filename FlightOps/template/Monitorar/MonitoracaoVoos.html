@@ -29,8 +29,14 @@
     {% endif %} {% if erro %}
     <div class="alert alert-danger" role="alert">{{erro}}</div>
     {% endif %} {% if voo %} {% if opcoes != None %}
+    <h1 style="font-weight: 300; margin: 20px 0">
+        Monitoração do voo <b>{{voo.codigo_de_voo}}</b>
+    </h1>
     <h2 style="font-weight: 300; margin: 20px 0">
-        Selecione o novo estado do voo {{voo.codigo_de_voo}}
+        Estado atual do voo: {{voo.estado_atual.nome}}
+    </h2>
+    <h2 style="font-weight: 300; margin: 20px 0">
+        Selecione o novo estado do voo
     </h2>
     <form action="/monitorar/" method="POST" style="width: 80%; height: 100%">
         <input readonly hidden type="text" name="id" value="{{voo.id}}" />
@@ -55,7 +61,7 @@
 
         <div>
             <button type="submit" class="btn btn-primary button">
-                Alterar estado
+                Atualizar estado
             </button>
         </div>
     </form>
@@ -65,9 +71,58 @@
             Retornar
         </a>
     </div>
+
+    <h2 style="font-weight: 300; margin: 20px 0">Informações do Voo</h2>
+    <div>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Código de Voo</th>
+                    <th>Companhia</th>
+                    <th>Estado</th>
+                    {% if voo.rota.aeroporto_origem == "VCP" %}
+                    <th>Conexões</th>
+                    <th>Destino</th>
+                    {% else %}
+                    <th>Origem</th>
+                    <th>Conexões</th>
+                    {% endif %}
+                    <th>Partida Prevista</th>
+                    <th>Chegada Prevista</th>
+                    {% if voo.rota.aeroporto_origem == "VCP" %}
+                    <th>Partida Real</th>
+                    {% else %}
+                    <th>Chegada Real</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>{{voo.codigo_de_voo}}</th>
+                    <th>{{voo.companhia_aerea}}</th>
+                    <th>{{voo.estado_atual.nome}}</th>
+                    {% if voo.rota.aeroporto_origem == "VCP" %}
+                    <th>{{voo.rota.conexoes}}</th>
+                    <th>{{voo.rota.aeroporto_destino}}</th>
+                    {% else %}
+                    <th>{{voo.rota.aeroporto_origem}}</th>
+                    <th>{{voo.rota.conexoes}}</th>
+                    {% endif %}
+                    <th>{{voo.horarios.partida_previsao|date:"d/m/Y H:i"}}</th>
+                    <th>{{voo.horarios.chegada_previsao|date:"d/m/Y H:i"}}</th>
+                    {% if voo.rota.aeroporto_origem == "VCP" %}
+                    <th>{{voo.horarios.partida_real|date:"d/m/Y H:i"}}</th>
+                    {% else %}
+                    <th>{{voo.horarios.chegada_real|date:"d/m/Y H:i"}}</th>
+                    {% endif %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     {% endif %} {% if not voo %}
     <h2 style="font-weight: 300; margin: 20px 0">
-        Informe os dados do voo que deseja Monitorar
+        Informe os dados do voo que deseja monitorar
     </h2>
     <form action="/monitorar/" method="POST" style="width: 80%; height: 100%">
         {% csrf_token %}
@@ -111,13 +166,12 @@
                     <tr>
                         <th>Código de Voo</th>
                         <th>Companhia</th>
-                        <th>Status</th>
+                        <th>Estado</th>
                         <th>Conexões</th>
                         <th>Destino</th>
                         <th>Partida Prevista</th>
                         <th>Chegada Prevista</th>
                         <th>Partida Real</th>
-                        <th>Chegada Real</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -135,7 +189,6 @@
                             {{voo.horarios.chegada_previsao|date:"d/m/Y H:i"}}
                         </th>
                         <th>{{voo.horarios.partida_real|date:"d/m/Y H:i"}}</th>
-                        <th>{{voo.horarios.chegada_real|date:"d/m/Y H:i"}}</th>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -148,12 +201,11 @@
                     <tr>
                         <th>Código de Voo</th>
                         <th>Companhia</th>
-                        <th>Status</th>
+                        <th>Estado</th>
                         <th>Origem</th>
                         <th>Conexões</th>
                         <th>Partida Prevista</th>
                         <th>Chegada Prevista</th>
-                        <th>Partida Real</th>
                         <th>Chegada Real</th>
                     </tr>
                 </thead>
@@ -171,7 +223,6 @@
                         <th>
                             {{voo.horarios.chegada_previsao|date:"d/m/Y H:i"}}
                         </th>
-                        <th>{{voo.horarios.partida_real|date:"d/m/Y H:i"}}</th>
                         <th>{{voo.horarios.chegada_real|date:"d/m/Y H:i"}}</th>
                     </tr>
                     {% endfor %}

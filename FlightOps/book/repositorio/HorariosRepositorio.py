@@ -7,7 +7,7 @@ from django.utils import timezone
 def erro_horarios_previstos(str_partida_previsao: str, str_chegada_previsao: str):
     partida_previsao = parsea_str(str_partida_previsao)
     chegada_previsao = parsea_str(str_chegada_previsao)
-    if partida_previsao > chegada_previsao:
+    if partida_previsao != '' and chegada_previsao != '' and partida_previsao > chegada_previsao:
         return True
     return False
 
@@ -42,6 +42,8 @@ def preenche_horario_chegada_real(horarios: Horarios):
 
 
 def parsea_str(string: str):
+    if string == '':
+        return ''
     return datetime.strptime(string, '%Y-%m-%dT%H:%M')
 
 
