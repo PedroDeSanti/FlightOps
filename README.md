@@ -89,11 +89,11 @@ python manage.py createusers
 Esse comando realiza a criacao dos seguintes 4 usuarios:
 |Username|Password|Permissoes|
 |-----|--------|-------------|
-|administrar|administrar| Administrar Voos|
-|monitorar_companhia|monitorar_companhia| Funcionários de companhias aéreas |
-|monitorar_piloto|monitorar_piloto| Piloto |
-|monitorar_torre|monitorar_torre| Torre de controle|
-|relatorio|relatorio| Gerar Relatorios|
+|operador|1234| Administrar Voos|
+|funcionario|1234| Funcionários de companhias aéreas |
+|piloto|1234| Piloto |
+|torre|1234| Torre de controle|
+|gerente|1234| Gerar Relatorios|
 |dev|dev| Todas permissoes|
 
 Em sequencia, para executar os testes automatizados, deve-se executar o seguinte comando:
