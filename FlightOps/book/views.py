@@ -395,8 +395,6 @@ def monitorarVoos(request: HttpRequest):
 
     return render(request, "Monitorar/MonitoracaoVoos.html", contexto)
 
-
-@ login_required
 def visualizarPainel(request: HttpRequest):
 
     partidas = obtem_partidas()
