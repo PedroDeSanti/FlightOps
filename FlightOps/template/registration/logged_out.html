@@ -1,0 +1,12 @@
+{% extends "registration/base.html" %} {% block content %}
+
+<div class="login-form">
+    <div>
+        <p>Você realizou o logout!</p>
+        <p>Clique no botão abaixo para realizar login novamente</p>
+        <a href="{% url 'login'%}">
+            <button class="btn-black">Realizar login</button>
+        </a>
+    </div>
+</div>
+{% endblock %}

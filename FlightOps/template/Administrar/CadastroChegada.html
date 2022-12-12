@@ -1,0 +1,242 @@
+{% extends "html_base.html" %} {% block navbar %}
+
+<ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+        <a class="nav-link" href="/administrar/"> Administração </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/monitorar/">Monitoração</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/relatorio/">Relatórios</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/painel/">Painel</a>
+    </li>
+</ul>
+{% if user.is_authenticated %}
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="/accounts/logout/">Logout</a>
+        </li>
+    </ul>
+{% else %}
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="/accounts/login/">Login</a>
+        </li>
+    </ul>
+{% endif %}
+{% endblock navbar %} {% block content %}
+
+<div class="container">
+    {% if voo and not erro %}
+    <div class="alert alert-success" role="alert">Voo criado com sucesso!</div>
+    {% endif %}
+    <h2 style="font-weight: 300; margin: 20px 0">
+        Insira abaixo as informações do voo
+    </h2>
+    <form
+        action="/administrar/cadastrar/chegada/"
+        method="POST"
+        style="width: 80%; height: 100%"
+    >
+        {% csrf_token %}
+
+        <input readonly hidden type="text" name="id" value="{{voo.id}}" />
+        <div class="mb-3 container">
+            <div class="row">
+                <div class="col">
+                    <label for="inputCodigoVooCadastrar" class="form-label">
+                        Código de Voo
+                    </label>
+                    <input
+                        required
+                        type="text"
+                        class="form-control"
+                        name="codigo_de_voo"
+                        id="inputCodigoVooCadastrar"
+                        value="{{voo.codigo_de_voo}}"
+                        placeholder="ABC0123"
+                    />
+                    {% if erro.codigo_de_voo %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Código de Voo inválido
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col">
+                    <label
+                        for="inputCompanhiaAereaCadastrar"
+                        class="form-label"
+                    >
+                        Companhia Aérea
+                    </label>
+                    <input
+                        required
+                        type="text"
+                        class="form-control"
+                        name="companhia_aerea"
+                        id="inputCompanhiaAereaCadastrar"
+                        value="{{voo.companhia_aerea}}"
+                        placeholder="LATAM"
+                    />
+                    {% if erro.companhia_aerea %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Companhia Aérea inválida
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3 container">
+            <div class="row">
+                <div class="col">
+                    <label for="inputOrigemCadastrar" class="form-label">
+                        Origem
+                    </label>
+                    <input
+                        required
+                        type="text"
+                        class="form-control"
+                        name="aeroporto_origem"
+                        id="inputOrigemCadastrar"
+                        value="{{voo.aeroporto_origem}}"
+                        placeholder="POA"
+                    />
+                    {% if erro.aeroporto_origem %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Aeroporto de Origem inválido
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="col">
+                    <label for="inputConexoesCadastrar" class="form-label">
+                        Conexões
+                    </label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="conexoes"
+                        id="inputConexoesCadastrar"
+                        placeholder="GRU,SBRJ"
+                        value="{{voo.conexoes}}"
+                    />
+                    {% if erro.conexoes %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Conexões inválidas
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="col">
+                    <label for="inputDestinoCadastrar" class="form-label">
+                        Destino
+                    </label>
+                    <input
+                        readonly
+                        value="VCP"
+                        type="text"
+                        class="form-control"
+                        name="aeroporto_destino"
+                        id="inputDestinoCadastrar"
+                        value="{{voo.aeroporto_destino}}"
+                        placeholder="SSA"
+                    />
+                    {% if erro.aeroporto_destino %}
+                    <div
+                        class="alert alert-danger"
+                        style="text-align: center"
+                        role="alert"
+                    >
+                        Aeroporto de Destino inválido
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% if erro.mesmo_aeroporto %}
+            <div
+                class="alert alert-danger"
+                style="text-align: center"
+                role="alert"
+            >
+                Aeroporto de Origem e de Destino não podem ser iguais
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3 container">
+            <div class="row">
+                <div class="col">
+                    <label for="inputDataPartidaCadastrar" class="form-label">
+                        Previsão Partida
+                    </label>
+                    <input
+                        required
+                        type="datetime-local"
+                        class="form-control"
+                        name="data_partida_previsao"
+                        value="{{voo.partida_previsao}}"
+                        id="inputDataPartidaCadastrar"
+                    />
+                </div>
+                <div class="col">
+                    <label for="inputDataChegadaCadastrar" class="form-label">
+                        Previsão Chegada
+                    </label>
+                    <input
+                        required
+                        type="datetime-local"
+                        class="form-control"
+                        name="data_chegada_previsao"
+                        value="{{voo.chegada_previsao}}"
+                        id="inputDataChegadaCadastrar"
+                    />
+                </div>
+            </div>
+            {% if erro.horarios %}
+            <div
+                class="alert alert-danger"
+                style="text-align: center"
+                role="alert"
+            >
+                Partida não pode ser posterior à chegada
+            </div>
+            {% endif %}
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary button">
+                Cadastrar voo
+            </button>
+        </div>
+        <div>
+            <a
+                class="btn btn-secondary button"
+                href="/administrar"
+                role="button"
+            >
+                Retornar
+            </a>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

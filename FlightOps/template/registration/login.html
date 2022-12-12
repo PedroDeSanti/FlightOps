@@ -1,0 +1,50 @@
+{% extends "registration/base.html" %} {% block content %}
+
+<div class="login-form">
+    <div class="container" style="max-width: 100%; margin-top: -100px">
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Username:</label>
+                <input type="text" name="username" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Password:</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="form-control"
+                    data-toggle="password"
+                />
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success">Realizar Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#password').password('toggle');
+</script>
+<div style="margin: 20px">
+    {% if form.errors %}
+    <p>Sua senha está incorreta. Por favor, verifique-a e tente novamente.</p>
+    {% endif %} {% if user.is_authenticated %}
+    <div>
+        <p>
+            Sua conta não possui permissão para acessar esta página. Por favor,
+            realize o login com uma conta que apresente esta permissão.
+        </p>
+    </div>
+
+    <div>
+        <a href="/" class="btn-black">
+            <button class="btn-black" style="margin-top: 10px">Retornar</button>
+        </a>
+    </div>
+    {% else %}
+    <p>Por favor realize o login para acessar a ferramenta.</p>
+    {% endif %}
+</div>
+{% endblock content %}
