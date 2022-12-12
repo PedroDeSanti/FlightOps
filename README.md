@@ -10,6 +10,12 @@ Ferramenta Ligeiramente Inteligente para Gestão de Horários e Trajetos Operaci
 
 Para realizar a instalação do projetos, pressupõe-se que seu computador já apresente Python (versão mínima 3.x) instalado. Visite [este link](https://www.python.org/downloads/) para mais informações
 
+
+## Utilização do Projeto na Nuvem
+
+Para utilizar a versão do projeto disponível na nuvem, visite [este link](http://degelo.pythonanywhere.com/)!
+
+
 ## Instalação do Projeto
 
 ### Etapa 1: Instalação do Projeto
@@ -70,7 +76,7 @@ Estando, pelo seu Terminal de Comando preferido, na pasta do projeto, navegue at
 cd FlightOps
 ```
 
-Para conseguir rodar o projeto, deve-se executar os seguintes dois comandos para criar e executar as migracoes:
+Para conseguir rodar o projeto, deve-se executar os seguintes dois comandos para criar e executar as migrações:
 
 ```bash
 python manage.py makemigrations
@@ -80,29 +86,29 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-Em sequencia, deve-se executar o seguinte comando para criar os usuarios que serao utilizados como exemplo
+Em sequência, deve-se executar o seguinte comando para criar os usuários que serão utilizados como exemplo
 
 ```bash
 python manage.py createusers
 ```
 
-Esse comando realiza a criacao dos seguintes 4 usuarios:
-|Username|Password|Permissoes|
+Esse comando realiza a criação dos seguintes 4 usuários:
+|Username|Password|Permissões|
 |-----|--------|-------------|
 |operador|1234| Administrar Voos|
 |funcionario|1234| Funcionários de companhias aéreas |
 |piloto|1234| Piloto |
 |torre|1234| Torre de controle|
-|gerente|1234| Gerar Relatorios|
-|dev|dev| Todas permissoes|
+|gerente|1234| Gerar Relatórios|
+|dev|dev| Todas as permissões|
 
-Em sequencia, para executar os testes automatizados, deve-se executar o seguinte comando:
+Em sequência, para executar os testes automatizados, deve-se executar o seguinte comando:
 
 ```bash
 python manage.py test
 ```
 
-Por fim, para executar o projeto localmente, deve-se executar o seguinte comando:
+Por fim, para rodar o projeto localmente, deve-se executar o seguinte comando:
 
 ```bash
 python manage.py runserver
@@ -110,13 +116,15 @@ python manage.py runserver
 
 Com isso, ao acessar o link <http://localhost:8000/>, você deverá visualizar a tela de Login para a aplicação.
 
-## Etapa 5: Testando o projeto localmente
+<br>
 
-### *PARABÉNS, VOCÊ CONSEGUIU RODAR O PROJETO 🎉🎉🎉*
+### *PARABÉNS, VOCÊ CONSEGUIU EXECUTAR O PROJETO 🎉🎉🎉*
 
-## Contributors ✨
+<br>
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+## Contribuintes ✨
+
+Agradecimentos vão às seguintes pessoas ([guia dos emojis](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -139,4 +147,4 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+Esse projeto segue a especificação do [all-contributors](https://github.com/all-contributors/all-contributors). Contribuições de qualquer tipo são sempre bem-vindas!
