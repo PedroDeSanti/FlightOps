@@ -37,6 +37,6 @@ class Command(BaseCommand):
         create_user("funcionario", "usuario21@flightops.com", "1234", [permission_2, permission_2_1])
         create_user("piloto", "usuario22@flightops.com", "1234", [permission_2, permission_2_2])
         create_user("torre", "usuario23@flightops.com", "1234", [permission_2, permission_2_3])
-        create_user("gerente", "usuario3@flightops.com", "gerente", [permission_3])
+        create_user("gerente", "usuario3@flightops.com", "1234", [permission_3])
         create_user("dev", "dev@flightops.com", "dev", [permission_1, permission_2, permission_2_1, permission_2_2, permission_2_3, permission_3])
         return 

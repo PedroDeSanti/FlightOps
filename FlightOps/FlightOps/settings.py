@@ -139,3 +139,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/'
 
 AXES_LOCKOUT_CALLABLE = "book.views.lockout"
+
+AXES_META_PRECEDENCE_ORDER = ("HTTP_X_REAL_IP", "REMOTE_ADDR", )
